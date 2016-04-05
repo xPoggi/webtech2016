@@ -5,8 +5,7 @@ import 'dart:html';
 import 'dart:async' show Timer;
 import 'dart:math' show Random;
 
-DivElement player;
-int speed = 5;
+const int speed = 5;
 const int tickRate = 16;
 
 log(String msg) {
@@ -87,10 +86,14 @@ void main() {
 
 void moveRight(Element element) {
   element.style.left = (getLeft(element) + speed).toString() + "px";
+  element.children[0].style.display = "inline";
+  element.children[1].style.display = "none";
 }
 
 void moveLeft(Element element) {
   element.style.left = (getLeft(element) - speed).toString() + "px";
+  element.children[0].style.display = "none";
+  element.children[1].style.display = "inline";
 }
 
 void moveUp(Element element) {
