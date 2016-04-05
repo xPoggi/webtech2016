@@ -1,0 +1,9 @@
+name: 'game'
+description: Dart implementation of the famous Snake Game.
+homepage: https://github.com/nkratzke/dartsnake
+
+environment:
+  sdk: '>=1.0.0 <2.0.0'
+
+dependencies:
+  browser: ">=0.10.0+2 <0.11.0"
