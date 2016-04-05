@@ -9,6 +9,12 @@ DivElement player;
 int speed = 5;
 const int tickRate = 16;
 
+log(String msg) {
+  if (const String.fromEnvironment('DEBUG') != null) {
+    print('debug: $msg');
+  }
+}
+
 class Blob {
 
   DivElement myBlob;
@@ -65,14 +71,42 @@ void main() {
     Blob a = new Blob(base, 500, 300);
     new Timer.periodic(const Duration(milliseconds: tickRate), a.tick);
   }
+
+  DivElement player = querySelector('#player');
+
+  window.onKeyDown.listen((KeyboardEvent ev) {
+    switch (ev.keyCode) {
+      case KeyCode.LEFT:  moveLeft(player); break;
+      case KeyCode.RIGHT: moveRight(player); break;
+      case KeyCode.UP:    moveUp(player); break;
+      case KeyCode.DOWN:  moveDown(player); break;
+    }
+  });
+
+}
+
+void moveRight(Element element) {
+  element.style.left = (getLeft(element) + speed).toString() + "px";
+}
+
+void moveLeft(Element element) {
+  element.style.left = (getLeft(element) - speed).toString() + "px";
+}
+
+void moveUp(Element element) {
+  element.style.top = (getTop(element) - speed).toString() + "px";
+}
+
+void moveDown(Element element) {
+  element.style.top = (getTop(element) + speed).toString() + "px";
 }
 
 int getLeft(Element element) {
-  print("Left: " + element.style.left);
+  log("Left: " + element.style.left);
   return int.parse(element.style.left.replaceAll('px', ''));
 }
 
 int getTop(Element element) {
-  print("Top: " + element.style.top);
+  log("Top: " + element.style.top);
   return int.parse(element.style.top.replaceAll('px', ''));
 }
