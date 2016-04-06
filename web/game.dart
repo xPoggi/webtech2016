@@ -7,6 +7,8 @@ import 'dart:math' show Random;
 
 const int speed = 5;
 const int tickRate = 16;
+const int gameHeight = 500;
+const int gameWidth = 300;
 
 log(String msg) {
   if (const String.fromEnvironment('DEBUG') != null) {
@@ -16,10 +18,13 @@ log(String msg) {
 
 class Blob {
 
+  static List<Blob> myBlobList = new List();
+
   DivElement myBlob;
   int speed = 5;
   bool moveLeft = false;
   bool moveTop = false;
+  int blobSize = 10;
 
   Blob(DivElement parent, int height, int width) {
     myBlob = new DivElement();
@@ -31,24 +36,26 @@ class Blob {
     this.moveTop = rnd.nextBool();
     this.speed = 1 + rnd.nextInt(4);
     parent.children.add(myBlob);
+    myBlobList.add(this);
+    print(myBlobList.length);
   }
 
   void tick(Timer t) {
     try {
       var posHorizontal = getLeft(this.myBlob);
       var posVertical   = getTop(this.myBlob);
-      if ((posHorizontal < 290) && !moveLeft) {
+      if ((posHorizontal < (gameWidth - blobSize)) && !moveLeft) {
         this.myBlob.style.left = (posHorizontal + this.speed).toString() + "px";
-      } else if (((posHorizontal >= 290) && !moveLeft)) {
+      } else if (((posHorizontal >= gameWidth - blobSize) && !moveLeft)) {
         this.moveLeft = true;
       } else if (((posHorizontal > 0) && moveLeft)) {
         myBlob.style.left = (posHorizontal - this.speed).toString() + "px";
       } else if (((posHorizontal <= 0) && moveLeft)) {
         this.moveLeft = false;
       }
-      if ((posVertical < 490) && !moveTop) {
+      if ((posVertical < (gameHeight - blobSize)) && !moveTop) {
         this.myBlob.style.top = (posVertical + this.speed).toString() + "px";
-      } else if (((posVertical >= 490) && !moveTop)) {
+      } else if (((posVertical >= (gameHeight - blobSize)) && !moveTop)) {
         this.moveTop = true;
       } else if (((posVertical > 0) && moveTop)) {
         this.myBlob.style.top = (posVertical - this.speed).toString() + "px";
@@ -85,23 +92,35 @@ void main() {
 }
 
 void moveRight(Element element) {
-  element.style.left = (getLeft(element) + speed).toString() + "px";
+  int playerLeft = getLeft(element);
+  if (playerLeft < (gameWidth - 15)) {
+    element.style.left = (playerLeft + speed).toString() + "px";
+  }
   element.children[0].style.display = "inline";
   element.children[1].style.display = "none";
 }
 
 void moveLeft(Element element) {
-  element.style.left = (getLeft(element) - speed).toString() + "px";
+  int playerLeft = getLeft(element);
+  if (playerLeft > 0) {
+   element.style.left = (getLeft(element) - speed).toString() + "px";
+  }
   element.children[0].style.display = "none";
   element.children[1].style.display = "inline";
 }
 
 void moveUp(Element element) {
-  element.style.top = (getTop(element) - speed).toString() + "px";
+  int playerTop = getTop(element);
+  if (playerTop > 0) {
+    element.style.top = (getTop(element) - speed).toString() + "px";
+  }
 }
 
 void moveDown(Element element) {
-  element.style.top = (getTop(element) + speed).toString() + "px";
+  int playerTop = getTop(element);
+  if (playerTop < (gameHeight - 15)) {
+    element.style.top = (getTop(element) + speed).toString() + "px";
+  }
 }
 
 int getLeft(Element element) {
