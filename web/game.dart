@@ -1,14 +1,8 @@
-// Copyright (c) 2016, <your name>. All rights reserved. Use of this source code
-// is governed by a BSD-style license that can be found in the LICENSE file.
-
 import 'dart:html';
 import 'dart:async' show Timer;
 import 'dart:math' show Random;
 
-const int speed = 5;
 const int tickRate = 16;
-const int gameHeight = 500;
-const int gameWidth = 300;
 
 log(String msg) {
   if (const String.fromEnvironment('DEBUG') != null) {
@@ -16,119 +10,265 @@ log(String msg) {
   }
 }
 
-class Blob {
+class Player {
+  DivElement playerElement;
+  int height = 50;
+  int width = 20;
 
-  static List<Blob> myBlobList = new List();
-
-  DivElement myBlob;
+  static double gravity = 0.8;
+  double velocity_y = -gravity;
+  double maxVelocity = 8.0;
+  int y = 0;
+  int x = 50;
   int speed = 5;
-  bool moveLeft = false;
-  bool moveTop = false;
-  int blobSize = 10;
 
-  Blob(DivElement parent, int height, int width) {
-    myBlob = new DivElement();
-    myBlob.className = "blob";
-    Random rnd = new Random();
-    myBlob.style.top = (rnd.nextInt(height)).toString() + "px";
-    myBlob.style.left = (rnd.nextInt(width)).toString() + "px";
-    this.moveLeft = rnd.nextBool();
-    this.moveTop = rnd.nextBool();
-    this.speed = 1 + rnd.nextInt(4);
-    parent.children.add(myBlob);
-    myBlobList.add(this);
-    print(myBlobList.length);
+  bool jumping = false;
+  bool grounded = true;
+
+  Player(Game g) {
+    this.y = this.height+10;
+    this.jump();
+    playerElement = new DivElement();
+    playerElement.id = "player";
+    playerElement.style.height = this.height.toString() + "px";
+    playerElement.style.width = this.width.toString() + "px";
+
+    g.gameElement.children.add(this.playerElement);
   }
 
-  void tick(Timer t) {
-    try {
-      var posHorizontal = getLeft(this.myBlob);
-      var posVertical   = getTop(this.myBlob);
-      if ((posHorizontal < (gameWidth - blobSize)) && !moveLeft) {
-        this.myBlob.style.left = (posHorizontal + this.speed).toString() + "px";
-      } else if (((posHorizontal >= gameWidth - blobSize) && !moveLeft)) {
-        this.moveLeft = true;
-      } else if (((posHorizontal > 0) && moveLeft)) {
-        myBlob.style.left = (posHorizontal - this.speed).toString() + "px";
-      } else if (((posHorizontal <= 0) && moveLeft)) {
-        this.moveLeft = false;
-      }
-      if ((posVertical < (gameHeight - blobSize)) && !moveTop) {
-        this.myBlob.style.top = (posVertical + this.speed).toString() + "px";
-      } else if (((posVertical >= (gameHeight - blobSize)) && !moveTop)) {
-        this.moveTop = true;
-      } else if (((posVertical > 0) && moveTop)) {
-        this.myBlob.style.top = (posVertical - this.speed).toString() + "px";
-      } else if (((posVertical <= 0) && moveTop)) {
-        this.moveTop = false;
-      }
-    } catch(exception, stackTrace) {
-      print(exception);
-      print(stackTrace);
+  void jump() {
+    if (!jumping && grounded) {
+      jumping = true;
+      grounded = false;
+      velocity_y = speed * 2.0;
     }
+  }
+
+  void fall() {
+    this.grounded = false;
+  }
+
+  void update() {
+    if (!grounded) {
+      print(velocity_y);
+      this.y = (this.y + velocity_y).round();
+      this.velocity_y -= gravity;
+      if (this.velocity_y < -this.maxVelocity) { // don't accelerate to stupid falling speeds
+        this.velocity_y = -this.maxVelocity;
+      }
+    }
+  }
+
+  int getPosY() {
+    return y;
+  }
+
+  void landed() {
+    this.velocity_y = 0.0;
+    this.grounded = true;
+    this.jumping = false;
+  }
+}
+
+class Ground {
+
+  DivElement groundElement;
+  int height = 10;
+  int width = 100;
+
+  Game gameInstance;
+  int x;
+  int y;
+
+  bool walkable = true;
+  bool deadly = false;
+
+  Ground(Game g) {
+    this.gameInstance = g;
+    groundElement = new DivElement();
+    groundElement.className = "ground";
+    groundElement.style.height = this.height.toString() + "px";
+    groundElement.style.width = this.width.toString() + "px";
+
+    g.gameElement.children.add(this.groundElement);
+
+  }
+
+  bool isWalkable() {
+    return walkable;
+  }
+
+  bool isDeadly() {
+    return deadly;
+  }
+
+  void setPosX(int x) {
+    this.x = x;
+  }
+
+  void setPosY(int y) {
+    this.y = y;
+  }
+
+  void update(int scrollspeed) {
+    x = x - scrollspeed;
+    if (this.x + this.width <= 0) {
+      this.x = gameInstance.width - this.width;
+    }
+  }
+
+  void contact() {
+
+  }
+
+}
+
+class Game {
+
+  int height = 330;
+  int width  = 600;
+  int scrollspeed = 5;
+  DivElement gameElement;
+  DivElement container;
+  Player player;
+  List<Ground> grounds = new List<Ground>();
+  Timer timer;
+
+  Game() {
+    this.container = querySelector('#container');
+
+    this.gameElement = new DivElement();
+    this.gameElement.id = "game";
+    this.gameElement.style.height = this.height.toString() + "px";
+    this.gameElement.style.width  = this.width.toString() + "px";
+
+    this.container.children.add(this.gameElement);
+    this.player = new Player(this);
+
+    Ground testGround = new Ground(this);
+    testGround.setPosX(0);
+    testGround.setPosY(0);
+    Ground testGround2 = new Ground(this);
+    testGround2.setPosX(100);
+    testGround2.setPosY(0);
+    Ground testGround3 = new Ground(this);
+    testGround3.setPosX(200);
+    testGround3.setPosY(0);
+    Ground testGround4 = new Ground(this);
+    testGround4.setPosX(350);
+    testGround4.setPosY(10);
+    Ground testGround5 = new Ground(this);
+    testGround5.setPosX(420);
+    testGround5.setPosY(0);
+    Ground testGround6 = new Ground(this);
+    testGround6.setPosX(520);
+    testGround6.setPosY(0);
+
+    grounds.add(testGround);
+    grounds.add(testGround2);
+    grounds.add(testGround3);
+    grounds.add(testGround4);
+    grounds.add(testGround5);
+    grounds.add(testGround6);
+
+    this.start();
+
+  }
+
+  void start() {
+    //begin the loop
+    this.timer = new Timer.periodic(const Duration(milliseconds: tickRate), this.update);
+  }
+
+  void stop() {
+    this.timer.cancel();
+  }
+
+  void update(Timer t) {
+
+    this.player.update();
+    for (var g in grounds) {
+      g.update(scrollspeed);
+    }
+
+    redraw(this.player.playerElement, this.player.x, this.player.y);
+    for (var g in grounds) {
+      redraw(g.groundElement, g.x, g.y);
+    }
+
+
+    detectCollisions();
+//    for (var g in grounds) {
+//      g.groundElement.style.top = (this.convertToGameY(g.posy) - g.height).toString() + "px";
+//      g.groundElement.style.left = g.posx.toString() + "px";
+//    }
+
+    if (this.player.y < 0) {
+      this.stop();
+    }
+    print("Tick");
+
+  }
+
+  void redraw(DivElement e, x, y) {
+    e.style.left = x.toString() + "px";
+    e.style.bottom = y.toString() + "px";
+
+  }
+
+  void detectCollisions() {
+
+    bool onGround = false;
+    //check player collision with every object
+    for (var g in grounds) {
+      if (simpleCollision(this.player, g)) {
+        print("Col");
+        if (this.player.getPosY() >= g.y) {
+          player.landed();
+          player.y = g.y + g.height;
+          g.contact();
+          onGround = true;
+          break;
+        }
+      }
+    }
+
+    if (!onGround) {
+      this.player.fall();
+    }
+
+  }
+
+  bool simpleCollision(rect1, rect2) {
+
+    if (rect1.x <= (rect2.x + rect2.width) &&
+        (rect1.x + rect1.width) >= rect2.x &&
+        rect1.y <= (rect2.y + rect2.height) &&
+        (rect1.height + rect1.y) >= rect2.y) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  int convertToGameY(int y) {
+    return (this.height - y);
   }
 
 }
 
 void main() {
-  DivElement base = querySelector('#game');
 
-  for (var i = 0; i < 50; i++) {
-    Blob a = new Blob(base, 500, 300);
-    new Timer.periodic(const Duration(milliseconds: tickRate), a.tick);
-  }
-
-  DivElement player = querySelector('#player');
+  Game game = new Game();
 
   window.onKeyDown.listen((KeyboardEvent ev) {
     switch (ev.keyCode) {
-      case KeyCode.LEFT:  moveLeft(player); break;
-      case KeyCode.RIGHT: moveRight(player); break;
-      case KeyCode.UP:    moveUp(player); break;
-      case KeyCode.DOWN:  moveDown(player); break;
+      case KeyCode.UP:    game.player.jump(); break;
+      case KeyCode.SPACE: game.player.jump(); break;
     }
   });
 
-}
-
-void moveRight(Element element) {
-  int playerLeft = getLeft(element);
-  if (playerLeft < (gameWidth - 15)) {
-    element.style.left = (playerLeft + speed).toString() + "px";
-  }
-  element.children[0].style.display = "inline";
-  element.children[1].style.display = "none";
-}
-
-void moveLeft(Element element) {
-  int playerLeft = getLeft(element);
-  if (playerLeft > 0) {
-   element.style.left = (getLeft(element) - speed).toString() + "px";
-  }
-  element.children[0].style.display = "none";
-  element.children[1].style.display = "inline";
-}
-
-void moveUp(Element element) {
-  int playerTop = getTop(element);
-  if (playerTop > 0) {
-    element.style.top = (getTop(element) - speed).toString() + "px";
-  }
-}
-
-void moveDown(Element element) {
-  int playerTop = getTop(element);
-  if (playerTop < (gameHeight - 15)) {
-    element.style.top = (getTop(element) + speed).toString() + "px";
-  }
-}
-
-int getLeft(Element element) {
-  log("Left: " + element.style.left);
-  return int.parse(element.style.left.replaceAll('px', ''));
-}
-
-int getTop(Element element) {
-  log("Top: " + element.style.top);
-  return int.parse(element.style.top.replaceAll('px', ''));
+  window.onTouchStart.listen((TouchEvent ev) {
+    game.player.jump();
+  });
 }

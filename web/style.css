@@ -1,11 +1,9 @@
-.container {
+#container {
     position: relative;
     width: 100%;
 }
 
 #game {
-    width: 300px;
-    height: 500px;
     margin: 0 auto;
     border: 5px solid black;
     background-color: silver;
@@ -16,6 +14,7 @@
     width: 20px;
     height: 20px;
     position: absolute;
+    background-color: blue;
 }
 
 .blob {
@@ -24,4 +23,9 @@
     background-color: red;
     position: absolute;
 
+}
+
+.ground {
+    background-color: green;
+    position: absolute;
 }
