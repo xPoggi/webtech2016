@@ -1,6 +1,5 @@
 import 'dart:html';
 import 'dart:async' show Timer;
-import 'dart:math' show Random;
 
 const int tickRate = 16;
 
@@ -130,6 +129,7 @@ class Game {
   int scrollspeed = 5;
   DivElement gameElement;
   DivElement container;
+  DivElement restart;
   Player player;
   List<Ground> grounds = new List<Ground>();
   Timer timer;
@@ -144,6 +144,15 @@ class Game {
 
     this.container.children.add(this.gameElement);
     this.player = new Player(this);
+
+    this.restart = new DivElement();
+    this.restart.id = "restart";
+    this.restart.text = "Start 'Game'";
+    this.restart.style.position = "absolute";
+    this.restart.style.bottom = ((this.height / 2) - 10).toString() + "px";
+    this.restart.style.left = ((this.width / 2) - 60).toString() + "px";
+    this.restart.style.backgroundColor = "red";
+    this.gameElement.children.add(this.restart);
 
     Ground testGround = new Ground(this);
     testGround.setPosX(0);
@@ -171,17 +180,29 @@ class Game {
     grounds.add(testGround5);
     grounds.add(testGround6);
 
-    this.start();
+    restart.onClick.listen(
+        (event) => this.start());
+
+//    this.start();
 
   }
 
   void start() {
     //begin the loop
     this.timer = new Timer.periodic(const Duration(milliseconds: tickRate), this.update);
+    grounds[0].setPosX(0);
+    grounds[1].setPosX(100);
+    grounds[2].setPosX(200);
+    grounds[3].setPosX(350);
+    grounds[4].setPosX(420);
+    grounds[5].setPosX(520);
+    this.player.y = 50;
+    this.restart.style.display = "none";
   }
 
   void stop() {
     this.timer.cancel();
+    this.restart.style.display = "inline";
   }
 
   void update(Timer t) {

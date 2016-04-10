@@ -29,3 +29,7 @@
     background-color: green;
     position: absolute;
 }
+
+#restart {
+    background-color: red;
+}
