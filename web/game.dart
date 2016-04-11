@@ -49,7 +49,6 @@ class Player {
 
   void update() {
     if (!grounded) {
-      print(velocity_y);
       this.y = (this.y + velocity_y).round();
       this.velocity_y -= gravity;
       if (this.velocity_y < -this.maxVelocity) { // don't accelerate to stupid falling speeds
@@ -129,10 +128,12 @@ class Game {
   int scrollspeed = 5;
   DivElement gameElement;
   DivElement container;
+  DivElement restartOverlay;
   DivElement restart;
   Player player;
   List<Ground> grounds = new List<Ground>();
   Timer timer;
+  bool gameRunning = false;
 
   Game() {
     this.container = querySelector('#container');
@@ -145,14 +146,15 @@ class Game {
     this.container.children.add(this.gameElement);
     this.player = new Player(this);
 
+    this.restartOverlay = new DivElement();
+    this.restartOverlay.id = "restart-overlay";
+    this.gameElement.children.add(this.restartOverlay);
+
     this.restart = new DivElement();
     this.restart.id = "restart";
-    this.restart.text = "Start 'Game'";
-    this.restart.style.position = "absolute";
-    this.restart.style.bottom = ((this.height / 2) - 10).toString() + "px";
-    this.restart.style.left = ((this.width / 2) - 60).toString() + "px";
-    this.restart.style.backgroundColor = "red";
-    this.gameElement.children.add(this.restart);
+    this.restart.text = "Touch or press Space to start";
+//    this.restart.style.backgroundColor = "red";
+    this.restartOverlay.children.add(this.restart);
 
     Ground testGround = new Ground(this);
     testGround.setPosX(0);
@@ -189,20 +191,30 @@ class Game {
 
   void start() {
     //begin the loop
-    this.timer = new Timer.periodic(const Duration(milliseconds: tickRate), this.update);
     grounds[0].setPosX(0);
     grounds[1].setPosX(100);
     grounds[2].setPosX(200);
     grounds[3].setPosX(350);
     grounds[4].setPosX(420);
     grounds[5].setPosX(520);
+    for (var g in grounds) {
+      g.groundElement.style.display = "block";
+    }
+    this.player.playerElement.style.display = "block";
     this.player.y = 50;
-    this.restart.style.display = "none";
+    this.restartOverlay.style.display = "none";
+    this.gameRunning = true;
+    this.timer = new Timer.periodic(const Duration(milliseconds: tickRate), this.update);
   }
 
   void stop() {
     this.timer.cancel();
-    this.restart.style.display = "inline";
+    for (var g in grounds) {
+      g.groundElement.style.display = "none";
+    }
+    this.player.playerElement.style.display = "none";
+    this.restartOverlay.style.display = "inline";
+    this.gameRunning = false;
   }
 
   void update(Timer t) {
@@ -227,7 +239,7 @@ class Game {
     if (this.player.y < 0) {
       this.stop();
     }
-    print("Tick");
+    log("Tick");
 
   }
 
@@ -243,7 +255,7 @@ class Game {
     //check player collision with every object
     for (var g in grounds) {
       if (simpleCollision(this.player, g)) {
-        print("Col");
+        log("Collison!");
         if (this.player.getPosY() >= g.y) {
           player.landed();
           player.y = g.y + g.height;
@@ -276,6 +288,14 @@ class Game {
     return (this.height - y);
   }
 
+  void jump() {
+    if (this.gameRunning) {
+      player.jump();
+    } else {
+      this.start();
+    }
+  }
+
 }
 
 void main() {
@@ -284,12 +304,12 @@ void main() {
 
   window.onKeyDown.listen((KeyboardEvent ev) {
     switch (ev.keyCode) {
-      case KeyCode.UP:    game.player.jump(); break;
-      case KeyCode.SPACE: game.player.jump(); break;
+      case KeyCode.UP:    game.jump(); break;
+      case KeyCode.SPACE: game.jump(); break;
     }
   });
 
   window.onTouchStart.listen((TouchEvent ev) {
-    game.player.jump();
+    game.jump();
   });
 }

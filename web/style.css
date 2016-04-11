@@ -1,6 +1,7 @@
 #container {
     position: relative;
     width: 100%;
+    z-index: -100;
 }
 
 #game {
@@ -8,6 +9,7 @@
     border: 5px solid black;
     background-color: silver;
     position: relative;
+    z-index: -99;
 }
 
 #player {
@@ -15,21 +17,40 @@
     height: 20px;
     position: absolute;
     background-color: blue;
-}
-
-.blob {
-    width: 10px;
-    height: 10px;
-    background-color: red;
-    position: absolute;
-
+    z-index: -30;
 }
 
 .ground {
     background-color: green;
     position: absolute;
+    z-index: -50;
+}
+
+#restart-overlay {
+    /* let it fill the whole container */
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+    background-color: deepskyblue;
+    z-index: 0;
+}
+#restart-overlay:before {
+    content: '';
+    display: inline-block;
+    vertical-align: middle;
+    height: 100%;
 }
 
 #restart {
-    background-color: red;
+    font-family: "Roboto Condensed", SansSerif;
+    color: white;
+    background: orangered;
+    width: 50%;
+    padding: .5em;
+    display: inline-block;
+    vertical-align: middle;
+    z-index: 1;
 }
