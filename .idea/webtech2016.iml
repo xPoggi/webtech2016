@@ -4,8 +4,9 @@
     <content url="file://$MODULE_DIR$">
       <excludeFolder url="file://$MODULE_DIR$/build" />
       <excludeFolder url="file://$MODULE_DIR$/packages" />
+      <excludeFolder url="file://$MODULE_DIR$/web/blocks/packages" />
+      <excludeFolder url="file://$MODULE_DIR$/web/levels/packages" />
       <excludeFolder url="file://$MODULE_DIR$/web/packages" />
-      <excludeFolder url="file://$MODULE_DIR$/web/res/packages" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

@@ -22,7 +22,7 @@
     z-index: -99;
 }
 
-#player {
+#Player {
     width: 20px;
     height: 20px;
     position: absolute;
@@ -30,7 +30,7 @@
     z-index: -30;
 }
 
-.ground {
+.Ground {
     background-color: green;
     position: absolute;
     z-index: -50;

@@ -1,0 +1,102 @@
+{
+  "name":"Level 1",
+  "speed":5,
+  "blocks":[
+    {
+      "type":"Ground",
+      "pos_x":0,
+      "pos_y":10,
+      "size_x":300,
+      "size_y":10
+    },
+
+    {
+      "type":"Ground",
+      "pos_x":310,
+      "pos_y":10,
+      "size_x":280,
+      "size_y":10
+    },
+
+    {
+      "type":"Ground",
+      "pos_x":310,
+      "pos_y":10,
+      "size_x":280,
+      "size_y":10
+    },
+
+    {
+      "type":"Ground",
+      "pos_x":600,
+      "pos_y":10,
+      "size_x":280,
+      "size_y":10
+    },
+
+    {
+      "type":"Ground",
+      "pos_x":900,
+      "pos_y":10,
+      "size_x":280,
+      "size_y":10
+    },
+
+    {
+      "type":"Ground",
+      "pos_x":1200,
+      "pos_y":10,
+      "size_x":280,
+      "size_y":10
+    },
+
+    {
+      "type":"Ground",
+      "pos_x":1500,
+      "pos_y":10,
+      "size_x":280,
+      "size_y":10
+    },
+
+    {
+      "type":"Ground",
+      "pos_x":1800,
+      "pos_y":10,
+      "size_x":280,
+      "size_y":10
+    },
+
+    {
+      "type":"Ground",
+      "pos_x":2100,
+      "pos_y":10,
+      "size_x":280,
+      "size_y":10
+    },
+
+    {
+      "type":"Ground",
+      "pos_x":2400,
+      "pos_y":10,
+      "size_x":280,
+      "size_y":10
+    },
+
+    {
+      "type":"Ground",
+      "pos_x":2800,
+      "pos_y":10,
+      "size_x":280,
+      "size_y":10
+    },
+
+    {
+      "type":"Ground",
+      "pos_x":3100,
+      "pos_y":10,
+      "size_x":280,
+      "size_y":10
+    }
+
+  ]
+}

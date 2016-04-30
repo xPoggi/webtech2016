@@ -1,0 +1,78 @@
+//this class contains the basic jumping logic for the player
+//otherwise, it remains a rectangle
+
+class Player {
+
+  //fall values
+  static double gravity = 0.8;
+  double maxVelocity = 8.0;
+  static const int speed = 5;
+
+  //pos size vel
+  int pos_y;
+  int pos_x;
+
+  int size_x;
+  int size_y;
+  double velocity_y;
+
+  //state
+  bool jumping;
+  bool grounded;
+
+  Player() {
+    this.pos_y = 50;
+    this.pos_x = 50; // move slightly to the right
+
+    this.size_x = 20;
+    this.size_y = 50;
+
+    this.velocity_y = -1.0;
+
+    this.jumping = true;
+    this.grounded = false;
+  }
+
+  void jump() {
+    if (!jumping && grounded) {
+      jumping = true;
+      grounded = false;
+      velocity_y = speed * 2.0;
+    }
+  }
+
+  void fall() {
+    this.grounded = false;
+  }
+
+  void update() {
+    if (!grounded) {
+      this.pos_y = (this.pos_y + velocity_y).round();
+      this.velocity_y -= gravity;
+      if (this.velocity_y < -this.maxVelocity) { // don't accelerate to stupid falling speeds
+        this.velocity_y = -this.maxVelocity;
+      }
+    }
+    print("Player: " + this.pos_x.toString() + " " + this.pos_y.toString());
+  }
+
+  int getPosY() {
+    return this.pos_y;
+  }
+
+  void landed() {
+    this.velocity_y = 0.0;
+    this.grounded = true;
+    this.jumping = false;
+  }
+
+  void reset() {
+    this.pos_y = 50;
+    this.pos_x = 50; // move slightly to the right
+  }
+
+  void onCollision(String direction) {
+    //TODO: see collision detection
+  }
+
+}
