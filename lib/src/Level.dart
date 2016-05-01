@@ -4,12 +4,16 @@ class Level {
 
   int speed;
   List<Block> blockList;
+  Spawn spawn;
 
   Level(String jsonString) {
     this.blockList = new List<Block>();
 
     try {
       Map jsonData = JSON.decode(jsonString);
+      var lvlspwn = jsonData["spawn"];
+      this.spawn = new Spawn(0, lvlspwn["pos_x"], lvlspwn["pos_y"], lvlspwn["size_x"], lvlspwn["size_y"]);
+
       var blocks = jsonData["blocks"];
       if (blocks != null) {
         for (Map m in jsonData["blocks"]) {
@@ -35,6 +39,14 @@ class Level {
               blockList.add(newWater);
               break;
 
+            case "Coin":
+              var newCoin = new Coin(
+                  blockList.length, m["pos_x"], m["pos_y"], m["size_x"],
+                  m["size_y"], m["value"]);
+              blockList.add(newCoin);
+              break;
+
+
             case "Trigger":
               var b = m["bullet"];
 
@@ -56,8 +68,6 @@ class Level {
       print(e);
       print(ex);
     }
-
-    print(this.blockList);
 
   }
 

@@ -17,3 +17,4 @@ part 'src/blocks/Trigger.dart';
 part 'src/blocks/Bullet.dart';
 part 'src/blocks/Finish.dart';
 part 'src/blocks/Spawn.dart';
+part 'src/blocks/Coin.dart';

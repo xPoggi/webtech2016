@@ -93,6 +93,12 @@
     z-index: -41;
 }
 
+.Coin {
+    background-color: gold;
+    position: absolute;
+    z-index: -41;
+}
+
 #restart-overlay {
     /* let it fill the whole container */
     position: absolute;

@@ -19,6 +19,7 @@ class Model {
   int visibleIndex;
   int playerPosX;
   int score;
+  int points;
 
   List<Block> visibleBlocks;
 
@@ -56,10 +57,9 @@ class Model {
     if (this.p.getPosY() < 0) {
       this.fail();
     }
-    this.score = (this.playerPosX/5).toInt();
+    this.score = (this.playerPosX/5).toInt() + this.points;
 
     print("Tick");
-    print(this.visibleBlocks);
 
   }
 
@@ -76,8 +76,11 @@ class Model {
   void start() {
     this.p.reset();
     this.visibleIndex = 0;
-    this.playerPosX = 50;
+    this.playerPosX = currentLevel.spawn.pos_x;
+    this.p.pos_x = currentLevel.spawn.pos_x;
+    this.p.pos_y = currentLevel.spawn.pos_y;
     this.visibleBlocks.clear();
+    this.points = 0;
     this.running = true;
   }
 
@@ -88,12 +91,11 @@ class Model {
         if (b.canCollide) {
           if (simpleCollision(this.p, b)) {
             Direction dir = collisionDirection(this.p, b);
-            print(dir);
             if (b.onCollision(this, this.p, dir)) {
               this.p.landed();
               this.p.pos_y = b.pos_y + b.size_y;
               onGround = true;
-              break;
+//              break;
             }
           }
         }
