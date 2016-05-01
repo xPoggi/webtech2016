@@ -14,13 +14,16 @@ enum Direction {
 class Model {
 
   View v;
-
-  bool running;
-  Level currentLevel;
   Player p;
+
+  Level currentLevel;
+  bool running;
+  bool won;
 
   int visibleIndex;
   int playerPosX;
+  int score;
+
   List<Block> visibleBlocks;
 
   int viewport_x;
@@ -35,6 +38,8 @@ class Model {
 
     this.speed = speed;
 
+    this.won = false;
+
     this.p = new Player();
   }
 
@@ -47,7 +52,7 @@ class Model {
     getVisibleBlocks();
 
     this.p.update();
-
+    this.visibleBlocks.forEach((b) => b.onUpdate());
     this.playerPosX += speed;
 
     detectCollisions();
@@ -55,6 +60,7 @@ class Model {
     if (this.p.getPosY() < 0) {
       this.fail();
     }
+    this.score = (this.playerPosX/5).toInt();
 
     print("Tick");
     print(this.visibleBlocks);
@@ -63,6 +69,12 @@ class Model {
 
   void fail() {
     this.running = false;
+    this.won = false;
+  }
+
+  void finish() {
+    this.running = false;
+    this.won = true;
   }
 
   void start() {
@@ -79,10 +91,11 @@ class Model {
       for (Block b in this.visibleBlocks) {
         if (b.canCollide) {
           if (simpleCollision(this.p, b)) {
-            if (this.p.getPosY() >= b.pos_y) {
+            Direction dir = collisionDirection(this.p, b);
+            print(dir);
+            if (b.onCollision(this, this.p, dir)) {
               this.p.landed();
               this.p.pos_y = b.pos_y + b.size_y;
-              b.onCollision(Direction.TOP);
               onGround = true;
               break;
             }
@@ -117,9 +130,32 @@ class Model {
     }
   }
 
+  //https://gamedev.stackexchange.com/questions/29786/a-simple-2d-rectangle-collision-algorithm-that-also-determines-which-sides-that
   Direction collisionDirection(player, rect) {
-    //TODO
-    return Direction.TOP;
+    double w = 0.5 * (player.size_x + rect.size_x);
+    double h = 0.5 * (player.size_y + rect.size_y);
+    double dx = (player.centerX() + playerPosX) - rect.centerX();
+    double dy = player.centerY() - rect.centerY();
+
+    if (dx.abs() <= w && dy.abs() <= h) {
+      /* collision! */
+      double wy = w * dy;
+      double hx = h * dx;
+
+      if (wy > hx) {
+        if (wy > -hx) {
+          return Direction.TOP;
+        } else {
+          return Direction.LEFT;
+        }
+      } else {
+        if (wy > -hx) {
+          return Direction.RIGHT;
+        } else {
+          return Direction.BOTTOM;
+        }
+      }
+    }
   }
 
   bool isBlockVisible(Block b) {
@@ -130,21 +166,11 @@ class Model {
 
   void getVisibleBlocks() {
     visibleBlocks.clear();
-    //track if we've set visibleIndex to a new value
-    bool visibleSet = false;
-    //get all visible blocks, break when we reach invisible blocks
-    for (int i = visibleIndex; i < currentLevel.blockList.length; i++) {
-      Block b = currentLevel.blockList[i];
 
-      if (isBlockVisible(currentLevel.blockList[i])) {
+    //get all visible blocks, break when we reach invisible blocks
+    for (Block b in currentLevel.blockList) {
+      if (isBlockVisible(b)) {
         visibleBlocks.add(b);
-        if (!visibleSet) {
-          visibleIndex = i;
-          visibleSet = true;
-        }
-      } else if (visibleBlocks.length > 0) {
-        // we've passed the visible blocks, break
-        break;
       }
     }
   }

@@ -11,6 +11,9 @@ class View {
   DivElement restartOverlay;
   DivElement restart;
 
+  DivElement score;
+  DivElement message;
+
   int viewport_x;
   int viewport_y;
 
@@ -59,6 +62,16 @@ class View {
     this.restart.text = "Touch or press Space to start";
     this.restartOverlay.children.add(this.restart);
 
+    this.message = new DivElement();
+    this.message.id = "message";
+    this.message.text = "";
+    this.restartOverlay.children.add(this.message);
+
+    this.score = new DivElement();
+    this.score.id = "score";
+    this.score.text = "Score: 0";
+    this.gameElement.children.add(this.score);
+
   }
 
   DivElement getUnusedDivElement() {
@@ -66,19 +79,6 @@ class View {
       if ( !(usedDivs.containsValue(d)) ) {
         return d;
       }
-    }
-  }
-
-  void setUnusedDivElements(int index) {
-    try {
-      for (int i in usedDivs.keys) {
-        if (i < index) {
-          usedDivs[i].style.display = "none";
-          usedDivs.remove(i);
-        }
-      }
-    } catch(e) {
-      print(e);
     }
   }
 
@@ -110,38 +110,87 @@ class View {
     }
   }
 
+  void setDynamicHeightDiv(DivElement d, int pos_y, int size_y) {
+    if ((pos_y + size_y) > viewport_y) {
+      d.style.height = (this.viewport_y - pos_y).toString() + "px";
+      d.style.bottom = pos_y.toString() + "px";
+    } else if (pos_y < 0) {
+      d.style.height = (size_y + pos_y).toString() + "px";
+      d.style.bottom = "0px";
+    } else {
+      d.style.height = size_y.toString() + "px";
+      d.style.bottom = pos_y.toString() + "px";
+    }
+  }
+
+  void update(Model m) {
+    if (m.running) {
+      updateGame(m);
+    } else {
+      onStop(m);
+    }
+  }
+
   //draws list of blocks on screen
   void updateGame(Model m) {
     for (Block b in m.visibleBlocks) {
       if ( !(usedDivs.containsKey(b.id)) ) {
         setDiv(b.id, b.name);
       }
-      usedDivs[b.id].style.bottom = (b.pos_y).toString() + "px";
-      usedDivs[b.id].style.height = (b.size_y).toString() + "px";
+//      usedDivs[b.id].style.bottom = (b.pos_y).toString() + "px";
+//      usedDivs[b.id].style.height = (b.size_y).toString() + "px";
 //      usedDivs[b.id].style.left = (b.pos_x - m.playerPosX).toString() + "px";
 //      usedDivs[b.id].style.width = (b.size_x).toString() + "px";
+      setDynamicHeightDiv(usedDivs[b.id], b.pos_y, b.size_y);
       setDynamicWidthDiv(usedDivs[b.id], b.pos_x - m.playerPosX, b.size_x);
     }
 
-    this.setPlayerPos(m.p.pos_x, m.p.pos_y);
+    var toRemove = new List<int>();
+    usedDivs.forEach((i, div) {
+      if ( m.visibleBlocks.where((b) => b.id == i).isEmpty ) {
+        div.style.display = "none";
+        toRemove.add(i);
+      }
+    });
+
+    toRemove.forEach((i) {
+      usedDivs.remove(i);
+    });
+
+//    this.setPlayerPos(m.p.pos_x, m.p.pos_y);
+//    this.player.style.height = m.p.size_y.toString() + "px";
+    setDynamicHeightDiv(this.player, m.p.pos_y,m.p.size_y);
+    this.player.style.left = m.p.pos_x.toString() + "px";
+    this.player.style.width = m.p.size_x.toString() + "px";
+
+    this.score.text = "Score: " + m.score.toString();
 
   }
 
   void onStart() {
     this.restartOverlay.style.display = "none";
     this.player.style.display = "block";
+    this.score.style.display = "inline";
   }
 
-  void onStop() {
+  void onStop(Model m) {
 
     usedDivs.forEach((i, div) {
-      div.style.display = "none";
+//      div.style.display = "none";
     });
     usedDivs.clear();
 
     this.player.style.display = "none";
+//    this.score.style.display = "none";
 
-    this.restartOverlay.style.display = "inline";
+//    this.restartOverlay.style.display = "inline";
+
+    if (m.won) {
+      this.message.text = "Well done";
+    } else {
+      this.message.text = "You fail";
+    }
+
   }
 
 }

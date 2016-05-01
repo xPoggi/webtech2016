@@ -21,14 +21,14 @@ class Game {
     this.model = new Model(viewport_x, viewport_y, speed);
     this.view = new View(viewport_x, viewport_y);
 
-    window.onKeyDown.listen((KeyboardEvent ev) {
+    window.onKeyDown.listen((KeyboardEvent ev) async {
       switch (ev.keyCode) {
         case KeyCode.UP:    this.jump(); break;
         case KeyCode.SPACE: this.jump(); break;
       }
     });
 
-    window.onTouchStart.listen((TouchEvent ev) {
+    window.onTouchStart.listen((TouchEvent ev) async {
       this.jump();
     });
 
@@ -39,6 +39,9 @@ class Game {
 
   jump() async {
     if (!this.model.running) {
+      if (this.timer != null) {
+        this.timer.cancel();
+      }
       this.startGame();
     } else {
       this.model.jump();
@@ -48,10 +51,10 @@ class Game {
   void update(Timer t) {
     if (this.model.running) {
       this.model.update(t);
-      this.view.updateGame(this.model);
+      this.view.update(this.model);
     } else {
       this.timer.cancel();
-      this.view.onStop();
+      this.view.update(this.model);
     }
   }
 
@@ -64,9 +67,10 @@ class Game {
 
     this.model.setLevel(request);
 
-    this.timer = new Timer.periodic(const Duration(milliseconds: tickrate), this.update);
-    this.view.onStart();
     this.model.start();
+    this.view.onStart();
+    this.view.update(this.model);
+    this.timer = new Timer.periodic(const Duration(milliseconds: tickrate), this.update);
 
   }
 }

@@ -8,6 +8,39 @@
     font-family: "Roboto Condensed", SansSerif;
 }
 
+#score {
+    color: white;
+    text-shadow:
+            -1px -1px 0 #000,
+            1px -1px 0 #000,
+            -1px 1px 0 #000,
+            1px 1px 0 #000;
+    text-align: center;
+    font-family: "Roboto Condensed", SansSerif;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 5%;
+}
+
+#message {
+    color: white;
+    text-shadow:
+            -1px -1px 0 #000,
+            1px -1px 0 #000,
+            -1px 1px 0 #000,
+            1px 1px 0 #000;
+    text-align: center;
+    font-family: "Roboto Condensed", SansSerif;
+    font-size: 3em;
+    position: absolute;
+    top: 80px;
+    left: 0;
+    right: 0;
+    height: 15%;
+}
+
 #container {
     position: relative;
     width: 100%;
@@ -24,7 +57,7 @@
 
 #Player {
     width: 20px;
-    height: 20px;
+    height: 50px;
     position: absolute;
     background-color: blue;
     z-index: -30;
@@ -34,6 +67,30 @@
     background-color: green;
     position: absolute;
     z-index: -50;
+}
+
+.Finish {
+    background-color: orangered;
+    position: absolute;
+    z-index: -49;
+}
+
+.Water {
+    background-color: deepskyblue;
+    position: absolute;
+    z-index: -51;
+}
+
+.Trigger {
+    background-color: white;
+    position: absolute;
+    z-index: -60;
+}
+
+.Bullet {
+    background-color: red;
+    position: absolute;
+    z-index: -41;
 }
 
 #restart-overlay {
@@ -47,6 +104,7 @@
     background-color: deepskyblue;
     z-index: 0;
 }
+
 #restart-overlay:before {
     content: '';
     display: inline-block;
@@ -57,6 +115,11 @@
 #restart {
     font-family: "Roboto Condensed", SansSerif;
     color: white;
+    text-shadow:
+            -1px -1px 0 #000,
+            1px -1px 0 #000,
+            -1px 1px 0 #000,
+            1px 1px 0 #000;
     background: orangered;
     width: 50%;
     padding: .5em;

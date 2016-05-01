@@ -18,6 +18,7 @@ class Player {
 
   //state
   bool jumping;
+  bool doubleJump;
   bool grounded;
 
   Player() {
@@ -30,11 +31,16 @@ class Player {
     this.velocity_y = -1.0;
 
     this.jumping = true;
+    this.doubleJump = false;
     this.grounded = false;
   }
 
   void jump() {
-    if (!jumping && grounded) {
+    if (this.jumping && !this.doubleJump) {
+      this.doubleJump = true;
+      velocity_y = speed * 2.0;
+    }
+    if (!this.jumping && this.grounded) {
       jumping = true;
       grounded = false;
       velocity_y = speed * 2.0;
@@ -43,6 +49,12 @@ class Player {
 
   void fall() {
     this.grounded = false;
+  }
+
+  void hitRoof() {
+    this.jumping = true;
+    this.doubleJump = true;
+    this.velocity_y = -1.0;
   }
 
   void update() {
@@ -60,10 +72,19 @@ class Player {
     return this.pos_y;
   }
 
+  double centerX() {
+    return (this.pos_x + (this.size_x/2));
+  }
+
+  double centerY() {
+    return (this.pos_y + (this.size_y/2));
+  }
+
   void landed() {
     this.velocity_y = 0.0;
     this.grounded = true;
     this.jumping = false;
+    this.doubleJump = false;
   }
 
   void reset() {

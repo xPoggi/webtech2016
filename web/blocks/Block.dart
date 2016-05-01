@@ -1,4 +1,5 @@
-import '../Model.dart' show Direction;
+import '../Model.dart' show Direction, Model;
+import '../Player.dart';
 
 class Block {
 
@@ -23,22 +24,33 @@ class Block {
     this.size_y = size_y;
   }
 
-  bool onCollision(Direction d) {
-    //TODO
+  double centerX() {
+    return (this.pos_x + (this.size_x/2));
+  }
+
+  double centerY() {
+    return (this.pos_y + (this.size_y/2));
+  }
+
+  bool onCollision(Model m, Player p, Direction d) {
     if (isDeadly) {
-      return true;
-    } else {
+      m.fail();
       return false;
+    } else {
+      return true;
     }
   }
 
   void onUpdate() {
-    //TODO
+    if (speed_x != 0) {
+      this.pos_x += speed_x;
+    }
   }
 
   String toString() {
     var buffer = new StringBuffer();
-    buffer.write("Block ");
+    buffer.write(this.name);
+    buffer.write(" ");
     buffer.write(this.id);
     buffer.write(" ");
     buffer.write(this.size_x);
@@ -48,6 +60,8 @@ class Block {
     buffer.write(this.pos_x);
     buffer.write(" ");
     buffer.write(this.pos_y);
+    buffer.write(" ");
+    buffer.write(this.speed_x);
     return buffer.toString();
   }
 
