@@ -1,7 +1,7 @@
-import 'Level.dart';
+import 'package:game/src/Level.dart';
 import 'dart:async';
-import 'Player.dart';
-import 'View.dart';
+import 'package:game/src/Player.dart';
+import 'package:game/src/View.dart';
 import 'blocks/Block.dart';
 
 enum Direction {

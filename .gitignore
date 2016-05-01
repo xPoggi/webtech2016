@@ -50,3 +50,7 @@ fabric.properties
 packages/
 .packages
 build/
+./web/levels/packages
+./web/packages
+./packages/game
+./packages/browser

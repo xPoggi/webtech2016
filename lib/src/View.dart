@@ -1,7 +1,7 @@
 import 'dart:html';
 import 'blocks/Block.dart';
-import 'Player.dart';
-import 'Model.dart';
+import 'package:game/src/Player.dart';
+import 'package:game/src/Model.dart';
 
 class View {
 
@@ -176,14 +176,14 @@ class View {
   void onStop(Model m) {
 
     usedDivs.forEach((i, div) {
-//      div.style.display = "none";
+      div.style.display = "none";
     });
     usedDivs.clear();
 
     this.player.style.display = "none";
 //    this.score.style.display = "none";
 
-//    this.restartOverlay.style.display = "inline";
+    this.restartOverlay.style.display = "inline";
 
     if (m.won) {
       this.message.text = "Well done";

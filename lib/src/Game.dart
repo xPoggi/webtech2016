@@ -1,6 +1,6 @@
 import 'dart:html';
-import 'Model.dart';
-import 'View.dart';
+import 'package:game/src/Model.dart';
+import 'package:game/src/View.dart';
 import 'dart:async';
 
 
