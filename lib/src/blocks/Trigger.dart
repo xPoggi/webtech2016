@@ -1,7 +1,4 @@
-import 'Block.dart';
-import '../Model.dart' show Direction, Model;
-import '../Player.dart';
-import 'Bullet.dart';
+part of runner;
 
 class Trigger extends Block {
 

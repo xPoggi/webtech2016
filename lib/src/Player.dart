@@ -1,5 +1,4 @@
-//this class contains the basic jumping logic for the player
-//otherwise, it remains a rectangle
+part of runner;
 
 class Player {
 

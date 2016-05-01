@@ -1,7 +1,4 @@
-import 'dart:html';
-import 'blocks/Block.dart';
-import 'package:game/src/Player.dart';
-import 'package:game/src/Model.dart';
+part of runner;
 
 class View {
 

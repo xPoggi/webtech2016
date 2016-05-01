@@ -1,8 +1,4 @@
-import 'dart:html';
-import 'package:game/src/Model.dart';
-import 'package:game/src/View.dart';
-import 'dart:async';
-
+part of runner;
 
 // Controller
 class Game {

@@ -1,6 +1,4 @@
-import 'Block.dart';
-import '../Model.dart' show Direction, Model;
-import '../Player.dart';
+part of runner;
 
 class Ground extends Block {
 

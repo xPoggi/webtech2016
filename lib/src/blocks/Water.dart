@@ -1,4 +1,4 @@
-import 'Block.dart';
+part of runner;
 
 class Water extends Block {
 
