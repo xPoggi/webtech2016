@@ -15,6 +15,13 @@ class HighscoreGamekey {
   bool _available = false;
 
   /**
+   * Constructor
+   */
+  HighscoreGamekey(String host, int port, this._gid, this._secret) {
+    this._uri = new Uri.http("$host:$port", "/");
+  }
+
+  /**
    * Game ID
    */
   String get gameId => this._gid;

@@ -1,0 +1,29 @@
+{
+  "name":"Level 2",
+  "speed":5,
+  "spawn":{
+    "type":"Spawn",
+    "pos_x":100,
+    "pos_y":50,
+    "size_x":1,
+    "size_y":1
+  },
+  "blocks":[
+    {
+      "type":"Ground",
+      "pos_x":0,
+      "pos_y":30,
+      "size_x":2000,
+      "size_y":20
+    },
+
+    {
+      "type":"Finish",
+      "pos_x":2000,
+      "pos_y":-10,
+      "size_x":280,
+      "size_y":610
+    }
+
+  ]
+}

@@ -7,6 +7,11 @@ class View {
 
   DivElement restartOverlay;
   DivElement restart;
+  DivElement restartMenu;
+
+  DivElement menuOverlay;
+  DivElement menu;
+  SelectElement menuLevelSelect;
 
   DivElement score;
   DivElement message;
@@ -56,8 +61,13 @@ class View {
 
     this.restart = new DivElement();
     this.restart.id = "restart";
-    this.restart.text = "Touch or press Space to start";
+    this.restart.text = "Touch or press Space to restart";
     this.restartOverlay.children.add(this.restart);
+
+    this.restartMenu = new DivElement();
+    this.restartMenu.id = "restartMenu";
+    this.restartMenu.text = "Return to menu";
+    this.restartOverlay.children.add(this.restartMenu);
 
     this.message = new DivElement();
     this.message.id = "message";
@@ -68,6 +78,21 @@ class View {
     this.score.id = "score";
     this.score.text = "Score: 0";
     this.gameElement.children.add(this.score);
+
+    this.menuOverlay = new DivElement();
+    this.menuOverlay.id = "menu-overlay";
+    this.gameElement.children.add(this.menuOverlay);
+
+    this.menu = new DivElement();
+    this.menu.id = "menuStart";
+    this.menu.text = "Start";
+    this.menuOverlay.children.add(this.menu);
+
+    this.menuLevelSelect = new SelectElement();
+    this.menuLevelSelect.id = "menuLevelSelect";
+
+    this.menuOverlay.children.add(this.menuLevelSelect);
+
 
   }
 
@@ -95,7 +120,10 @@ class View {
 
   void setDynamicWidthDiv(DivElement d, int pos_x, int size_x) {
 
-    if ((pos_x + size_x) > viewport_x) {
+    if (((pos_x + size_x) > viewport_x) && (pos_x < 0)) {
+      d.style.width = (this.viewport_x).toString() + "px";
+      d.style.left = "0px";
+    } else if ((pos_x + size_x) > viewport_x) {
       d.style.width = (this.viewport_x - pos_x).toString() + "px";
       d.style.left = pos_x.toString() + "px";
     } else if (pos_x < 0) {
@@ -108,7 +136,10 @@ class View {
   }
 
   void setDynamicHeightDiv(DivElement d, int pos_y, int size_y) {
-    if ((pos_y + size_y) > viewport_y) {
+    if (((pos_y + size_y) > viewport_y) && (pos_y < 0)) {
+      d.style.height = (this.viewport_y).toString() + "px";
+      d.style.bottom = "0px";
+    } else if ((pos_y + size_y) > viewport_y) {
       d.style.height = (this.viewport_y - pos_y).toString() + "px";
       d.style.bottom = pos_y.toString() + "px";
     } else if (pos_y < 0) {
@@ -123,6 +154,8 @@ class View {
   void update(Model m) {
     if (m.running) {
       updateGame(m);
+    } else if (m.inMenu) {
+      showMenu(m);
     } else {
       onStop(m);
     }
@@ -166,8 +199,24 @@ class View {
 
   void onStart() {
     this.restartOverlay.style.display = "none";
+    this.menuOverlay.style.display = "none";
     this.player.style.display = "block";
     this.score.style.display = "inline";
+  }
+
+  void showMenu(Model m) {
+    this.menuOverlay.style.display = "inline";
+    this.restartOverlay.style.display = "none";
+    this.score.style.display = "none";
+
+    this.menuLevelSelect.nodes.clear();
+    m.levels.forEach((k, v) {
+      OptionElement option = new Element.tag("option");
+      option.text = k;
+      option.value = v;
+      this.menuLevelSelect.add(option,null);
+    });
+
   }
 
   void onStop(Model m) {

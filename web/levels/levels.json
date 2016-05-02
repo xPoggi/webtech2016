@@ -1,10 +1,14 @@
 [
   {
-  "name":"Level 1",
-  "filename":"level1.json"
+    "name":"Level 1",
+    "filename":"level1.json"
   },
   {
-  "name":"Level 1++",
-  "filename":"level1.json"
+    "name":"Level 1 again",
+    "filename":"level1.json"
+  },
+  {
+  "name":"Level 2",
+  "filename":"level2.json"
   }
 ]

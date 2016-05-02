@@ -29,16 +29,34 @@ class Game {
     });
 
     view.restart.onClick.listen(
-        (event) => this.startGame());
+        (event) => this.restartGame());
+
+    view.restartMenu.onClick.listen((event) => this.mainMenu());
+
+    view.menu.onClick.listen((event) {
+
+      String level = view.menuLevelSelect.selectedOptions[0].value;
+      print(level);
+      this.startGame(level);
+
+    });
+
+  }
+
+  Future<String> getLevel(String levelName) async {
+    var currentLocation = window.location;
+    var level1 = currentLocation.toString().replaceAll("index.html", "") + "levels/" + levelName;
+
+    return await HttpRequest.getString(level1).asStream().join();
 
   }
 
   jump() async {
-    if (!this.model.running) {
+    if (!this.model.running && !this.model.inMenu) {
       if (this.timer != null) {
         this.timer.cancel();
       }
-      this.startGame();
+      this.restartGame();
     } else {
       this.model.jump();
     }
@@ -54,19 +72,36 @@ class Game {
     }
   }
 
-  startGame() async {
+  void restartGame() {
 
-    var currentLocation = window.location;
-    var level1 = currentLocation.toString().replaceAll("index.html", "") + "levels/level1.json";
+    startGame(this.model.currentLevelName);
 
-    var request = await HttpRequest.getString(level1).asStream().join();
+  }
 
-    this.model.setLevel(request);
+  startGame(String level) async {
+
+    await getLevel(level).then((levelJson) => this.model.setLevel(levelJson));
+    this.model.currentLevelName = level;
 
     this.model.start();
     this.view.onStart();
     this.view.update(this.model);
     this.timer = new Timer.periodic(const Duration(milliseconds: tickrate), this.update);
+
+  }
+
+  mainMenu() async {
+
+    var currentLocation = window.location;
+    var levels = currentLocation.toString().replaceAll("index.html", "") + "levels/levels.json";
+
+    var request = await HttpRequest.getString(levels).asStream().join();
+
+    this.model.setLevelList(request);
+    this.model.mainMenu();
+
+    this.view.update(this.model);
+
 
   }
 }

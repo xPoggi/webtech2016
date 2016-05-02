@@ -8,6 +8,10 @@
     font-family: "Roboto Condensed", SansSerif;
 }
 
+.body {
+    margin: 0px;
+}
+
 #score {
     color: white;
     text-shadow:
@@ -44,7 +48,7 @@
 #container {
     position: relative;
     width: 100%;
-    z-index: -100;
+    z-index: 0;
 }
 
 #game {
@@ -52,7 +56,7 @@
     border: 5px solid black;
     background-color: silver;
     position: relative;
-    z-index: -99;
+    z-index: 1;
 }
 
 #Player {
@@ -60,43 +64,43 @@
     height: 50px;
     position: absolute;
     background-color: blue;
-    z-index: -30;
+    z-index: 70;
 }
 
 .Ground {
     background-color: green;
     position: absolute;
-    z-index: -50;
+    z-index: 50;
 }
 
 .Finish {
     background-color: orangered;
     position: absolute;
-    z-index: -49;
+    z-index: 51;
 }
 
 .Water {
     background-color: deepskyblue;
     position: absolute;
-    z-index: -51;
+    z-index: 49;
 }
 
 .Trigger {
     background-color: white;
     position: absolute;
-    z-index: -60;
+    z-index: 40;
 }
 
 .Bullet {
     background-color: red;
     position: absolute;
-    z-index: -41;
+    z-index: 59;
 }
 
 .Coin {
     background-color: gold;
     position: absolute;
-    z-index: -41;
+    z-index: 59;
 }
 
 #restart-overlay {
@@ -108,7 +112,7 @@
     right: 0;
     text-align: center;
     background-color: deepskyblue;
-    z-index: 0;
+    z-index: 100;
 }
 
 #restart-overlay:before {
@@ -131,5 +135,63 @@
     padding: .5em;
     display: inline-block;
     vertical-align: middle;
-    z-index: 1;
+    z-index: 110;
+}
+
+#restartMenu {
+    font-family: "Roboto Condensed", SansSerif;
+    color: white;
+    text-shadow:
+            -1px -1px 0 #000,
+            1px -1px 0 #000,
+            -1px 1px 0 #000,
+            1px 1px 0 #000;
+    background: orangered;
+
+    bottom: 20%;
+    width: 30%;
+    padding: .5em;
+    display: inline-block;
+    vertical-align: middle;
+    margin-top: 100px;
+    z-index: 110;
+}
+
+#menu-overlay {
+    /* let it fill the whole container */
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+    background-color: deeppink;
+    z-index: 200;
+}
+
+#menu-overlay:before {
+    content: '';
+    display: inline-block;
+    vertical-align: middle;
+    height: 100%;
+}
+
+#menuStart {
+    font-family: "Roboto Condensed", SansSerif;
+    color: white;
+    text-shadow:
+            -1px -1px 0 #000,
+            1px -1px 0 #000,
+            -1px 1px 0 #000,
+            1px 1px 0 #000;
+    background: orangered;
+    width: 30%;
+    padding: .5em;
+    display: inline-block;
+    vertical-align: middle;
+    z-index: 210;
+}
+
+#menuLevelSelect {
+    z-index: 210;
 }

@@ -12,9 +12,12 @@ class Model {
   View v;
   Player p;
 
+  Map<String, String> levels;
   Level currentLevel;
+  String currentLevelName;
   bool running;
   bool won;
+  bool inMenu;
 
   int visibleIndex;
   int playerPosX;
@@ -29,6 +32,7 @@ class Model {
 
   Model(int viewport_x, int viewport_y, int speed) {
     this.visibleBlocks = new List();
+    this.levels = new Map<String, String>();
 
     this.viewport_x = viewport_x;
     this.viewport_y = viewport_y;
@@ -36,6 +40,9 @@ class Model {
     this.speed = speed;
 
     this.won = false;
+    this.inMenu = true;
+    this.running = false;
+
 
     this.p = new Player();
   }
@@ -82,6 +89,7 @@ class Model {
     this.visibleBlocks.clear();
     this.points = 0;
     this.running = true;
+    this.inMenu = false;
   }
 
   void detectCollisions() {
@@ -175,6 +183,26 @@ class Model {
 
   void setLevel(String level) {
     currentLevel = new Level(level);
+  }
+
+  void setLevelList(String jsonString) {
+    this.levels.clear();
+
+    try {
+      var jsonData = JSON.decode(jsonString);
+      for (Map m in jsonData) {
+        this.levels[m["name"]] = m["filename"];
+      }
+    } catch(e) {
+      print(e);
+    }
+
+  }
+
+  void mainMenu() {
+
+    this.inMenu = true;
+
   }
 
 }
