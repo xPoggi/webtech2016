@@ -9,6 +9,7 @@ part 'src/Level.dart';
 part 'src/Model.dart';
 part 'src/Player.dart';
 part 'src/View.dart';
+part 'src/HighscoreGamekey.dart';
 
 part 'src/blocks/Block.dart';
 part 'src/blocks/Ground.dart';

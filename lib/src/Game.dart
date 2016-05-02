@@ -8,11 +8,59 @@ class Game {
   static const int tickrate = 16;
   static const int speed = 5;
 
+  /**
+   * Constant of the relative path which stores the gamekey settings.
+   */
+  static const gamekeyCheck = const Duration(seconds: 30);
+  static const gamekeySettings = 'gamekey.json';
+
   Model model;
   View view;
   Timer timer;
 
+  HighscoreGamekey gamekey;
+  Timer gamekeyTrigger;
+
   Game() {
+
+
+    //TODO Why the fuck would this run twice and spawn two games?
+    //And WHY would this only happen when simulation a mobile device using chrome?!
+    //this is stupid
+    if (querySelector("#game") != null) {
+      return;
+    }
+
+    try {
+      // Download gamekey settings. Display warning on problems.
+      HttpRequest.getString(gamekeySettings).then((json) {
+        final settings = JSON.decode(json);
+
+        // Create gamekey client using connection parameters
+        this.gamekey = new HighscoreGamekey(
+            settings['host'],
+            settings['port'],
+            settings['id'],
+            settings['secret'] //TODO la di da,
+        );
+
+        // Check periodically if gamekey service is reachable. Display warning if not.
+        this.gamekeyTrigger = new Timer.periodic(gamekeyCheck, (_) async {
+          if (await this.gamekey.authenticate()) {
+            this.view.statusMessage.text = 'GK Connected';
+            print("Gamekey connected");
+          } else {
+            this.view.statusMessage.text = 'GK Disconnected';
+            print("Gamekey not connected");
+          }
+        });
+      });
+    } catch (error, stacktrace) {
+      print ("Game() caused following error: '$error'");
+      print ("$stacktrace");
+      this.view.statusMessage.text = 'GK Error';
+    }
+
 
     this.model = new Model(viewport_x, viewport_y, speed);
     this.view = new View(viewport_x, viewport_y);
@@ -24,7 +72,7 @@ class Game {
       }
     });
 
-    window.onTouchStart.listen((TouchEvent ev) async {
+    window.onTouchEnd.listen((TouchEvent ev) async {
       this.jump();
     });
 
@@ -53,9 +101,6 @@ class Game {
 
   jump() async {
     if (!this.model.running && !this.model.inMenu) {
-      if (this.timer != null) {
-        this.timer.cancel();
-      }
       this.restartGame();
     } else {
       this.model.jump();
@@ -68,8 +113,19 @@ class Game {
       this.view.update(this.model);
     } else {
       this.timer.cancel();
+
+      if (this.model.won) {
+        this.showScore();
+      }
+
       this.view.update(this.model);
     }
+  }
+
+  void showScore() {
+
+
+
   }
 
   void restartGame() {
@@ -86,6 +142,9 @@ class Game {
     this.model.start();
     this.view.onStart();
     this.view.update(this.model);
+    if (this.timer != null) {
+      this.timer.cancel();
+    }
     this.timer = new Timer.periodic(const Duration(milliseconds: tickrate), this.update);
 
   }
@@ -108,8 +167,8 @@ class Game {
 
 void main() {
 
-  Game g = new Game();
-
+//  Game g = new Game();
+//
 //  g.startGame();
 
 }

@@ -15,6 +15,7 @@ class View {
 
   DivElement score;
   DivElement message;
+  DivElement statusMessage;
 
   int viewport_x;
   int viewport_y;
@@ -26,6 +27,7 @@ class View {
 
 
   View(int viewport_x, int viewport_y) {
+    print("View!");
     this.viewport_x = viewport_x;
     this.viewport_y = viewport_y;
 
@@ -78,6 +80,11 @@ class View {
     this.score.id = "score";
     this.score.text = "Score: 0";
     this.gameElement.children.add(this.score);
+
+    this.statusMessage = new DivElement();
+    this.statusMessage.id = "statusMessage";
+    this.statusMessage.text = "";
+    this.gameElement.children.add(this.statusMessage);
 
     this.menuOverlay = new DivElement();
     this.menuOverlay.id = "menu-overlay";
