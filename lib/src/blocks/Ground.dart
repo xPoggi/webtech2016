@@ -12,19 +12,17 @@ class Ground extends Block {
   @override
   bool onCollision(Model m, Player p, Direction d) {
     if (d == Direction.LEFT) {
+      log("${this.name} ${this.id} killed player, coming from ${d}");
       m.fail();
       return false; //didn't land
     }
-    if (d == Direction.TOP) {
+    if (d == Direction.TOP || d == Direction.RIGHT) {
       return true;
     }
     if (d == Direction.BOTTOM) {
       p.hitRoof();
       p.pos_y = this.pos_y - p.size_y;
       return false;
-    }
-    if (d == Direction.RIGHT) {
-      return false; //didn't land
     }
     return true; //landed
   }

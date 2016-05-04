@@ -93,10 +93,9 @@ class Game {
 
   Future<String> getLevel(String levelName) async {
     var currentLocation = window.location;
-    var level1 = currentLocation.toString().replaceAll("index.html", "") + "levels/" + levelName;
+    var level = currentLocation.toString().replaceAll("index.html", "") + "levels/" + levelName;
 
-    return await HttpRequest.getString(level1).asStream().join();
-
+    return await HttpRequest.getString(level).asStream().join();
   }
 
   jump() async {
@@ -124,14 +123,11 @@ class Game {
 
   void showScore() {
 
-
-
   }
 
   void restartGame() {
-
+    this.model.p.reset();
     startGame(this.model.currentLevelName);
-
   }
 
   startGame(String level) async {
@@ -145,6 +141,7 @@ class Game {
     if (this.timer != null) {
       this.timer.cancel();
     }
+
     this.timer = new Timer.periodic(const Duration(milliseconds: tickrate), this.update);
 
   }

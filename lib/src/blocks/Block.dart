@@ -34,6 +34,7 @@ class Block {
   bool onCollision(Model m, Player p, Direction d) {
     if (isDeadly) {
       m.fail();
+      log("${this.name} ${this.id} killed player, coming from ${d}");
       return false;
     } else {
       return true;

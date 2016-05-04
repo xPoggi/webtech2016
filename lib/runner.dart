@@ -19,3 +19,10 @@ part 'src/blocks/Bullet.dart';
 part 'src/blocks/Finish.dart';
 part 'src/blocks/Spawn.dart';
 part 'src/blocks/Coin.dart';
+part 'src/blocks/Teleport.dart';
+
+log(String msg) {
+  if (const String.fromEnvironment('DEBUG') != null) {
+    print('debug: $msg');
+  }
+}

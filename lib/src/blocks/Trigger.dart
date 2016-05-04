@@ -15,5 +15,6 @@ class Trigger extends Block {
   @override
   bool onCollision(Model m, Player p, Direction d) {
     this.bullet.start();
+    return false;
   }
 }

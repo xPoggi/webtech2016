@@ -35,11 +35,14 @@ class Player {
   }
 
   void jump() {
+    log("Player: Jump");
     if (this.jumping && !this.doubleJump) {
+      log("Player: Double Jump");
       this.doubleJump = true;
       velocity_y = speed * 2.0;
     }
     if (!this.jumping && this.grounded) {
+      log("Player: Jumping");
       jumping = true;
       grounded = false;
       velocity_y = speed * 2.0;
@@ -64,7 +67,7 @@ class Player {
         this.velocity_y = -this.maxVelocity;
       }
     }
-    print("Player: " + this.pos_x.toString() + " " + this.pos_y.toString());
+//    print("Player: " + this.pos_x.toString() + " " + this.pos_y.toString());
   }
 
   int getPosY() {
@@ -89,6 +92,7 @@ class Player {
   void reset() {
     this.pos_y = 50;
     this.pos_x = 50; // move slightly to the right
+    this.landed();
   }
 
   void onCollision(String direction) {

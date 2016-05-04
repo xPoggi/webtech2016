@@ -27,7 +27,7 @@ class View {
 
 
   View(int viewport_x, int viewport_y) {
-    print("View!");
+    log("View!");
     this.viewport_x = viewport_x;
     this.viewport_y = viewport_y;
 

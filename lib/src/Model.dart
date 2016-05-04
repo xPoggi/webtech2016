@@ -21,6 +21,7 @@ class Model {
 
   int visibleIndex;
   int playerPosX;
+  int distance;
   int score;
   int points;
 
@@ -58,15 +59,15 @@ class Model {
     this.p.update();
     this.visibleBlocks.forEach((b) => b.onUpdate());
     this.playerPosX += speed;
-
     detectCollisions();
 
     if (this.p.getPosY() < 0) {
       this.fail();
     }
-    this.score = (this.playerPosX/5).toInt() + this.points;
+    this.distance += 1; // tick = point
+    this.score = this.distance + this.points;
 
-    print("Tick");
+    log("Tick");
 
   }
 
@@ -88,56 +89,98 @@ class Model {
     this.p.pos_y = currentLevel.spawn.pos_y;
     this.visibleBlocks.clear();
     this.points = 0;
+    this.distance = 0;
     this.running = true;
     this.inMenu = false;
   }
 
   void detectCollisions() {
-    try {
-      bool onGround = false;
-      for (Block b in this.visibleBlocks) {
-        if (b.canCollide) {
-          if (simpleCollision(this.p, b)) {
-            Direction dir = collisionDirection(this.p, b);
-            if (b.onCollision(this, this.p, dir)) {
-              this.p.landed();
-              this.p.pos_y = b.pos_y + b.size_y;
-              onGround = true;
-//              break;
-            }
+    bool onGround = false;
+    for (Block b in this.visibleBlocks) {
+      if (b.canCollide) {
+        if (playerCollision(b)) {
+          Direction dir = collisionDirectionRewind(this.p, b);
+          if (b.onCollision(this, this.p, dir)) {
+            this.p.landed();
+            this.p.pos_y = b.pos_y + b.size_y;
+            onGround = true;
           }
         }
       }
-      if (!onGround) {
-        this.p.fall();
-      }
-
-    } catch(e, ex) {
-      print(e);
-      print(ex);
     }
-
+    if (!onGround) {
+      this.p.fall();
+    }
   }
 
   void jump() {
+    log("Model: Jump");
     p.jump();
   }
 
-  //detect simple collisions between rectangles
-  //source: https://developer.mozilla.org/en-US/docs/Games/Techniques/2D_collision_detection
-  bool simpleCollision(player, rect) {
-    if ((player.pos_x + this.playerPosX) <= (rect.pos_x + rect.size_x) &&
-        ((player.pos_x + this.playerPosX) + player.size_x) >= rect.pos_x &&
-        player.pos_y <= (rect.pos_y + rect.size_y) &&
-        (player.size_y + player.pos_y) >= rect.pos_y) {
+
+  bool simpleRectCollision(int r1_pos_x, int r1_pos_y, int r1_size_x, int r1_size_y,
+      int r2_pos_x, int r2_pos_y, int r2_size_x, int r2_size_y) {
+    if ((r1_pos_x <= r2_pos_x + r2_size_x) &&
+        (r1_pos_x + r1_size_x) >= r2_pos_x &&
+        r1_pos_y <= (r2_pos_y + r2_size_y) &&
+        (r1_size_y + r1_pos_y) >= r2_pos_y) {
       return true;
     } else {
       return false;
     }
+
+  }
+
+
+  //detect simple collisions between rectangles
+  //source: https://developer.mozilla.org/en-US/docs/Games/Techniques/2D_collision_detection
+  bool playerCollision(Block rect) {
+    return this.simpleRectCollision((this.p.pos_x+this.playerPosX), this.p.pos_y, this.p.size_x, this.p.size_y,
+        rect.pos_x, rect.pos_y, rect.size_x, rect.size_y);
+    return false;
+  }
+
+  Direction collisionDirectionRewind(Player player, Block rect) {
+    final int rewindFactor = 5;
+
+    //player sliding on the floor
+    if (player.pos_y == (rect.pos_y + rect.size_y) && player.velocity_y == 0.0) {
+      log("collisionDirectionRewind sliding");
+      return Direction.TOP;
+    }
+
+    //rewind time to find collision
+    int rewind_x = this.p.pos_x + this.playerPosX;
+    int rewind_y = this.p.pos_y;
+    int rewindCounter = 0;
+
+
+    while(rewindCounter < rewindFactor) { // don't rewind past last event
+      rewind_y -= ((this.p.velocity_y/rewindFactor).round()).toInt();
+      if (!this.simpleRectCollision(rewind_x, rewind_y, this.p.size_x, this.p.size_y,
+          rect.pos_x, rect.pos_y, rect.size_x, rect.size_y)) {
+        return this.p.velocity_y <= 0 ? Direction.TOP : Direction.BOTTOM;
+      }
+      log("rewind_y $rewind_y");
+
+      rewind_x -= (this.speed/rewindFactor).toInt();
+      if (!this.simpleRectCollision(rewind_x, rewind_y, this.p.size_x, this.p.size_y,
+          rect.pos_x, rect.pos_y, rect.size_x, rect.size_y)) {
+        return Direction.LEFT;
+      }
+      log("rewind_x $rewind_x");
+
+      rewindCounter++;
+    }
+
+
+    return Direction.RIGHT;
+
   }
 
   //https://gamedev.stackexchange.com/questions/29786/a-simple-2d-rectangle-collision-algorithm-that-also-determines-which-sides-that
-  Direction collisionDirection(player, rect) {
+  Direction collisionDirection(Player player, Block rect) {
     double w = 0.5 * (player.size_x + rect.size_x);
     double h = 0.5 * (player.size_y + rect.size_y);
     double dx = (player.centerX() + playerPosX) - rect.centerX();
@@ -152,10 +195,22 @@ class Model {
         if (wy > -hx) {
           return Direction.TOP;
         } else {
+          //TODO hack, clean me please
+          if (player.pos_y >= (rect.pos_y + rect.size_y)) {
+            return Direction.TOP;
+          } else if ( (player.pos_y + player.size_y ) == rect.pos_y) {
+            return Direction.BOTTOM;
+          }
           return Direction.LEFT;
         }
       } else {
         if (wy > -hx) {
+          //TODO hack, clean me please
+          if (player.pos_y >= (rect.pos_y + rect.size_y)) {
+            return Direction.TOP;
+          } else if ( (player.pos_y + player.size_y ) == rect.pos_y) {
+            return Direction.BOTTOM;
+          }
           return Direction.RIGHT;
         } else {
           return Direction.BOTTOM;
@@ -168,6 +223,7 @@ class Model {
     if ((b.pos_x + b.size_x) > (playerPosX) && (b.pos_x) < (playerPosX + viewport_x)) {
       return true;
     }
+    return false;
   }
 
   void getVisibleBlocks() {

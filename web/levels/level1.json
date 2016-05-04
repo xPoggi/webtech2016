@@ -13,7 +13,7 @@
       "type":"Ground",
       "pos_x":0,
       "pos_y":30,
-      "size_x":580,
+      "size_x":560,
       "size_y":20
     },
 
@@ -21,7 +21,7 @@
       "type":"Ground",
       "pos_x":600,
       "pos_y":-10,
-      "size_x":280,
+      "size_x":240,
       "size_y":60
     },
 

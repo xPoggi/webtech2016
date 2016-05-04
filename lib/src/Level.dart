@@ -46,6 +46,19 @@ class Level {
               blockList.add(newCoin);
               break;
 
+            case "Teleport":
+              var b = m["target"];
+
+              var newSpawn = new Spawn(
+                  blockList.length, b["pos_x"], b["pos_y"], b["size_x"],
+                  b["size_y"]);
+              blockList.add(newSpawn);
+
+              var newTeleport = new Teleport(blockList.length, m["pos_x"], m["pos_y"], m["size_x"],
+                  m["size_y"], newSpawn);
+              blockList.add(newTeleport);
+              break;
+
 
             case "Trigger":
               var b = m["bullet"];
@@ -53,14 +66,15 @@ class Level {
               var newBullet = new Bullet(
                   blockList.length, b["pos_x"], b["pos_y"], b["size_x"],
                   b["size_y"]);
-              print(newBullet);
+              log(newBullet);
               blockList.add(newBullet);
 
               var newTrigger = new Trigger(
                   blockList.length, m["pos_x"], m["pos_y"], m["size_x"],
                   m["size_y"], newBullet);
-              print(newTrigger);
+              log(newTrigger);
               blockList.add(newTrigger);
+              break;
           }
         }
       }
