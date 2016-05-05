@@ -132,7 +132,7 @@ class Game {
   /// Performs the jump action for the current game state
   jump() async {
     if (!this.model.running && !this.model.inMenu) {
-      this.restartGame();
+//      this.restartGame();
     } else {
       this.model.jump();
     }
@@ -263,7 +263,7 @@ class Game {
 
   /// Restarts the current level
   void restartGame() {
-    this.model.p.reset();
+    this.model.player.reset();
     startGame(this.model.currentLevelName);
   }
 
