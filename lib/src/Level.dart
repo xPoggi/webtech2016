@@ -66,13 +66,13 @@ class Level {
               var newBullet = new Bullet(
                   blockList.length, b["pos_x"], b["pos_y"], b["size_x"],
                   b["size_y"]);
-              log(newBullet);
+              log(newBullet.toString());
               blockList.add(newBullet);
 
               var newTrigger = new Trigger(
                   blockList.length, m["pos_x"], m["pos_y"], m["size_x"],
                   m["size_y"], newBullet);
-              log(newTrigger);
+              log(newTrigger.toString());
               blockList.add(newTrigger);
               break;
           }
