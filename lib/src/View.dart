@@ -124,7 +124,7 @@ class View {
 
     this.restart = new DivElement();
     this.restart.id = "restart";
-    this.restart.text = "Touch or press Space to restart";
+    this.restart.text = "Restart Level";
     this.restartButtons.children.add(this.restart);
 
     this.restartSubmitHighscore = new DivElement();
