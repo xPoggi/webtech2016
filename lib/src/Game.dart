@@ -57,6 +57,8 @@ class Game {
             settings['secret'] //TODO la di da,
         );
 
+        this.gamekey.authenticate();
+
         // Check periodically if GameKey service is reachable. Display warning if not.
         this.gamekeyTrigger = new Timer.periodic(gamekeyCheck, (_) async {
           if (await this.gamekey.authenticate()) {
@@ -170,9 +172,9 @@ class Game {
         'scores' : entry['state']['scores']
       });
 
-      scores = levels.where((entry) => (entry["scores"][this.model.currentLevelName] != null)).map((entry) => {
+      scores = levels.where((entry) => (entry["scores"]["${this.model.currentLevelHash}"] != null)).map((entry) => {
         'name' : "${entry['username']}",
-        'score' : entry["scores"][this.model.currentLevelName]
+        'score' : entry["scores"]["${this.model.currentLevelHash}"]
       }).toList();
 
       scores.sort((a, b) => b['score'] - a['score']);
@@ -203,7 +205,7 @@ class Game {
       }
       final stored = await gamekey.storeState(usr['id'], {
         "scores": {
-          "${this.model.currentLevelName}" : this.model.score
+          "${this.model.currentLevelHash}" : this.model.score
         },
         'version': '0.0.1'
       });
@@ -227,7 +229,7 @@ class Game {
 
       final stored = await gamekey.storeState(user['id'], {
         "scores": {
-          "${this.model.currentLevelName}" : this.model.score
+          "${this.model.currentLevelHash}" : this.model.score
         },
         'version': '0.0.1'
       });

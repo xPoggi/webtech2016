@@ -22,6 +22,9 @@ class Model {
   /// Currently loaded level name
   String currentLevelName;
 
+  /// Current level hash
+  int currentLevelHash;
+
   /// Highscores for current level
   List<Map<String, String>> highscores;
 
@@ -249,9 +252,23 @@ class Model {
     }
   }
 
+  /// Hashes Strings based on number theory
+  int hash(String s) {
+    int hashval = 0;
+    int HASHSIZE = 100001;
+
+    s.runes.forEach((char) {
+      hashval = char + 31 * hashval;
+    });
+
+    print(hashval % HASHSIZE);
+    return hashval % HASHSIZE;
+  }
+
   /// Sets [currentLevel] to JSON [level]
   void setLevel(String level) {
-    currentLevel = new Level(level);
+    this.currentLevel = new Level(level);
+    this.currentLevelHash = hash(level);
   }
 
   /// Sets [levels] to levels listed in [jsonString]
