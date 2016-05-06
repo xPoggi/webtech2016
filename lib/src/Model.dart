@@ -40,7 +40,7 @@ class Model {
   int visibleIndex;
 
   /// Player level position
-  int playerPosX;
+//  int playerPosX;
 
   int distance;
   int score;
@@ -87,8 +87,9 @@ class Model {
     getVisibleBlocks();
 
     this.player.update();
+
     this.visibleBlocks.forEach((b) => b.onUpdate());
-    this.playerPosX += speed;
+    this.player.pos_x = this.player.pos_x + speed;
     detectCollisions();
 
     if (this.player.getPosY() < 0) {
@@ -97,7 +98,7 @@ class Model {
     this.distance += 1; // tick = point
     this.score = this.distance + this.points;
 
-    log("Tick");
+    log("Model: update() tick");
 
   }
 
@@ -118,7 +119,7 @@ class Model {
   void start() {
     this.player.reset();
     this.visibleIndex = 0;
-    this.playerPosX = currentLevel.spawn.pos_x;
+//    this.playerPosX = currentLevel.spawn.pos_x;
     this.player.pos_x = currentLevel.spawn.pos_x;
     this.player.pos_y = currentLevel.spawn.pos_y;
     this.visibleBlocks.clear();
@@ -154,7 +155,7 @@ class Model {
 
   /// Makes player jump
   void jump() {
-    log("Model: Jump");
+    log("Model: jump()");
     this.player.jump();
   }
 
@@ -176,7 +177,7 @@ class Model {
 
   /// Detects collision between [Player] and given [Block]
   bool playerCollision(Block rect) {
-    return this.simpleRectCollision((this.player.pos_x+this.playerPosX), this.player.pos_y, this.player.size_x, this.player.size_y,
+    return this.simpleRectCollision((this.player.pos_x), this.player.pos_y, this.player.size_x, this.player.size_y,
         rect.pos_x, rect.pos_y, rect.size_x, rect.size_y);
   }
 
@@ -194,12 +195,12 @@ class Model {
 
     //player sliding on the floor
     if (player.pos_y == (rect.pos_y + rect.size_y) && player.velocity_y == 0.0) {
-      log("collisionDirectionRewind sliding");
+      log("Model: collisionDirectionRewind() player sliding");
       return Direction.TOP;
     }
 
     //rewind time to find collision
-    int rewind_x = this.player.pos_x + this.playerPosX;
+    int rewind_x = this.player.pos_x;
     int rewind_y = this.player.pos_y;
     int rewindCounter = 0;
 
@@ -210,14 +211,14 @@ class Model {
           rect.pos_x, rect.pos_y, rect.size_x, rect.size_y)) {
         return this.player.velocity_y <= 0 ? Direction.TOP : Direction.BOTTOM;
       }
-      log("rewind_y $rewind_y");
+      log("Model: collisionDirectionRewind() rewind_y $rewind_y");
 
       rewind_x -= (this.speed/rewindFactor).toInt();
       if (!this.simpleRectCollision(rewind_x, rewind_y, this.player.size_x, this.player.size_y,
           rect.pos_x, rect.pos_y, rect.size_x, rect.size_y)) {
         return Direction.LEFT;
       }
-      log("rewind_x $rewind_x");
+      log("Model: collisionDirectionRewind() rewind_x $rewind_x");
 
       rewindCounter++;
     }
@@ -230,7 +231,7 @@ class Model {
 
   /// Calculates if [b] is within viewport
   bool isBlockVisible(Block b) {
-    if ((b.pos_x + b.size_x) > (playerPosX) && (b.pos_x) < (playerPosX + viewport_x)) {
+    if ((b.pos_x + b.size_x) > (this.player.pos_x - Player.player_offset) && (b.pos_x) < ((this.player.pos_x - Player.player_offset) + viewport_x)) {
       return true;
     }
     return false;
@@ -262,8 +263,9 @@ class Model {
       for (Map m in jsonData) {
         this.levels[m["name"]] = m["filename"];
       }
-    } catch(e) {
-      print(e);
+    } catch(error, stacktrace) {
+      print("Model: setLevelList() Error: ${error}");
+      print(stacktrace);
     }
 
   }

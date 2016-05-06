@@ -7,9 +7,12 @@ class Player {
   double maxVelocity = 8.0;
   static const int speed = 5;
 
+  // distance from left game border
+  static const int player_offset = 100;
+
   //pos size vel
   int pos_y;
-  int pos_x;
+  int _pos_x;
 
   int size_x;
   int size_y;
@@ -20,9 +23,15 @@ class Player {
   bool doubleJump;
   bool grounded;
 
+  int get pos_x => _pos_x;
+  set pos_x(int ox) {
+    _pos_x= ox;
+    log("Player: set pos_x() ox $ox pos_x $_pos_x");
+  }
+
   Player() {
     this.pos_y = 50;
-    this.pos_x = 50; // move slightly to the right
+    this.pos_x = player_offset; // move slightly to the right
 
     this.size_x = 20;
     this.size_y = 50;
@@ -35,14 +44,14 @@ class Player {
   }
 
   void jump() {
-    log("Player: Jump");
+    log("Player: jump()");
     if (this.jumping && !this.doubleJump) {
-      log("Player: Double Jump");
+      log("Player: jump() Double Jump");
       this.doubleJump = true;
       velocity_y = speed * 2.0;
     }
     if (!this.jumping && this.grounded) {
-      log("Player: Jumping");
+      log("Player: jump() Jumping");
       jumping = true;
       grounded = false;
       velocity_y = speed * 2.0;
@@ -67,7 +76,7 @@ class Player {
         this.velocity_y = -this.maxVelocity;
       }
     }
-//    print("Player: " + this.pos_x.toString() + " " + this.pos_y.toString());
+    log("Player: update() ${this.pos_x} ${this.pos_y}");
   }
 
   int getPosY() {

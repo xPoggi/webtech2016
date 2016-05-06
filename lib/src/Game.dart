@@ -63,12 +63,12 @@ class Game {
             this.view.statusMessage.text = '';
           } else {
             this.view.statusMessage.text = 'GK unavailable';
-            print("Gamekey not connected");
+            print("Game: Game() Gamekey not connected");
           }
         });
       });
     } catch (error, stacktrace) {
-      print ("Game() caused following error: '$error'");
+      print ("Game: Game() Error: '$error'");
       print ("$stacktrace");
       this.view.statusMessage.text = 'GK Error';
     }
@@ -177,7 +177,7 @@ class Game {
 
       scores.sort((a, b) => b['score'] - a['score']);
     } catch (error, stacktrace) {
-      print(error);
+      print("Game: getHighscores() Error: ${error}");
       print(stacktrace);
     }
     return scores.take(10);

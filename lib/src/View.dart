@@ -56,7 +56,7 @@ class View {
   ///
   /// Creates the instance for View and adds all the necessary game elements to the DOM
   View(int viewport_x, int viewport_y) {
-    log("View instance!");
+    log("View: View() instance created");
     this.viewport_x = viewport_x;
     this.viewport_y = viewport_y;
 
@@ -267,10 +267,10 @@ class View {
       }
 
       setDynamicHeightDiv(usedDivs[b.id], b.pos_y, b.size_y);
-      setDynamicWidthDiv(usedDivs[b.id], b.pos_x - m.playerPosX, b.size_x);
+      setDynamicWidthDiv(usedDivs[b.id], (b.pos_x  - m.player.pos_x + Player.player_offset), b.size_x);
     }
 
-    var toRemove = new List<int>();
+    List<int> toRemove = new List<int>();
     usedDivs.forEach((i, div) {
       if ( m.visibleBlocks.where((b) => b.id == i).isEmpty ) {
         div.style.display = "none";
@@ -283,10 +283,10 @@ class View {
     });
 
     setDynamicHeightDiv(this.player, m.player.pos_y,m.player.size_y);
-    this.player.style.left = m.player.pos_x.toString() + "px";
-    this.player.style.width = m.player.size_x.toString() + "px";
+    this.player.style.left = "${Player.player_offset}px";
+    this.player.style.width = "${m.player.size_x}px";
 
-    this.score.text = "Score: " + m.score.toString();
+    this.score.text = "Score: ${m.score}";
 
   }
 
