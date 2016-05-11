@@ -8,7 +8,7 @@ class Player {
   static const int speed = 5;
 
   // distance from left game border
-  static const int player_offset = 100;
+  static const int player_offset = 300;
 
   //pos size vel
   int pos_y;
@@ -17,6 +17,7 @@ class Player {
   int size_x;
   int size_y;
   double velocity_y;
+  double velocity_x;
 
   //state
   bool jumping;
@@ -37,6 +38,7 @@ class Player {
     this.size_y = 50;
 
     this.velocity_y = -1.0;
+    this.velocity_x = 0.0;
 
     this.jumping = true;
     this.doubleJump = false;
@@ -58,6 +60,16 @@ class Player {
     }
   }
 
+  void moveLeft() {
+    log("Player: moveLeft()");
+    this.velocity_x = -5.0;
+  }
+
+  void moveRight() {
+    log("Player: moveRight()");
+    this.velocity_x = 5.0;
+  }
+
   void fall() {
     this.grounded = false;
   }
@@ -68,6 +80,10 @@ class Player {
     this.velocity_y = -1.0;
   }
 
+  void hitSide() {
+    this.velocity_x = 0.0;
+  }
+
   void update() {
     if (!grounded) {
       this.pos_y = (this.pos_y + velocity_y).round();
@@ -76,6 +92,7 @@ class Player {
         this.velocity_y = -this.maxVelocity;
       }
     }
+    this.pos_x = (this.pos_x + velocity_x).round();
     log("Player: update() ${this.pos_x} ${this.pos_y}");
   }
 

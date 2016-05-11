@@ -92,7 +92,7 @@ class Model {
     this.player.update();
 
     this.visibleBlocks.forEach((b) => b.onUpdate());
-    this.player.pos_x = this.player.pos_x + speed;
+//    this.player.pos_x = this.player.pos_x + speed;
     detectCollisions();
 
     if (this.player.getPosY() < 0) {

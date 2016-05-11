@@ -84,8 +84,17 @@ class Game {
     // register keyboard input
     window.onKeyDown.listen((KeyboardEvent ev) async {
       switch (ev.keyCode) {
-        case KeyCode.UP:    this.jump(); break;
-        case KeyCode.SPACE: this.jump(); break;
+        case KeyCode.UP:    this.jump();  break;
+        case KeyCode.SPACE: this.jump();  break;
+        case KeyCode.LEFT:  this.left();  break;
+        case KeyCode.RIGHT: this.right(); break;
+      }
+    });
+
+    window.onKeyUp.listen((KeyboardEvent ev) {
+      switch (ev.keyCode) {
+        case KeyCode.LEFT:  this.stopMove();  break;
+        case KeyCode.RIGHT: this.stopMove(); break;
       }
     });
 
@@ -140,7 +149,21 @@ class Game {
     }
   }
 
-  /// Updates the game
+  left() {
+    this.model.player.moveLeft();
+  }
+
+
+  right() {
+    this.model.player.moveRight();
+  }
+
+  stopMove() {
+    this.model.player.hitSide();
+  }
+
+
+/// Updates the game
   ///
   /// Updates the model and view due to Timer [t] call
   void update(Timer t) {
