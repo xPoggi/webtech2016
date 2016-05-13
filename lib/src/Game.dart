@@ -124,7 +124,8 @@ class Game {
   /// Returns the Level for [levelName] in JSON format
   Future<String> getLevel(String levelName) async {
     var currentLocation = window.location;
-    var level = currentLocation.toString().replaceAll("index.html", "") + "levels/" + levelName;
+//    var level = currentLocation.toString().replaceAll("index.html", "") + "levels/" + levelName;
+    var level = "levels/" + levelName;
 
     return await HttpRequest.getString(level).asStream().join();
   }
@@ -294,7 +295,8 @@ class Game {
   mainMenu() async {
 
     var currentLocation = window.location;
-    var levels = currentLocation.toString().replaceAll("index.html", "") + "levels/levels.json";
+//    var levels = currentLocation.toString().replaceAll("index.html", "") + "levels/levels.json";
+    var levels = "levels/levels.json";
 
     var request = await HttpRequest.getString(levels).asStream().join();
 
