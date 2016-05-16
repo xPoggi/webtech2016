@@ -73,36 +73,63 @@ body {
 
 #game {
     margin: 0 auto;
-    border: 5px solid black;
     background-color: silver;
     position: relative;
     z-index: 1;
+
+    border: 5px solid black;
+    border-radius: 5px;
 }
 
 #Player {
     width: 20px;
     height: 50px;
     position: absolute;
-    background-color: blue;
+    background-color: lightblue;
     z-index: 70;
+
+    border: 1px solid black;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
 }
 
 .Ground {
-    background-color: green;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    background-color: saddlebrown;
     position: absolute;
     z-index: 50;
+
+    border: 1px solid black;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    border-radius: 5px;
+
 }
 
 .Finish {
     background-color: orangered;
     position: absolute;
     z-index: 51;
+
+    border: 1px solid white;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
 }
 
 .Water {
     background-color: deepskyblue;
     position: absolute;
     z-index: 49;
+
+    border: 1px solid red;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
 }
 
 .Trigger {
@@ -115,18 +142,33 @@ body {
     background-color: teal;
     position: absolute;
     z-index: 40;
+
+    border: 1px solid white;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
 }
 
 .Bullet {
-    background-color: red;
+    background-color: black;
     position: absolute;
     z-index: 59;
+
+    border: 1px solid red;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
 }
 
 .Coin {
     background-color: gold;
     position: absolute;
     z-index: 59;
+
+    border: 1px solid white;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
 }
 
 #restart-overlay {
@@ -159,14 +201,18 @@ body {
     display: inline-block;
     vertical-align: middle;
     z-index: 110;
+
+    border-radius: 5px;
 }
 
 #restartLoginUser {
     margin-top: 1px;
+    border-radius: 5px;
 }
 
 #restartLoginPassword {
     margin-top: 20px;
+    border-radius: 5px;
 }
 
 #restartLoginSubmit {
@@ -185,11 +231,12 @@ body {
     /*vertical-align: middle;*/
     z-index: 110;
 
+    border: 2px solid black;
+    border-radius: 5px;
 }
 
 #restartHighscores {
     background: rgba(192, 192, 192, 0.7);
-    border: 2px solid black;
     position: absolute;
     top: 20px;
     left: 20px;
@@ -199,6 +246,9 @@ body {
     display: inline-block;
     vertical-align: middle;
     z-index: 110;
+
+    border: 2px solid black;
+    border-radius: 5px;
 }
 
 #restartHighscoreList {
@@ -258,13 +308,15 @@ body {
             -1px 1px 0 #000,
             1px 1px 0 #000;
     background: orangered;
-    border: 2px solid black;
 
     width: 60%;
     padding: .5em;
     display: inline-block;
     /*vertical-align: middle;*/
     z-index: 110;
+
+    border: 2px solid black;
+    border-radius: 5px;
 }
 
 
@@ -277,7 +329,6 @@ body {
             -1px 1px 0 #000,
             1px 1px 0 #000;
     background: orangered;
-    border: 2px solid black;
 
     /*top: 10px;*/
     /*bottom: 20%;*/
@@ -287,6 +338,9 @@ body {
     /*vertical-align: middle;*/
     margin-top: 5px;
     z-index: 110;
+
+    border: 2px solid black;
+    border-radius: 5px;
 }
 
 #restartHighscore {
@@ -298,13 +352,15 @@ body {
             -1px 1px 0 #000,
             1px 1px 0 #000;
     background: orangered;
-    border: 2px solid black;
 
     width: 60%;
     padding: .5em;
     display: inline-block;
     margin-top: 5px;
     z-index: 110;
+
+    border: 2px solid black;
+    border-radius: 5px;
 }
 
 #menu-overlay {
@@ -370,13 +426,15 @@ body {
             -1px 1px 0 #000,
             1px 1px 0 #000;
     background: orangered;
-    border: 2px solid black;
 
     width: 60%;
     padding: .5em;
     display: inline-block;
     /*vertical-align: middle;*/
     z-index: 210;
+
+    border: 2px solid black;
+    border-radius: 5px;
 }
 
 #menuLevelSelect {
@@ -389,7 +447,6 @@ body {
             1px 1px 0 #000;
     text-align: center;
     background: orangered;
-    border: 2px solid black;
 
     width: 60%;
     padding: .5em;
@@ -404,6 +461,8 @@ body {
     z-index: 210;
     display: inline-block;
 
+    border: 2px solid black;
+    border-radius: 5px;
 }
 
 #menuLevelSelect option {
@@ -415,6 +474,7 @@ body {
             -1px 1px 0 #000,
             1px 1px 0 #000;
     text-align: center;
-    border: 2px solid black;
 
+    border: 2px solid black;
+    border-radius: 5px;
 }

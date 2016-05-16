@@ -69,7 +69,7 @@
         "pos_x":1900,
         "pos_y":60,
         "size_x":10,
-        "size_y":10
+        "size_y":6
       }
     },
 
@@ -84,7 +84,7 @@
         "pos_x":1930,
         "pos_y":60,
         "size_x":10,
-        "size_y":10
+        "size_y":6
       }
     },
 
@@ -99,7 +99,7 @@
         "pos_x":1960,
         "pos_y":70,
         "size_x":10,
-        "size_y":10
+        "size_y":6
       }
     },
 
@@ -170,9 +170,9 @@
     {
       "type":"Finish",
       "pos_x":3400,
-      "pos_y":30,
+      "pos_y":0,
       "size_x":20,
-      "size_y":100
+      "size_y":330
     }
 
   ]
