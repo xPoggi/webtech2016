@@ -43,6 +43,33 @@
     },
 
     {
+      "type":"Coin",
+      "pos_x":640,
+      "pos_y":60,
+      "size_x":20,
+      "size_y":20,
+      "value":1000
+    },
+
+    {
+      "type":"Coin",
+      "pos_x":680,
+      "pos_y":60,
+      "size_x":20,
+      "size_y":20,
+      "value":1000
+    },
+
+    {
+      "type":"Coin",
+      "pos_x":720,
+      "pos_y":60,
+      "size_x":20,
+      "size_y":20,
+      "value":1000
+    },
+
+    {
       "type":"Ground",
       "pos_x":900,
       "pos_y":30,
@@ -68,8 +95,8 @@
         "type":"Bullet",
         "pos_x":1900,
         "pos_y":60,
-        "size_x":10,
-        "size_y":6
+        "size_x":30,
+        "size_y":18
       }
     },
 
@@ -83,8 +110,8 @@
         "type":"Bullet",
         "pos_x":1930,
         "pos_y":60,
-        "size_x":10,
-        "size_y":6
+        "size_x":30,
+        "size_y":18
       }
     },
 
@@ -98,8 +125,8 @@
         "type":"Bullet",
         "pos_x":1960,
         "pos_y":70,
-        "size_x":10,
-        "size_y":6
+        "size_x":30,
+        "size_y":18
       }
     },
 

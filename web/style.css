@@ -111,7 +111,7 @@ body {
 }
 
 .Finish {
-    background-color: orangered;
+    background-color: #99F779;
     position: absolute;
     z-index: 51;
 
@@ -154,6 +154,9 @@ body {
     position: absolute;
     z-index: 59;
 
+    clip-path: polygon(0% 50%, 40% 100%, 100% 100%, 100% 0%, 40% 0%);
+    -webkit-clip-path: polygon(0% 50%, 40% 100%, 100% 100%, 100% 0%, 40% 0%);
+
     border: 1px solid red;
     box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -165,10 +168,13 @@ body {
     position: absolute;
     z-index: 59;
 
-    border: 1px solid white;
-    box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
+    clip-path: circle(50% at 50% 50%);
+    -webkit-clip-path: circle(50% at 50% 50%);
+
+    /*border: 1px solid white;*/
+    /*box-sizing: border-box;*/
+    /*-moz-box-sizing: border-box;*/
+    /*-webkit-box-sizing: border-box;*/
 }
 
 #restart-overlay {
