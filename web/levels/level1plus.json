@@ -36,7 +36,16 @@
     {
       "type":"Coin",
       "pos_x":640,
-      "pos_y":180,
+      "pos_y":80,
+      "size_x":20,
+      "size_y":20,
+      "value":1000
+    },
+
+    {
+      "type":"Coin",
+      "pos_x":680,
+      "pos_y":80,
       "size_x":20,
       "size_y":20,
       "value":1000
@@ -52,6 +61,14 @@
 
     {
       "type":"Ground",
+      "pos_x":1160,
+      "pos_y":90,
+      "size_x":60,
+      "size_y":60
+    },
+
+    {
+      "type":"Water",
       "pos_x":1200,
       "pos_y":30,
       "size_x":240,
@@ -104,10 +121,19 @@
     },
 
     {
+      "type":"Coin",
+      "pos_x":1540,
+      "pos_y":80,
+      "size_x":20,
+      "size_y":20,
+      "value":1000
+    },
+
+    {
       "type":"Ground",
       "pos_x":1500,
       "pos_y":30,
-      "size_x":280,
+      "size_x":120,
       "size_y":20
     },
 
@@ -115,8 +141,17 @@
       "type":"Ground",
       "pos_x":1800,
       "pos_y":30,
-      "size_x":280,
+      "size_x":120,
       "size_y":20
+    },
+
+    {
+      "type":"Coin",
+      "pos_x":1860,
+      "pos_y":80,
+      "size_x":20,
+      "size_y":20,
+      "value":1000
     },
 
     {
@@ -129,10 +164,35 @@
 
     {
       "type":"Ground",
+      "pos_x":2100,
+      "pos_y":120,
+      "size_x":280,
+      "size_y":80
+    },
+
+    {
+      "type":"Coin",
+      "pos_x":2200,
+      "pos_y":80,
+      "size_x":20,
+      "size_y":20,
+      "value":1000
+    },
+
+    {
+      "type":"Ground",
       "pos_x":2400,
       "pos_y":30,
       "size_x":280,
       "size_y":20
+    },
+
+    {
+      "type":"Water",
+      "pos_x":2420,
+      "pos_y":120,
+      "size_x":200,
+      "size_y":60
     },
 
     {
