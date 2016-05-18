@@ -102,6 +102,13 @@ body {
     position: absolute;
     z-index: 50;
 
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#56c427+8,8b4513+22,383a09+100 */
+    background: #56c427; /* Old browsers */
+    background: -moz-linear-gradient(top, #56c427 8%, #8b4513 22%, #383a09 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top, #56c427 8%,#8b4513 22%,#383a09 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom, #56c427 8%,#8b4513 22%,#383a09 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#56c427', endColorstr='#383a09',GradientType=0 ); /* IE6-9 */
+
     border: 1px solid black;
     box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -156,6 +163,7 @@ body {
 
     clip-path: polygon(0% 50%, 40% 100%, 100% 100%, 100% 0%, 40% 0%);
     -webkit-clip-path: polygon(0% 50%, 40% 100%, 100% 100%, 100% 0%, 40% 0%);
+    -moz-clip-path: polygon(0% 50%, 40% 100%, 100% 100%, 100% 0%, 40% 0%);
 
     border: 1px solid red;
     box-sizing: border-box;
