@@ -18,11 +18,27 @@
     },
 
     {
+      "type":"Water",
+      "pos_x":0,
+      "pos_y":230,
+      "size_x":40,
+      "size_y":60
+    },
+
+    {
       "type":"Ground",
       "pos_x":460,
       "pos_y":30,
       "size_x":1540,
       "size_y":20
+    },
+
+    {
+      "type":"Wall",
+      "pos_x":780,
+      "pos_y":30,
+      "size_x":1200,
+      "size_y":108
     },
 
     {
@@ -44,7 +60,7 @@
       "type":"Finish",
       "pos_x":2000,
       "pos_y":-10,
-      "size_x":20,
+      "size_x":80,
       "size_y":610
     },
 
