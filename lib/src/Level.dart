@@ -25,6 +25,13 @@ class Level {
               blockList.add(newGround);
               break;
 
+            case "Wall":
+              var newWall = new Wall(
+                  blockList.length, m["pos_x"], m["pos_y"], m["size_x"],
+                  m["size_y"]);
+              blockList.add(newWall);
+              break;
+
             case "Finish":
               var newFinish = new Finish(
                   blockList.length, m["pos_x"], m["pos_y"], m["size_x"],

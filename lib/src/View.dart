@@ -217,12 +217,15 @@ class View {
     if (((pos_x + size_x) > viewport_x) && (pos_x < 0)) {
       d.style.width = (this.viewport_x).toString() + "px";
       d.style.left = "0px";
+//      d.style.backgroundPosition = "center";
     } else if ((pos_x + size_x) > viewport_x) {
       d.style.width = (this.viewport_x - pos_x).toString() + "px";
       d.style.left = pos_x.toString() + "px";
+      d.style.backgroundPosition = "left";
     } else if (pos_x < 0) {
       d.style.width = (size_x + pos_x).toString() + "px";
       d.style.left = "0px";
+      d.style.backgroundPosition = "right";
     } else {
       d.style.width = size_x.toString() + "px";
       d.style.left = pos_x.toString() + "px";
