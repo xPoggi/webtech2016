@@ -117,6 +117,16 @@ body {
 
 }
 
+.Wall {
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    background-color: saddlebrown;
+    position: absolute;
+    z-index: 51;
+
+    background: url("resources/wall.png");
+}
 .Finish {
     background-color: #99F779;
     position: absolute;
@@ -137,6 +147,7 @@ body {
     box-sizing: border-box;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
+    border-radius: 5px;
 }
 
 .Trigger {
