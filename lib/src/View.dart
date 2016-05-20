@@ -253,11 +253,15 @@ class View {
 
   /// Updates the View based on [Model]
   void update(Model m) {
+    log("View update()");
     if (m.running) {
+      log("View update()  - running");
       updateGame(m);
     } else if (m.inMenu) {
+      log("View update() - inMenu");
       showMenu(m);
     } else { // fail/won
+      log("View update() - endscreen");
       onStop(m);
     }
   }

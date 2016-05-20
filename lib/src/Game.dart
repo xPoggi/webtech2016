@@ -141,15 +141,23 @@ class Game {
     }
   }
 
+  void redraw(num f) {
+    this.view.update(this.model);
+  }
+
   /// Updates the game
   ///
   /// Updates the model and view due to Timer [t] call
-  void update(Timer t) {
+  void update(int num) {
+    log("Game: update()");
     if (this.model.running) {
-      this.model.update(t);
+      log("Game: update() - running");
+
+      this.model.update();
       this.view.update(this.model);
+      window.animationFrame.then(this.update);
     } else {
-      this.timer.cancel();
+//      this.timer.cancel();
 
       this.setHighscores();
 
@@ -281,12 +289,13 @@ class Game {
     this.model.start();
     this.view.onStart();
     this.view.update(this.model);
-    if (this.timer != null) {
-      this.timer.cancel();
-    }
-
-    this.timer = new Timer.periodic(const Duration(milliseconds: tickrate), this.update);
-
+//    if (this.timer != null) {
+//      this.timer.cancel();
+//    }
+//
+//    this.timer = new Timer.periodic(const Duration(milliseconds: tickrate), this.update);
+ //    Future ticker = this.ticker();
+    window.animationFrame.then(this.update);
   }
 
   /// Opens the main menu

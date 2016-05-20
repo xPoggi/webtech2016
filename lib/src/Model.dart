@@ -81,7 +81,7 @@ class Model {
   /// Updates the model
   ///
   /// Updates the position of every object, detects collisions and increases score
-  void update(Timer t) {
+  void update() {
 
     if (!this.running) {
       return;
@@ -243,13 +243,31 @@ class Model {
   /// Sets [visibleBlocks] to currently visible Blocks
   void getVisibleBlocks() {
     visibleBlocks.clear();
-
+    bool visibleSet = false;
+    int countFails = 0;
     //get all visible blocks, break when we reach invisible blocks
-    for (Block b in currentLevel.blockList) {
+    for (int i = visibleIndex; i < currentLevel.blockList.length; i++) {
+      Block b = currentLevel.blockList[i];
+//      print("countfails: ${countFails}");
       if (isBlockVisible(b)) {
         visibleBlocks.add(b);
+        if (!visibleSet) {
+          visibleIndex = i;
+          visibleSet = true;
+        }
+      } else if (visibleBlocks.length > 0 && countFails >= 10) {
+        // we've most likely passed the visible blocks, break
+        log("Model: getVisibleBlocks() breaking after ${countFails} misses");
+        break;
+      } else {
+        countFails++;
       }
     }
+//    for (Block b in currentLevel.blockList) {
+//      if (isBlockVisible(b)) {
+//        visibleBlocks.add(b);
+//      }
+//    }
   }
 
   /// Hashes Strings based on number theory
