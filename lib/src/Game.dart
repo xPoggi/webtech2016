@@ -17,7 +17,7 @@ class Game {
   static const gamekeySettings = 'gamekey.json';
 
   /// Defines the time between periodic GameKey availability checks
-  static const gamekeyCheck = const Duration(seconds: 2);
+  static const gamekeyCheck = const Duration(seconds: 30);
 
   /// Stores model
   Model model;
