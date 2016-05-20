@@ -25,9 +25,6 @@ class Game {
   /// Stores controller
   View view;
 
-  /// Timer used for game update ticks
-  Timer timer;
-
   /// GameKey communicator used for storing highscores
   HighscoreGamekey gamekey;
 
@@ -141,10 +138,6 @@ class Game {
     }
   }
 
-  void redraw(num f) {
-    this.view.update(this.model);
-  }
-
   /// Updates the game
   ///
   /// Updates the model and view due to Timer [t] call
@@ -157,8 +150,6 @@ class Game {
       this.view.update(this.model);
       window.animationFrame.then(this.update);
     } else {
-//      this.timer.cancel();
-
       this.setHighscores();
 
       this.view.update(this.model);
@@ -289,12 +280,7 @@ class Game {
     this.model.start();
     this.view.onStart();
     this.view.update(this.model);
-//    if (this.timer != null) {
-//      this.timer.cancel();
-//    }
-//
-//    this.timer = new Timer.periodic(const Duration(milliseconds: tickrate), this.update);
- //    Future ticker = this.ticker();
+
     window.animationFrame.then(this.update);
   }
 
