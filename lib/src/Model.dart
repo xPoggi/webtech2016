@@ -226,7 +226,15 @@ class Model {
       rewindCounter++;
     }
 
+    // well this isn't elegant...
+    rewind_y -= ((this.player.velocity_y).ceil()).toInt();
+    if (!this.simpleRectCollision(rewind_x, rewind_y, this.player.size_x, this.player.size_y,
+        rect.pos_x, rect.pos_y, rect.size_x, rect.size_y)) {
+      return this.player.velocity_y <= 0 ? Direction.TOP : Direction.BOTTOM;
+    }
+    log("Model: collisionDirectionRewind() rewind_y $rewind_y - LAST RESORT!");
 
+    // insane default
     return Direction.RIGHT;
 
   }
