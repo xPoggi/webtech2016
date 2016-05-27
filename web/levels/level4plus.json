@@ -1,13 +1,12 @@
 {
-  "name":"Level 3",
+  "name":"Level 4+",
   "speed":5,
-
   "spawn":{
     "type":"Spawn",
     "pos_x":100,
-    "pos_y":60,
-    "size_x":1,
-    "size_y":1
+    "pos_y":70,
+    "size_x":20,
+    "size_y":50
   },
   "blocks": [
     {
@@ -634,7 +633,8 @@
       "pos_x": 4150,
       "pos_y": 50,
       "size_x": 10,
-      "size_y": 10
+      "size_y": 10,
+      "value": 1
     },
     {
       "type": "Ground",
