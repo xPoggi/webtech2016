@@ -22,7 +22,7 @@ class Ground extends Block {
     }
     if (d == Direction.BOTTOM) {
       p.hitRoof();
-      p.pos_y = this.pos_y - p.size_y -1;
+      p.pos_y = this.pos_y - p.size_y - 1;
       return false;
     }
     return true; //landed

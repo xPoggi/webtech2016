@@ -532,9 +532,9 @@
       "target":{
         "type":"Spawn",
         "pos_x":-10000,
-        "pos_y":21,
-        "size_x":1,
-        "size_y":1
+        "pos_y":50,
+        "size_x":20,
+        "size_y":50
       }
     },
     {

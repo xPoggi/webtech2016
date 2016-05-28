@@ -50,9 +50,9 @@
       "target":{
         "type":"Spawn",
         "pos_x":2200,
-        "pos_y":30,
-        "size_x":1,
-        "size_y":1
+        "pos_y":51,
+        "size_x":20,
+        "size_y":50
       }
     },
 
