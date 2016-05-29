@@ -53,17 +53,17 @@ class Game {
             settings['secret'] //TODO la di da,
         );
 
-//        this.gamekey.authenticate();
+        this.gamekey.authenticate();
 
         // Check periodically if GameKey service is reachable. Display warning if not.
-//        this.gamekeyTrigger = new Timer.periodic(gamekeyCheck, (_) async {
-//          if (await this.gamekey.authenticate()) {
-//            this.view.statusMessage.text = '';
-//          } else {
-//            this.view.statusMessage.text = 'GK unavailable';
-//            print("Game: Game() Gamekey not connected");
-//          }
-//        });
+        this.gamekeyTrigger = new Timer.periodic(gamekeyCheck, (_) async {
+          if (await this.gamekey.authenticate()) {
+            this.view.statusMessage.text = '';
+          } else {
+            this.view.statusMessage.text = 'GK unavailable';
+            print("Game: Game() Gamekey not connected");
+          }
+        });
       });
     } catch (error, stacktrace) {
       print ("Game: Game() Error: '$error'");

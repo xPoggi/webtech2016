@@ -1,12 +1,12 @@
 {
   "type":       "game",
   "name":       "runner",
-  "id":         "ecba1af4-b150-4965-8408-050e53aae90a",
+  "id":         "295303bd-ae5b-480b-9ee4-343512fa52aa",
   "host":       "127.0.0.1",
   "port":       8080,
   "url":        "",
   "signature":  "OH8kPYFwP1iNQU/KZj+SQA4W+Brfj5HxGaGYMnyX5vg=",
   "created":    "2016-05-02T19:14:24.635657Z",
-  "secret":     "a53e50d0fd2c82f1",
+  "secret":     "65bcefb926f59152",
   "_comment":   "lol public secret"
 }
