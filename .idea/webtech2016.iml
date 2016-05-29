@@ -6,6 +6,7 @@
       <excludeFolder url="file://$MODULE_DIR$/packages" />
       <excludeFolder url="file://$MODULE_DIR$/web/levels/packages" />
       <excludeFolder url="file://$MODULE_DIR$/web/packages" />
+      <excludeFolder url="file://$MODULE_DIR$/web/resources/packages" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
