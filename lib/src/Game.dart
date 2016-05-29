@@ -54,17 +54,17 @@ class Game {
             settings['secret'] //TODO la di da,
         );
 
-        this.gamekey.authenticate();
+//        this.gamekey.authenticate();
 
         // Check periodically if GameKey service is reachable. Display warning if not.
-        this.gamekeyTrigger = new Timer.periodic(gamekeyCheck, (_) async {
-          if (await this.gamekey.authenticate()) {
-            this.view.statusMessage.text = '';
-          } else {
-            this.view.statusMessage.text = 'GK unavailable';
-            print("Game: Game() Gamekey not connected");
-          }
-        });
+//        this.gamekeyTrigger = new Timer.periodic(gamekeyCheck, (_) async {
+//          if (await this.gamekey.authenticate()) {
+//            this.view.statusMessage.text = '';
+//          } else {
+//            this.view.statusMessage.text = 'GK unavailable';
+//            print("Game: Game() Gamekey not connected");
+//          }
+//        });
       });
     } catch (error, stacktrace) {
       print ("Game: Game() Error: '$error'");
@@ -120,8 +120,6 @@ class Game {
   ///
   /// Returns the Level for [levelName] in JSON format
   Future<String> getLevel(String levelName) async {
-    var currentLocation = window.location;
-//    var level = currentLocation.toString().replaceAll("index.html", "") + "levels/" + levelName;
     var level = "levels/" + levelName;
 
     return await HttpRequest.getString(level).asStream().join();
@@ -289,8 +287,6 @@ class Game {
   /// Opens the main menu and updates the list of available levels
   mainMenu() async {
 
-    var currentLocation = window.location;
-//    var levels = currentLocation.toString().replaceAll("index.html", "") + "levels/levels.json";
     var levels = "levels/levels.json";
 
     var request = await HttpRequest.getString(levels).asStream().join();
@@ -303,11 +299,3 @@ class Game {
 
   }
 }
-
-//void main() {
-//
-//  Game g = new Game();
-//
-//  g.startGame();
-//
-//}

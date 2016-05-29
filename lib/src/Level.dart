@@ -3,11 +3,13 @@ part of runner;
 class Level {
 
   int speed;
-  List<Block> blockList;
+  List<Block> blockList_static;
+  List<Block> blockList_dynamic;
   Spawn spawn;
 
   Level(String jsonString) {
-    this.blockList = new List<Block>();
+    List<Block> blockList_static = new List<Block>();
+    List<Block> blockList_dynamic = new List<Block>();
 
     try {
       Map jsonData = JSON.decode(jsonString);
@@ -20,50 +22,50 @@ class Level {
           switch (m["type"]) {
             case "Ground":
               var newGround = new Ground(
-                  blockList.length, m["pos_x"], m["pos_y"], m["size_x"],
+                  blockList_static.length, m["pos_x"], m["pos_y"], m["size_x"],
                   m["size_y"]);
-              blockList.add(newGround);
+              blockList_static.add(newGround);
               break;
 
             case "Wall":
               var newWall = new Wall(
-                  blockList.length, m["pos_x"], m["pos_y"], m["size_x"],
+                  blockList_static.length, m["pos_x"], m["pos_y"], m["size_x"],
                   m["size_y"]);
-              blockList.add(newWall);
+              blockList_static.add(newWall);
               break;
 
             case "Finish":
               var newFinish = new Finish(
-                  blockList.length, m["pos_x"], m["pos_y"], m["size_x"],
+                  blockList_static.length, m["pos_x"], m["pos_y"], m["size_x"],
                   m["size_y"]);
-              blockList.add(newFinish);
+              blockList_static.add(newFinish);
               break;
 
             case "Water":
               var newWater = new Water(
-                  blockList.length, m["pos_x"], m["pos_y"], m["size_x"],
+                  blockList_static.length, m["pos_x"], m["pos_y"], m["size_x"],
                   m["size_y"]);
-              blockList.add(newWater);
+              blockList_static.add(newWater);
               break;
 
             case "Coin":
               var newCoin = new Coin(
-                  blockList.length, m["pos_x"], m["pos_y"], m["size_x"],
-                  m["size_y"], m["value"]);
-              blockList.add(newCoin);
+                  blockList_dynamic.length ?? 0, m["pos_x"], m["pos_y"], m["size_x"],
+                  m["size_y"], m["value"] ?? 0);
+              blockList_dynamic.add(newCoin);
               break;
 
             case "Teleport":
               var b = m["target"];
 
               var newSpawn = new Spawn(
-                  blockList.length, b["pos_x"], b["pos_y"], b["size_x"],
+                  blockList_static.length, b["pos_x"], b["pos_y"], b["size_x"],
                   b["size_y"]);
-              blockList.add(newSpawn);
+              blockList_static.add(newSpawn);
 
-              var newTeleport = new Teleport(blockList.length, m["pos_x"], m["pos_y"], m["size_x"],
+              var newTeleport = new Teleport(blockList_static.length, m["pos_x"], m["pos_y"], m["size_x"],
                   m["size_y"], newSpawn);
-              blockList.add(newTeleport);
+              blockList_static.add(newTeleport);
               break;
 
 
@@ -71,30 +73,32 @@ class Level {
               var b = m["bullet"];
 
               var newBullet = new Bullet(
-                  blockList.length, b["pos_x"], b["pos_y"], b["size_x"],
+                  blockList_dynamic.length ?? 0, b["pos_x"], b["pos_y"], b["size_x"],
                   b["size_y"]);
               log(newBullet.toString());
-              blockList.add(newBullet);
+              blockList_dynamic.add(newBullet);
 
               var newTrigger = new Trigger(
-                  blockList.length, m["pos_x"], m["pos_y"], m["size_x"],
+                  blockList_static.length, m["pos_x"], m["pos_y"], m["size_x"],
                   m["size_y"], newBullet);
               log(newTrigger.toString());
-              blockList.add(newTrigger);
+              blockList_static.add(newTrigger);
               break;
           }
         }
       }
+
+      // sort this to "accept" bad ordering in levels
+      blockList_static.sort((a, b) => a.pos_x.compareTo(b.pos_x));
+      blockList_dynamic.sort((a, b) => a.pos_x.compareTo(b.pos_x));
+      this.blockList_static = new List<Block>.from(blockList_static, growable: false);
+      this.blockList_dynamic = new List<Block>.from(blockList_dynamic, growable: false);
+      blockList_dynamic = null;
+      blockList_static = null;
     } catch (e, ex) {
       print(e);
       print(ex);
     }
-
-  }
-
-
-  //note: onVisible or similar mechanics are a stupid solution, use a trigger
-  void onUpdate() {
 
   }
 

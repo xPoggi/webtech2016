@@ -45,6 +45,7 @@ class View {
 
   /// Storage for divs, avoids creating divs all the time
   List<DivElement> divs;
+  List<int> toRemove;
 
   /// Player element
   DivElement player;
@@ -60,14 +61,15 @@ class View {
     this.viewport_x = viewport_x;
     this.viewport_y = viewport_y;
 
-    this.divs = new List<DivElement>();
+    this.divs = new List<DivElement>(20);
+    this.toRemove = new List<int>();
 
     // create 20 divs and store them for use, avoid expensive creation while running
     for (int i = 0; i < 20; i++) {
-      divs.add(new DivElement());
+      divs[i] = new DivElement();
     }
 
-    usedDivs = new Map<int, DivElement>();
+    this.usedDivs = new Map<int, DivElement>();
 
     this.container = querySelector('#container');
 
@@ -79,6 +81,7 @@ class View {
 
     for (DivElement d in divs) {
       this.gameElement.children.add(d);
+      d.style.display = "none";
     }
 
     this.player = new DivElement();
@@ -187,10 +190,11 @@ class View {
       }
     }
     // well fuck, create new div...
-    DivElement d = new DivElement();
-    divs.add(d);
-    this.gameElement.children.add(d);
-    return d;
+//    DivElement d = new DivElement();
+//    divs.add(d);
+//    this.gameElement.children.add(d);
+//    return d;
+    print("Well fuck, you ran out of divs, simplify your shit!");
   }
 
   /// Designates a Div for a Block with [id]
@@ -215,20 +219,20 @@ class View {
   void setDynamicWidthDiv(DivElement d, int pos_x, int size_x) {
 
     if (((pos_x + size_x) > viewport_x) && (pos_x < 0)) {
-      d.style.width = (this.viewport_x).toString() + "px";
+      d.style.width = "${this.viewport_x}px";
       d.style.left = "0px";
 //      d.style.backgroundPosition = "center";
     } else if ((pos_x + size_x) > viewport_x) {
-      d.style.width = (this.viewport_x - pos_x).toString() + "px";
-      d.style.left = pos_x.toString() + "px";
+      d.style.width = "${this.viewport_x - pos_x}px";
+      d.style.left = "${pos_x}px";
       d.style.backgroundPosition = "left";
     } else if (pos_x < 0) {
-      d.style.width = (size_x + pos_x).toString() + "px";
+      d.style.width = "${size_x + pos_x}px";
       d.style.left = "0px";
       d.style.backgroundPosition = "right";
     } else {
-      d.style.width = size_x.toString() + "px";
-      d.style.left = pos_x.toString() + "px";
+      d.style.width = "${size_x}px";
+      d.style.left = "${pos_x}px";
     }
   }
 
@@ -237,17 +241,17 @@ class View {
   /// Sets the [DivElement] vertical position and size and scales it to fit viewport_y
   void setDynamicHeightDiv(DivElement d, int pos_y, int size_y) {
     if (((pos_y + size_y) > viewport_y) && (pos_y < 0)) {
-      d.style.height = (this.viewport_y).toString() + "px";
+      d.style.height = "${this.viewport_y}px";
       d.style.bottom = "0px";
     } else if ((pos_y + size_y) > viewport_y) {
-      d.style.height = (this.viewport_y - pos_y).toString() + "px";
+      d.style.height = "${this.viewport_y - pos_y}px";;
       d.style.bottom = pos_y.toString() + "px";
     } else if (pos_y < 0) {
-      d.style.height = (size_y + pos_y).toString() + "px";
+      d.style.height = "${size_y + pos_y}px";;
       d.style.bottom = "0px";
     } else {
-      d.style.height = size_y.toString() + "px";
-      d.style.bottom = pos_y.toString() + "px";
+      d.style.height = "${size_y}px";
+      d.style.bottom = "${pos_y}px";
     }
   }
 
@@ -266,30 +270,74 @@ class View {
     }
   }
 
-  /// Draws list of visible Blocks on screen
-  void updateGame(Model m) {
+  void drawBlocks(Model m) {
+    for (int i = 0; i < m.visibleBlocks.length; i++) {
+      Block b = m.visibleBlocks[i];
+      Div d = this.divs[i];
+      if (b == null && d.style.display != "none") {
+        d.style.display = "none";
+      } else if (b != null && ( d.style.display == "none" || d.dataset["id"] != b.id.toString() )) {
+        d.style.display = "block";
+        d.className = b.name;
+        d.dataset["id"] = b.id.toString();
+
+        d.style.width = "${b.size_x}px";
+        d.style.height = "${b.size_y}px";
+
+        d.style.left = "${b.pos_x  - m.player.pos_x + Player.player_offset}px";
+        d.style.bottom = "${b.pos_y}px";
+      } else if (b != null) {
+        d.style.left = "${b.pos_x  - m.player.pos_x + Player.player_offset}px";
+        d.style.bottom = "${b.pos_y}px";
+      }
+    }
+  }
+
+  void drawBlocksOld(Model m) {
     for (Block b in m.visibleBlocks) {
+      if (b == null) { continue; }
       if ( !(usedDivs.containsKey(b.id)) ) {
         setDiv(b.id, b.name);
+        usedDivs[b.id].style.width = "${b.size_x}px";
+        usedDivs[b.id].style.height = "${b.size_y}px";
       }
 
-      setDynamicHeightDiv(usedDivs[b.id], b.pos_y, b.size_y);
-      setDynamicWidthDiv(usedDivs[b.id], (b.pos_x  - m.player.pos_x + Player.player_offset), b.size_x);
-    }
+//      setDynamicHeightDiv(usedDivs[b.id], b.pos_y, b.size_y);
+//      setDynamicWidthDiv(usedDivs[b.id], (b.pos_x  - m.player.pos_x + Player.player_offset), b.size_x);
+      usedDivs[b.id].style.left = "${b.pos_x  - m.player.pos_x + Player.player_offset}px";
+//      if (usedDivs[b.id].style.width != b.size_x) {
+//        usedDivs[b.id].style.width = "${b.size_x}px";
+//      }
 
-    List<int> toRemove = new List<int>();
+      usedDivs[b.id].style.bottom = "${b.pos_y}px";
+//      if (usedDivs[b.id].style.height != b.size_y) {
+//        usedDivs[b.id].style.height = "${b.size_y}px";
+//      }
+    }
+  }
+
+  void removeBlocks(Model m) {
     usedDivs.forEach((i, div) {
-      if ( m.visibleBlocks.where((b) => b.id == i).isEmpty ) {
+      if ( m.visibleBlocks.where((b) => b != null).where((b) => b.id == i).isEmpty ) {
         div.style.display = "none";
-        toRemove.add(i);
+        this.toRemove.add(i);
       }
     });
 
-    toRemove.forEach((i) {
+    this.toRemove.forEach((i) {
       usedDivs.remove(i);
     });
 
-    setDynamicHeightDiv(this.player, m.player.pos_y,m.player.size_y);
+  }
+
+  /// Draws list of visible Blocks on screen
+  void updateGame(Model m) {
+    this.toRemove.clear();
+
+    this.drawBlocks(m);
+//    this.removeBlocks(m);
+
+    setDynamicHeightDiv(this.player, m.player.pos_y, m.player.size_y);
     this.player.style.left = "${Player.player_offset}px";
     this.player.style.width = "${m.player.size_x}px";
 
@@ -345,10 +393,9 @@ class View {
 
   /// Displays the won/fail menu
   void onStop(Model m) {
-    usedDivs.forEach((i, div) {
+    divs.forEach((div) {
       div.style.display = "none";
     });
-    usedDivs.clear();
 
     this.player.style.display = "none";
 

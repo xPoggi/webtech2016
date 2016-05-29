@@ -42,9 +42,6 @@ class Model {
 
   int visibleIndex;
 
-  /// Player level position
-//  int playerPosX;
-
   int distance;
   int score;
   int points;
@@ -61,7 +58,7 @@ class Model {
 
   /// Creates Model instance
   Model(int viewport_x, int viewport_y, int speed) {
-    this.visibleBlocks = new List();
+    this.visibleBlocks = new List<Block>(20);
     this.levels = new Map<String, String>();
     this.highscores = new List<Map<String, String>>();
 
@@ -91,7 +88,7 @@ class Model {
 
     this.player.update();
 
-    this.visibleBlocks.forEach((b) => b.onUpdate());
+    this.visibleBlocks.where((b) => b != null).forEach((b) => b.onUpdate());
     this.player.pos_x = this.player.pos_x + speed;
     detectCollisions();
 
@@ -122,10 +119,8 @@ class Model {
   void start() {
     this.player.reset();
     this.visibleIndex = 0;
-//    this.playerPosX = currentLevel.spawn.pos_x;
     this.player.pos_x = currentLevel.spawn.pos_x;
     this.player.pos_y = currentLevel.spawn.pos_y;
-    this.visibleBlocks.clear();
     this.points = 0;
     this.distance = 0;
     this.running = true;
@@ -140,7 +135,7 @@ class Model {
   void detectCollisions() {
     bool onGround = false;
     for (Block b in this.visibleBlocks) {
-      if (b.canCollide) {
+      if (b != null && b.canCollide) {
         if (playerCollision(b)) {
           Direction dir = collisionDirectionRewind(this.player, b);
           if (b.onCollision(this, this.player, dir)) {
@@ -216,7 +211,7 @@ class Model {
       }
       log("Model: collisionDirectionRewind() rewind_y $rewind_y");
 
-      rewind_x -= (this.speed/rewindFactor).toInt();
+      rewind_x -= this.speed ~/ rewindFactor;
       if (!this.simpleRectCollision(rewind_x, rewind_y, this.player.size_x, this.player.size_y,
           rect.pos_x, rect.pos_y, rect.size_x, rect.size_y)) {
         return Direction.LEFT;
@@ -239,6 +234,20 @@ class Model {
 
   }
 
+  void clearVisibleBlocks() {
+    for (int i = 0; i < this.visibleBlocks.length; i++) {
+      this.visibleBlocks[i] = null;
+    }
+  }
+
+  void addToVisibleBlocks(Block b) {
+    for (int i = 0; i < this.visibleBlocks.length; i++) {
+      if (this.visibleBlocks[i] == null) {
+        this.visibleBlocks[i] = b;
+        break;
+      }
+    }
+  }
 
   /// Calculates if [b] is within viewport
   bool isBlockVisible(Block b) {
@@ -250,20 +259,26 @@ class Model {
 
   /// Sets [visibleBlocks] to currently visible Blocks
   void getVisibleBlocks() {
-    visibleBlocks.clear();
+    this.clearVisibleBlocks();
     bool visibleSet = false;
     int countFails = 0;
+    const int upperTolerance = 10;
+    const int lowerTolerance = 5;
     //get all visible blocks, break when we reach invisible blocks
-    for (int i = visibleIndex; i < currentLevel.blockList.length; i++) {
-      Block b = currentLevel.blockList[i];
-//      print("countfails: ${countFails}");
+    for (int i = this.visibleIndex; i < currentLevel.blockList_static.length; i++) {
+      Block b = currentLevel.blockList_static[i];
       if (isBlockVisible(b)) {
-        visibleBlocks.add(b);
+        this.addToVisibleBlocks(b);
         if (!visibleSet) {
-          visibleIndex = i;
+          this.visibleIndex = i - lowerTolerance;
           visibleSet = true;
+          countFails = 0;
+          if ( this.visibleIndex.isNegative ) {
+            this.visibleIndex = 0;
+            continue;
+          }
         }
-      } else if (visibleBlocks.length > 0 && countFails >= 10) {
+      } else if (visibleBlocks.length > 0 && countFails >= upperTolerance) {
         // we've most likely passed the visible blocks, break
         log("Model: getVisibleBlocks() breaking after ${countFails} misses");
         break;
@@ -271,11 +286,7 @@ class Model {
         countFails++;
       }
     }
-//    for (Block b in currentLevel.blockList) {
-//      if (isBlockVisible(b)) {
-//        visibleBlocks.add(b);
-//      }
-//    }
+    log(visibleBlocks.toString());
   }
 
   /// Hashes Strings based on number theory
@@ -287,7 +298,7 @@ class Model {
       hashval = char + 31 * hashval;
     });
 
-    print(hashval % HASHSIZE);
+    log("hash: ${hashval % HASHSIZE}");
     return hashval % HASHSIZE;
   }
 

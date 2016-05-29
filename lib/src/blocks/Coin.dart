@@ -15,7 +15,7 @@ class Coin extends Block {
 
   @override
   bool onCollision(Model m, Player p, Direction d) {
-    print("Coin collision!");
+    log("Coin collision!");
     if (!this.collected) {
 
       this.collected = true;
