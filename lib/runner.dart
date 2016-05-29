@@ -23,7 +23,7 @@ part 'src/blocks/Teleport.dart';
 part 'src/blocks/Wall.dart';
 
 log(String msg) {
-  if (const String.fromEnvironment('DEBUG') != null) {
+  if (false) {
     print('debug: $msg');
   }
 }

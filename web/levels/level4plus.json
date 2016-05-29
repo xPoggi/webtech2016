@@ -527,8 +527,8 @@
       "type":"Teleport",
       "pos_x":1500,
       "pos_y":300,
-      "size_x":1,
-      "size_y":1,
+      "size_x":50,
+      "size_y":50,
       "target":{
         "type":"Spawn",
         "pos_x":-10000,

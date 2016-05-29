@@ -251,7 +251,7 @@ class Model {
 
   /// Calculates if [b] is within viewport
   bool isBlockVisible(Block b) {
-    if ((b.pos_x + b.size_x) > (this.player.pos_x - Player.player_offset) && (b.pos_x) < ((this.player.pos_x - Player.player_offset) + viewport_x)) {
+    if ((b.pos_x + b.size_x) > (this.player.pos_x - Player.player_offset) && (b.pos_x) < ((this.player.pos_x - Player.player_offset) + viewport_x) && b.isVisible) {
       return true;
     }
     return false;
@@ -284,6 +284,11 @@ class Model {
         break;
       } else {
         countFails++;
+      }
+    }
+    for (Block b in currentLevel.blockList_dynamic) {
+      if (isBlockVisible(b)) {
+        this.addToVisibleBlocks(b);
       }
     }
     log(visibleBlocks.toString());

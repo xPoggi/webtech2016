@@ -33,6 +33,7 @@ class View {
   DivElement menuButtons;
   DivElement menu;
   SelectElement menuLevelSelect;
+  DivElement menuLimiter;
 
   /// Score Element
   DivElement score;
@@ -45,7 +46,6 @@ class View {
 
   /// Storage for divs, avoids creating divs all the time
   List<DivElement> divs;
-  List<int> toRemove;
 
   /// Player element
   DivElement player;
@@ -62,7 +62,6 @@ class View {
     this.viewport_y = viewport_y;
 
     this.divs = new List<DivElement>(20);
-    this.toRemove = new List<int>();
 
     // create 20 divs and store them for use, avoid expensive creation while running
     for (int i = 0; i < 20; i++) {
@@ -177,82 +176,11 @@ class View {
     this.menuLevelSelect.id = "menuLevelSelect";
     this.menuButtons.children.add(this.menuLevelSelect);
 
+    this.menuLimiter = new DivElement();
+    this.menuLimiter.id = "menuLimiter";
+    this.menuLimiter.text = "30fps - ✕";
+    this.menuButtons.children.add(this.menuLimiter);
 
-  }
-
-  /// Retrieves an unused [DivElement]
-  ///
-  /// Returns a [DivElement] that is not in [usedDivs]
-  DivElement getUnusedDivElement() {
-    for (DivElement d in divs) {
-      if ( !(usedDivs.containsValue(d)) ) {
-        return d;
-      }
-    }
-    // well fuck, create new div...
-//    DivElement d = new DivElement();
-//    divs.add(d);
-//    this.gameElement.children.add(d);
-//    return d;
-    print("Well fuck, you ran out of divs, simplify your shit!");
-  }
-
-  /// Designates a Div for a Block with [id]
-  ///
-  /// Gets unused Div for [id], sets it as used and makes it visible
-  void setDiv(int id, String name) {
-    DivElement d = getUnusedDivElement();
-    d.className = name;
-    usedDivs[id] = d;
-    usedDivs[id].style.display = "block";
-  }
-
-  /// Sets player Position
-  void setPlayerPos(int x, int y) {
-    this.player.style.left = "${x}px";
-    this.player.style.bottom = "${y}px";
-  }
-
-  /// Sets [DivElement] position and size on x axis
-  ///
-  /// Sets the [DivElement] horizontal position and size and scales it to fit viewport_x
-  void setDynamicWidthDiv(DivElement d, int pos_x, int size_x) {
-
-    if (((pos_x + size_x) > viewport_x) && (pos_x < 0)) {
-      d.style.width = "${this.viewport_x}px";
-      d.style.left = "0px";
-//      d.style.backgroundPosition = "center";
-    } else if ((pos_x + size_x) > viewport_x) {
-      d.style.width = "${this.viewport_x - pos_x}px";
-      d.style.left = "${pos_x}px";
-      d.style.backgroundPosition = "left";
-    } else if (pos_x < 0) {
-      d.style.width = "${size_x + pos_x}px";
-      d.style.left = "0px";
-      d.style.backgroundPosition = "right";
-    } else {
-      d.style.width = "${size_x}px";
-      d.style.left = "${pos_x}px";
-    }
-  }
-
-  /// Sets [DivElement] position and size on y axis
-  ///
-  /// Sets the [DivElement] vertical position and size and scales it to fit viewport_y
-  void setDynamicHeightDiv(DivElement d, int pos_y, int size_y) {
-    if (((pos_y + size_y) > viewport_y) && (pos_y < 0)) {
-      d.style.height = "${this.viewport_y}px";
-      d.style.bottom = "0px";
-    } else if ((pos_y + size_y) > viewport_y) {
-      d.style.height = "${this.viewport_y - pos_y}px";;
-      d.style.bottom = pos_y.toString() + "px";
-    } else if (pos_y < 0) {
-      d.style.height = "${size_y + pos_y}px";;
-      d.style.bottom = "0px";
-    } else {
-      d.style.height = "${size_y}px";
-      d.style.bottom = "${pos_y}px";
-    }
   }
 
   /// Updates the View based on [Model]
@@ -273,7 +201,7 @@ class View {
   void drawBlocks(Model m) {
     for (int i = 0; i < m.visibleBlocks.length; i++) {
       Block b = m.visibleBlocks[i];
-      Div d = this.divs[i];
+      DivElement d = this.divs[i];
       if (b == null && d.style.display != "none") {
         d.style.display = "none";
       } else if (b != null && ( d.style.display == "none" || d.dataset["id"] != b.id.toString() )) {
@@ -293,64 +221,27 @@ class View {
     }
   }
 
-  void drawBlocksOld(Model m) {
-    for (Block b in m.visibleBlocks) {
-      if (b == null) { continue; }
-      if ( !(usedDivs.containsKey(b.id)) ) {
-        setDiv(b.id, b.name);
-        usedDivs[b.id].style.width = "${b.size_x}px";
-        usedDivs[b.id].style.height = "${b.size_y}px";
-      }
-
-//      setDynamicHeightDiv(usedDivs[b.id], b.pos_y, b.size_y);
-//      setDynamicWidthDiv(usedDivs[b.id], (b.pos_x  - m.player.pos_x + Player.player_offset), b.size_x);
-      usedDivs[b.id].style.left = "${b.pos_x  - m.player.pos_x + Player.player_offset}px";
-//      if (usedDivs[b.id].style.width != b.size_x) {
-//        usedDivs[b.id].style.width = "${b.size_x}px";
-//      }
-
-      usedDivs[b.id].style.bottom = "${b.pos_y}px";
-//      if (usedDivs[b.id].style.height != b.size_y) {
-//        usedDivs[b.id].style.height = "${b.size_y}px";
-//      }
-    }
-  }
-
-  void removeBlocks(Model m) {
-    usedDivs.forEach((i, div) {
-      if ( m.visibleBlocks.where((b) => b != null).where((b) => b.id == i).isEmpty ) {
-        div.style.display = "none";
-        this.toRemove.add(i);
-      }
-    });
-
-    this.toRemove.forEach((i) {
-      usedDivs.remove(i);
-    });
-
-  }
-
   /// Draws list of visible Blocks on screen
   void updateGame(Model m) {
-    this.toRemove.clear();
 
     this.drawBlocks(m);
-//    this.removeBlocks(m);
 
-    setDynamicHeightDiv(this.player, m.player.pos_y, m.player.size_y);
-    this.player.style.left = "${Player.player_offset}px";
-    this.player.style.width = "${m.player.size_x}px";
+    this.player.style.bottom = "${m.player.pos_y}px";
 
     this.score.text = "Score: ${m.score}";
 
   }
 
   /// Hides menus to display game
-  void onStart() {
+  void onStart(Model m) {
     this.restartOverlay.style.display = "none";
     this.menuOverlay.style.display = "none";
     this.player.style.display = "block";
     this.score.style.display = "inline";
+
+    this.player.style.height = "${m.player.size_y}px";
+    this.player.style.width = "${m.player.size_x}px";
+    this.player.style.left = "${Player.player_offset}px";
   }
 
   /// Displays the main menu

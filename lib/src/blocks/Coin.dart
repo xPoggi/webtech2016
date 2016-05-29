@@ -19,10 +19,9 @@ class Coin extends Block {
     if (!this.collected) {
 
       this.collected = true;
+      this.isVisible = false;
       m.points += this.value;
 
-      this.size_x = 0;
-      this.size_y = 0;
     }
     return false;
   }

@@ -7,9 +7,6 @@ class Game {
   static const int viewport_x = 600;
   static const int viewport_y = 330;
 
-  /// Constant defining time between Timer ticks for game updates
-  static const int tickrate = 16;
-
   /// Constant defining games horizontal speed
   static const int speed = 5;
 
@@ -30,6 +27,8 @@ class Game {
 
   /// Timer used for periodic GameKey availability checks
   Timer gamekeyTrigger;
+
+  bool limitFramerate;
 
   /// Creates Game instance
   /// Launches Main Menu
@@ -108,6 +107,16 @@ class Game {
 
     });
 
+    this.view.menuLimiter.onClick.listen((event) {
+      if (this.limitFramerate) {
+        this.view.menuLimiter.text = "30fps - ✕";
+        this.limitFramerate = false;
+      } else {
+        this.view.menuLimiter.text = "30fps - ✓";
+        this.limitFramerate = true;
+      }
+    });
+
     // register click on submit highscore button
     this.view.restartSubmitHighscore.onClick.listen((event) => this.showLogin());
 
@@ -136,17 +145,27 @@ class Game {
     }
   }
 
+  void skipUpdate(int num) {
+    this.view.update(this.model);
+    window.animationFrame.then(this.update);
+  }
+
   /// Updates the game
   ///
   /// Updates the model and view due to Timer [t] call
   void update(int num) {
+    print(num);
     log("Game: update()");
     if (this.model.running) {
       log("Game: update() - running");
 
       this.model.update();
-      this.view.update(this.model);
-      window.animationFrame.then(this.update);
+      if (this.limitFramerate) {
+        window.animationFrame.then(this.skipUpdate);
+      } else {
+        this.view.update(this.model);
+        window.animationFrame.then(this.update);
+      }
     } else {
       this.setHighscores();
 
@@ -276,7 +295,7 @@ class Game {
     this.model.currentLevelName = level;
 
     this.model.start();
-    this.view.onStart();
+    this.view.onStart(this.model);
     this.view.update(this.model);
 
     window.animationFrame.then(this.update);

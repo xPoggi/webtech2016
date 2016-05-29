@@ -78,7 +78,7 @@ body {
     left: 0;
     right: 0;
     margin: auto;
-
+    top:0;
     background-color: silver;
     z-index: 1;
 
@@ -509,4 +509,24 @@ body {
 
     border: 2px solid black;
     border-radius: 5px;
+}
+
+#menuLimiter {
+    font-family: "Roboto Condensed", SansSerif;
+    color: white;
+    text-shadow:
+            -1px -1px 0 #000,
+            1px -1px 0 #000,
+            -1px 1px 0 #000,
+            1px 1px 0 #000;
+    background: orangered;
+
+    width: 60%;
+    padding: .5em;
+    display: inline-block;
+    z-index: 210;
+
+    border: 2px solid black;
+    border-radius: 5px;
+    margin-top: 5px;
 }

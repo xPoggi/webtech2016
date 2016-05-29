@@ -14,6 +14,7 @@ class Block {
   int speed_x = 0;
   bool isDeadly;
   bool canCollide;
+  bool isVisible = true;
 
   Block(int id, int pos_x, int pos_y, int size_x, int size_y) {
     this.id = id;
