@@ -3,6 +3,7 @@ library runner;
 import 'dart:html';
 import 'dart:async';
 import 'dart:convert';
+import 'package:crypto/crypto.dart';
 
 part 'src/Game.dart';
 part 'src/Level.dart';

@@ -23,7 +23,7 @@ class Model {
   String currentLevelName;
 
   /// Current level hash
-  int currentLevelHash;
+  String currentLevelHash;
 
   /// Highscores for current level
   List<Map<String, String>> highscores;
@@ -295,16 +295,10 @@ class Model {
   }
 
   /// Hashes Strings based on number theory
-  int hash(String s) {
-    int hashval = 0;
-    int HASHSIZE = 100001;
+  String hash(String s) {
+    List<int> bytes = UTF8.encode(s);
 
-    s.runes.forEach((char) {
-      hashval = char + 31 * hashval;
-    });
-
-    log("hash: ${hashval % HASHSIZE}");
-    return hashval % HASHSIZE;
+    return sha256.convert(bytes).toString();
   }
 
   /// Sets [currentLevel] to JSON [level]
