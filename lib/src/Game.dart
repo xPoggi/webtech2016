@@ -154,7 +154,6 @@ class Game {
   ///
   /// Updates the model and view due to Timer [t] call
   void update(int num) {
-    print(num);
     log("Game: update()");
     if (this.model.running) {
       log("Game: update() - running");
