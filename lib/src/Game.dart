@@ -87,7 +87,7 @@ class Game {
 
 
     // register touchscreen input
-    window.onTouchEnd.listen((TouchEvent ev) async {
+    window.onTouchStart.listen((TouchEvent ev) async {
       this.jump();
     });
 
