@@ -55,6 +55,20 @@ class Level {
               blockList_static.add(newWater);
               break;
 
+            case "SpikesTop":
+              var newSpikes = new SpikesTop(
+                  blockList_static.length, m["pos_x"], m["pos_y"], m["size_x"],
+                  m["size_y"]);
+              blockList_static.add(newSpikes);
+              break;
+
+            case "SpikesBottom":
+              var newSpikes = new SpikesBottom(
+                  blockList_static.length, m["pos_x"], m["pos_y"], m["size_x"],
+                  m["size_y"]);
+              blockList_static.add(newSpikes);
+              break;
+
             case "Coin":
               var newCoin = new Coin(
                   blockList_dynamic.length ?? 0, m["pos_x"], m["pos_y"], m["size_x"],

@@ -159,6 +159,38 @@ body {
     -webkit-box-sizing: border-box;
 }
 
+.SpikesTop {
+    /*background-color: #99F779;*/
+    position: absolute;
+    z-index: 50;
+
+    background: url("resources/spikes-top.png");
+    background-size: 32px 32px;
+    background-repeat: repeat-x;
+    background-position: left bottom;
+
+    /*border: 1px solid white;*/
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+}
+
+.SpikesBottom {
+    /*background-color: #99F779;*/
+    position: absolute;
+    z-index: 50;
+
+    background: url("resources/spikes-bottom.png");
+    background-size: 32px 32px;
+    background-repeat: repeat-x;
+    background-position: left top;
+
+    /*border: 1px solid white;*/
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+}
+
 .Water {
     background-color: deepskyblue;
     position: absolute;
@@ -194,11 +226,10 @@ body {
     z-index: 59;
 
     background: url("resources/bullet.png");
-    /*clip-path: polygon(0% 50%, 40% 100%, 100% 100%, 100% 0%, 40% 0%);*/
-    /*-webkit-clip-path: polygon(0% 50%, 40% 100%, 100% 100%, 100% 0%, 40% 0%);*/
-    /*-moz-clip-path: polygon(0% 50%, 40% 100%, 100% 100%, 100% 0%, 40% 0%);*/
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
 
-    /*border: 1px solid red;*/
     box-sizing: border-box;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;

@@ -23,6 +23,8 @@ part 'src/blocks/Coin.dart';
 part 'src/blocks/Teleport.dart';
 part 'src/blocks/Wall.dart';
 part 'src/blocks/Cobble.dart';
+part 'src/blocks/SpikesTop.dart';
+part 'src/blocks/SpikesBottom.dart';
 
 log(String msg) {
   if (false) {
