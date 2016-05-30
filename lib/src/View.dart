@@ -81,6 +81,7 @@ class View {
     for (DivElement d in divs) {
       this.gameElement.children.add(d);
       d.style.display = "none";
+      d.dataset["id"] = "none";
     }
 
     this.player = new DivElement();
@@ -204,8 +205,8 @@ class View {
       DivElement d = this.divs[i];
       if (b == null && d.style.display != "none") {
         d.style.display = "none";
-        d.dataset.remove("id");
-      } else if (b != null && ( d.style.display == "none" || d.dataset["id"] != b.id.toString() )) {
+        d.dataset["id"] = "none";
+      } else if (b != null && ( (d.style.display == "none") || (d.dataset["id"] != b.id.toString()) )) {
         d.style.display = "block";
         d.className = b.name;
         d.dataset["id"] = b.id.toString();
@@ -287,6 +288,7 @@ class View {
   void onStop(Model m) {
     divs.forEach((div) {
       div.style.display = "none";
+      div.dataset["id"] = "none";
     });
 
     this.player.style.display = "none";

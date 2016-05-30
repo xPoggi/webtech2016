@@ -115,6 +115,7 @@ class Model {
   void start() {
     this.player.reset();
     this.resetVisibleIndex();
+    this.clearVisibleBlocks();
     this.player.pos_x = currentLevel.spawn.pos_x;
     this.player.pos_y = currentLevel.spawn.pos_y;
     this.points = 0;
