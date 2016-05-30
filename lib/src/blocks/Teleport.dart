@@ -15,6 +15,7 @@ class Teleport extends Block {
   @override
   bool onCollision(Model m, Player p, Direction d) {
     p.reset();
+    m.resetVisibleIndex();
     m.player.pos_x = this.spawn.pos_x + m.player.pos_x;
     p.pos_y = this.spawn.pos_y;
     return false;

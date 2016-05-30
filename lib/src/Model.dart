@@ -118,7 +118,7 @@ class Model {
   /// Sets game to running state on current level
   void start() {
     this.player.reset();
-    this.visibleIndex = 0;
+    this.resetVisibleIndex();
     this.player.pos_x = currentLevel.spawn.pos_x;
     this.player.pos_y = currentLevel.spawn.pos_y;
     this.points = 0;
@@ -255,6 +255,10 @@ class Model {
       return true;
     }
     return false;
+  }
+
+  void resetVisibleIndex() {
+    this.visibleIndex = 0;
   }
 
   /// Sets [visibleBlocks] to currently visible Blocks
