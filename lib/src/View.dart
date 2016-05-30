@@ -204,6 +204,7 @@ class View {
       DivElement d = this.divs[i];
       if (b == null && d.style.display != "none") {
         d.style.display = "none";
+        d.dataset.remove("id");
       } else if (b != null && ( d.style.display == "none" || d.dataset["id"] != b.id.toString() )) {
         d.style.display = "block";
         d.className = b.name;
