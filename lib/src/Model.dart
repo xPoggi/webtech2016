@@ -7,6 +7,13 @@ enum Direction {
   RIGHT
 }
 
+enum State {
+  MENU,
+  RUNNING,
+  WON,
+  FAIL
+}
+
 class Model {
 
 
@@ -32,14 +39,9 @@ class Model {
   //TODO unify states
 
   /// running state
-  bool running;
+  State state;
 
-  /// level finished state
-  bool won;
-
-  /// In main menu state
-  bool inMenu;
-
+  /// First visible block index
   int visibleIndex;
 
   int distance;
@@ -67,10 +69,7 @@ class Model {
 
     this.speed = speed;
 
-    this.won = false;
-    this.inMenu = true;
-    this.running = false;
-
+    this.state = State.MENU;
 
     this.player = new Player();
   }
@@ -80,7 +79,7 @@ class Model {
   /// Updates the position of every object, detects collisions and increases score
   void update() {
 
-    if (!this.running) {
+    if (this.state != State.RUNNING) {
       return;
     }
 
@@ -104,16 +103,13 @@ class Model {
 
   /// Sets game to fail state
   void fail() {
-    this.running = false;
-    this.won = false;
+    this.state = State.FAIL;
   }
 
   /// Sets game to won state
   void finish() {
-    this.running = false;
-    this.won = true;
+    this.state = State.WON;
   }
-
 
   /// Sets game to running state on current level
   void start() {
@@ -123,8 +119,7 @@ class Model {
     this.player.pos_y = currentLevel.spawn.pos_y;
     this.points = 0;
     this.distance = 0;
-    this.running = true;
-    this.inMenu = false;
+    this.state = State.RUNNING;
   }
 
   /// Detects players collision with objects
@@ -330,7 +325,7 @@ class Model {
   /// Sets game state to main menu
   void mainMenu() {
 
-    this.inMenu = true;
+    this.state = State.MENU;
 
   }
 

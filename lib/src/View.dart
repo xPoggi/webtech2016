@@ -186,10 +186,10 @@ class View {
   /// Updates the View based on [Model]
   void update(Model m) {
     log("View update()");
-    if (m.running) {
+    if (m.state == State.RUNNING) {
       log("View update()  - running");
       updateGame(m);
-    } else if (m.inMenu) {
+    } else if (m.state == State.MENU) {
       log("View update() - inMenu");
       showMenu(m);
     } else { // fail/won
@@ -293,9 +293,11 @@ class View {
 
     this.restartOverlay.style.display = "inline";
 
+    this.score.text = "Score: ${m.score}";
+
     hideHighscoreLogin();
 
-    if (m.won) {
+    if (m.state == State.WON) {
       this.message.text = "Well done";
     } else {
       this.message.text = "You fail";

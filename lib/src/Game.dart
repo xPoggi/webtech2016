@@ -138,7 +138,7 @@ class Game {
   ///
   /// Performs the jump action for the current game state
   jump() async {
-    if (!this.model.running && !this.model.inMenu) {
+    if (model.state == State.WON || model.state == State.FAIL) {
 //      this.restartGame();
     } else {
       this.model.jump();
@@ -155,7 +155,7 @@ class Game {
   /// Updates the model and view due to Timer [t] call
   void update(int num) {
     log("Game: update()");
-    if (this.model.running) {
+    if (this.model.state == State.RUNNING) {
       log("Game: update() - running");
 
       this.model.update();
