@@ -92,10 +92,15 @@ body {
     width: 20px;
     height: 50px;
     position: absolute;
-    background-color: lightblue;
+    /*background-color: lightblue;*/
     z-index: 70;
 
-    border: 1px solid black;
+    background: url("resources/guy.png");
+    background-size: 20px 50px;
+    background-repeat: no-repeat;
+    background-position: left bottom;
+
+    /*border: 1px solid black;*/
     box-sizing: border-box;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
@@ -109,14 +114,7 @@ body {
     position: absolute;
     z-index: 50;
 
-    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#56c427+8,8b4513+22,383a09+100 */
-    background: #56c427; /* Old browsers */
-    background: -moz-linear-gradient(top, #56c427 8%, #8b4513 22%, #383a09 100%); /* FF3.6-15 */
-    background: -webkit-linear-gradient(top, #56c427 8%,#8b4513 22%,#383a09 100%); /* Chrome10-25,Safari5.1-6 */
-    background: linear-gradient(to bottom, #56c427 8%,#8b4513 22%,#383a09 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#56c427', endColorstr='#383a09',GradientType=0 ); /* IE6-9 */
-
-    border: 1px solid black;
+    background: url("resources/ground.png");
     box-sizing: border-box;
     /*noinspection CssOverwrittenProperties*/
     -moz-box-sizing: border-box;
@@ -134,12 +132,28 @@ body {
 
     background: url("resources/wall.png");
 }
-.Finish {
-    background-color: #99F779;
+
+.Cobble {
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
     position: absolute;
     z-index: 51;
 
-    border: 1px solid white;
+    background: url("resources/cobble.png");
+}
+
+.Finish {
+    /*background-color: #99F779;*/
+    position: absolute;
+    z-index: 51;
+
+    background: url("resources/finish.png");
+    background-size: 32px 64px;
+    background-repeat: no-repeat;
+    background-position: left bottom;
+
+    /*border: 1px solid white;*/
     box-sizing: border-box;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
@@ -175,32 +189,28 @@ body {
 }
 
 .Bullet {
-    background-color: black;
+    /*background-color: black;*/
     position: absolute;
     z-index: 59;
 
-    clip-path: polygon(0% 50%, 40% 100%, 100% 100%, 100% 0%, 40% 0%);
-    -webkit-clip-path: polygon(0% 50%, 40% 100%, 100% 100%, 100% 0%, 40% 0%);
-    -moz-clip-path: polygon(0% 50%, 40% 100%, 100% 100%, 100% 0%, 40% 0%);
+    background: url("resources/bullet.png");
+    /*clip-path: polygon(0% 50%, 40% 100%, 100% 100%, 100% 0%, 40% 0%);*/
+    /*-webkit-clip-path: polygon(0% 50%, 40% 100%, 100% 100%, 100% 0%, 40% 0%);*/
+    /*-moz-clip-path: polygon(0% 50%, 40% 100%, 100% 100%, 100% 0%, 40% 0%);*/
 
-    border: 1px solid red;
+    /*border: 1px solid red;*/
     box-sizing: border-box;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
 }
 
 .Coin {
-    background-color: gold;
     position: absolute;
     z-index: 59;
-
-    clip-path: circle(50% at 50% 50%);
-    -webkit-clip-path: circle(50% at 50% 50%);
-
-    /*border: 1px solid white;*/
-    /*box-sizing: border-box;*/
-    /*-moz-box-sizing: border-box;*/
-    /*-webkit-box-sizing: border-box;*/
+    background: url("resources/coin.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
 }
 
 #restart-overlay {

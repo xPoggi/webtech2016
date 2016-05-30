@@ -34,6 +34,13 @@ class Level {
               blockList_static.add(newWall);
               break;
 
+            case "Cobble":
+              var newCobble = new Cobble(
+                  blockList_static.length, m["pos_x"], m["pos_y"], m["size_x"],
+                  m["size_y"]);
+              blockList_static.add(newCobble);
+              break;
+
             case "Finish":
               var newFinish = new Finish(
                   blockList_static.length, m["pos_x"], m["pos_y"], m["size_x"],

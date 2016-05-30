@@ -160,6 +160,7 @@ class Game {
 
       this.model.update();
       if (this.limitFramerate) {
+        this.model.update();
         window.animationFrame.then(this.skipUpdate);
       } else {
         this.view.update(this.model);
