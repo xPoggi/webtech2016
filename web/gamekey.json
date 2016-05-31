@@ -5,5 +5,7 @@
   "url":        "",
   "signature":  "kz3pwiGa+lofIWfUCK2Df6hpw/HPbGasIo4+CZ91j3Q=",
   "created":    "2016-05-31T18:02:27.159584Z",
-  "secret":     "b4593e53823ed9b6"
+  "secret":     "b4593e53823ed9b6",
+  "host":       "212.201.22.161",
+  "port":       50001
 }
