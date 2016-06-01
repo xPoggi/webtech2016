@@ -282,7 +282,6 @@ class Game {
 
   /// Restarts the current level
   void restartGame() {
-    this.model.player.reset();
     startGame(this.model.currentLevelName);
   }
 
