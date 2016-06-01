@@ -276,6 +276,11 @@ class View {
     this.restartSubmitHighscore.style.display = "none";
   }
 
+  void showHighscoreSubmit() {
+    this.restartSubmitHighscore.style.display = "inline-block";
+  }
+
+
   /// Updates the highscore table
   void showHighscore(Model m) {
     this.restartHighscoreList.children.clear();
@@ -301,7 +306,9 @@ class View {
 
     this.score.text = "Score: ${m.score}";
 
-    hideHighscoreLogin();
+    this.hideHighscoreLogin();
+
+    this.showHighscoreSubmit();
 
     if (m.state == State.WON) {
       this.message.text = "Well done";
