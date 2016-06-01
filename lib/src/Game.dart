@@ -262,9 +262,12 @@ class Game {
   }
 
   /// Causes score to be stored and returns the user to main menu
-  void submitScore() {
+  submitScore() async {
     this.storeHighscore();
-    this.mainMenu();
+    this.view.hideHighscoreSubmit();
+
+    this.model.highscores =  await getHighscores();
+    this.view.update(this.model); // update as soon as we have scores
   }
 
   /// Shows the login mask

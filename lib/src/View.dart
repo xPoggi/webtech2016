@@ -272,6 +272,10 @@ class View {
     this.restartLogin.style.display = "none";
   }
 
+  void hideHighscoreSubmit() {
+    this.restartSubmitHighscore.style.display = "none";
+  }
+
   /// Updates the highscore table
   void showHighscore(Model m) {
     this.restartHighscoreList.children.clear();
