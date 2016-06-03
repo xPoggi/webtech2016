@@ -13,8 +13,9 @@ class Level {
 
     try {
       Map jsonData = JSON.decode(jsonString);
-      var lvlspwn = jsonData["spawn"];
-      this.spawn = new Spawn(0, lvlspwn["pos_x"], lvlspwn["pos_y"], lvlspwn["size_x"], lvlspwn["size_y"]);
+      this.speed = jsonData["speed"] ?? 5;
+      var levelSpawn = jsonData["spawn"];
+      this.spawn = new Spawn(0, levelSpawn["pos_x"], levelSpawn["pos_y"], levelSpawn["size_x"], levelSpawn["size_y"]);
 
       var blocks = jsonData["blocks"];
       if (blocks != null) {
