@@ -5,7 +5,7 @@ class Player {
   //fall values
   static double gravity = 0.8;
   double maxVelocity = 8.0;
-  static const int speed = 5;
+  static const int jumpSpeed = 5;
 
   // distance from left game border
   static const int player_offset = 100;
@@ -48,13 +48,13 @@ class Player {
     if (this.jumping && !this.doubleJump) {
       log("Player: jump() Double Jump");
       this.doubleJump = true;
-      velocity_y = speed * 2.0;
+      velocity_y = jumpSpeed * 2.0;
     }
     if (!this.jumping && this.grounded) {
       log("Player: jump() Jumping");
       jumping = true;
       grounded = false;
-      velocity_y = speed * 2.0;
+      velocity_y = jumpSpeed * 2.0;
     }
   }
 
