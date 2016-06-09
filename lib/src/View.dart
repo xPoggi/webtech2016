@@ -144,6 +144,15 @@ class View {
 
   }
 
+  void rescale(int x, int y) {
+    float scale;
+    int vx = this.viewport_x + 10;
+    int vy = this.viewport_y + 10;
+    scale = (x/vx) < (y/vy) ? (x/vx) : y/vy;
+    document.body.style.transform = "scale(${scale})";
+//    document.body.style.transformOrigin = "0 0";
+  }
+
   /// Updates the View based on [Model]
   void update(Model m) {
     log("View update()");
