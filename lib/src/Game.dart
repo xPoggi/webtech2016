@@ -86,6 +86,10 @@ class Game {
       this.jump();
     });
 
+    window.onResize.listen((Event ev) {
+      this.resizeGame();
+    });
+
     // register click on restart button
     this.view.restartButtonRestart.onClick.listen(
         (event) => this.restartGame());
@@ -118,6 +122,15 @@ class Game {
     // register click on login button
     this.view.restartLoginSubmit.onClick.listen((event) => this.submitScore());
 
+    this.resizeGame();
+
+  }
+
+  void resizeGame() {
+    int win_x = window.innerWidth;
+    int win_y = window.innerHeight;
+
+    this.view.rescale(win_x, win_y);
   }
 
   /// Retrieves Level

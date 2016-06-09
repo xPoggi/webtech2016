@@ -35,9 +35,6 @@ class Model {
   /// Highscores for current level
   List<Map<String, String>> highscores;
 
-
-  //TODO unify states
-
   /// running state
   State state;
 
@@ -73,6 +70,11 @@ class Model {
 
     this.player = new Player();
   }
+
+//  void setViewport(int x, int y) {
+//    this.viewport_x = x;
+//    this.viewport_y = y;
+//  }
 
   /// Updates the model
   ///
