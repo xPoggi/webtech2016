@@ -71,11 +71,6 @@ class Model {
     this.player = new Player();
   }
 
-//  void setViewport(int x, int y) {
-//    this.viewport_x = x;
-//    this.viewport_y = y;
-//  }
-
   /// Updates the model
   ///
   /// Updates the position of every object, detects collisions and increases score
