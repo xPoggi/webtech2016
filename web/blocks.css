@@ -1,0 +1,101 @@
+#Player {
+    width: 20px;
+    height: 50px;
+    z-index: 70;
+
+    background: url("resources/guy.png");
+    background-size: 20px 50px;
+    background-repeat: no-repeat;
+    background-position: left bottom;
+}
+
+.block-border {
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    position: absolute;
+
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    border-radius: 5px;
+}
+
+.block {
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    position: absolute;
+}
+
+.Ground {
+    z-index: 50;
+    background: url("resources/ground.png");
+}
+
+.Wall {
+    z-index: 51;
+    background: url("resources/wall.png");
+}
+
+.Cobble {
+    z-index: 51;
+    background: url("resources/cobble.png");
+}
+
+.Finish {
+    z-index: 51;
+    background: url("resources/finish.png");
+    background-size: 32px 64px;
+    background-repeat: no-repeat;
+    background-position: left bottom;
+}
+
+.SpikesTop {
+    z-index: 50;
+    background: url("resources/spikes-top.png");
+    background-size: 32px 32px;
+    background-repeat: repeat-x;
+    background-position: left bottom;
+}
+
+.SpikesBottom {
+    z-index: 50;
+    background: url("resources/spikes-bottom.png");
+    background-size: 32px 32px;
+    background-repeat: repeat-x;
+    background-position: left top;
+}
+
+.Water {
+    background-color: deepskyblue;
+    z-index: 49;
+}
+
+.Trigger {
+    background-color: white;
+    position: absolute;
+    z-index: 40;
+}
+
+.Teleport {
+    background-color: teal;
+    position: absolute;
+    z-index: 40;
+}
+
+.Bullet {
+    z-index: 59;
+    background: url("resources/bullet.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+.Coin {
+    z-index: 59;
+    background: url("resources/coin.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+}

@@ -33,12 +33,6 @@ class Game {
   /// Creates Game instance
   /// Launches Main Menu
   Game() {
-    //TODO Why the fuck would this run twice and spawn two games?
-    //And WHY would this only happen when simulation a mobile device using chrome?!
-    //this is stupid
-    if (querySelector("#game") != null) {
-      return;
-    }
 
     try {
       // Download gamekey settings. Display warning on problems.
@@ -77,6 +71,7 @@ class Game {
     this.view = new View(viewport_x, viewport_y);
 
 
+
     // register keyboard input
     window.onKeyDown.listen((KeyboardEvent ev) async {
       switch (ev.keyCode) {
@@ -92,33 +87,33 @@ class Game {
     });
 
     // register click on restart button
-    this.view.restart.onClick.listen(
+    this.view.restartButtonRestart.onClick.listen(
         (event) => this.restartGame());
 
 
     // register click on return to main menu button
-    this.view.restartMenu.onClick.listen((event) => this.mainMenu());
+    this.view.restartButtonMenu.onClick.listen((event) => this.mainMenu());
 
     // register click on start button in main menu
-    this.view.menu.onClick.listen((event) {
+    this.view.menuButtonStart.onClick.listen((event) {
 
       String level = this.view.menuLevelSelect.selectedOptions[0].value;
       this.startGame(level);
 
     });
 
-    this.view.menuLimiter.onClick.listen((event) {
+    this.view.menuButtonLimiter.onClick.listen((event) {
       if (this.limitFramerate) {
-        this.view.menuLimiter.text = "30fps - ✕";
+        this.view.menuButtonLimiter.text = "30fps - ✕";
         this.limitFramerate = false;
       } else {
-        this.view.menuLimiter.text = "30fps - ✓";
+        this.view.menuButtonLimiter.text = "30fps - ✓";
         this.limitFramerate = true;
       }
     });
 
     // register click on submit highscore button
-    this.view.restartSubmitHighscore.onClick.listen((event) => this.showLogin());
+    this.view.restartButtonSubmit.onClick.listen((event) => this.showLogin());
 
     // register click on login button
     this.view.restartLoginSubmit.onClick.listen((event) => this.submitScore());
@@ -231,7 +226,7 @@ class Game {
         this.setHighscores();
         return;
       } else {
-        view.message.text = "Error";
+        view.statusMessage.text = "Error";
         return;
       }
     }
@@ -255,7 +250,7 @@ class Game {
         this.setHighscores();
         return;
       } else {
-        view.message.text = "Error";
+        view.statusMessage.text = "Error";
         return;
       }
     }
@@ -266,7 +261,7 @@ class Game {
     this.storeHighscore();
     this.view.hideHighscoreSubmit();
 
-    this.model.highscores =  await getHighscores();
+    this.model.highscores = await getHighscores();
     this.view.update(this.model); // update as soon as we have scores
   }
 
