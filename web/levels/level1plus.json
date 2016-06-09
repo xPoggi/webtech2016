@@ -85,8 +85,8 @@
         "type":"Bullet",
         "pos_x":1900,
         "pos_y":60,
-        "size_x":20,
-        "size_y":10
+        "size_x":32,
+        "size_y":16
       }
     },
 
@@ -100,8 +100,8 @@
         "type":"Bullet",
         "pos_x":1930,
         "pos_y":60,
-        "size_x":20,
-        "size_y":10
+        "size_x":32,
+        "size_y":16
       }
     },
 
@@ -115,8 +115,8 @@
         "type":"Bullet",
         "pos_x":1960,
         "pos_y":70,
-        "size_x":20,
-        "size_y":10
+        "size_x":32,
+        "size_y":16
       }
     },
 

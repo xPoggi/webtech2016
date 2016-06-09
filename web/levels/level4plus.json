@@ -498,8 +498,8 @@
         "type":"Bullet",
         "pos_x":1100,
         "pos_y":60,
-        "size_x":10,
-        "size_y":10
+        "size_x":16,
+        "size_y":8
       }
     },
     {
@@ -554,8 +554,8 @@
         "type":"Bullet",
         "pos_x":1910,
         "pos_y":100,
-        "size_x":10,
-        "size_y":10
+        "size_x":16,
+        "size_y":8
       }
     },
     {
@@ -617,8 +617,8 @@
         "type":"Bullet",
         "pos_x":4300,
         "pos_y":130,
-        "size_x":30,
-        "size_y":25
+        "size_x":32,
+        "size_y":16
       }
     },
     {
@@ -640,7 +640,7 @@
       "type": "Ground",
       "pos_x": 4030,
       "pos_y": 20,
-      "size_x": 315,
+      "size_x": 330,
       "size_y": 20
     },
     {
