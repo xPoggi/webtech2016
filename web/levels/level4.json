@@ -24,7 +24,7 @@
       "size_y": 20
     },
     {
-      "type": "Ground",
+      "type": "Wall",
       "pos_x": 380,
       "pos_y": 125,
       "size_x": 50,
