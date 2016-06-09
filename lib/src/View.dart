@@ -140,6 +140,9 @@ class View {
 
     for (int i = 0; i < classList.length; i++) {
       divs[i].className = classList[i];
+      // show element for just a moment, thanks firefox...
+      divs[i].style.display = "block";
+      divs[i].style.display = "none";
     }
 
   }
