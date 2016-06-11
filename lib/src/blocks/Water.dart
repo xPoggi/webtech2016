@@ -6,5 +6,6 @@ class Water extends Block {
     this.canCollide = true;
     this.isDeadly = true;
     this.name = "Water block-border";
+    this.nameLow = "Water-low block-border-low";
   }
 }

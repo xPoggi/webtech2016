@@ -37,6 +37,7 @@ class View {
   DivElement menuButtonStart;
   SelectElement menuLevelSelect;
   DivElement menuButtonLimiter;
+  DivElement menuButtonQuality;
 
   /// Score Element
   DivElement score;
@@ -88,7 +89,7 @@ class View {
 
     this.player = new DivElement();
     this.player.id = "Player";
-    this.player.className = "block";
+    this.player.className = "Player block";
     this.player.style.display = "block";
     this.gameElement.children.add(this.player);
 
@@ -121,9 +122,11 @@ class View {
     this.menuButtonStart = querySelector("#menu-overlay-button-start");
     this.menuLevelSelect = querySelector("#menu-overlay-level-select");
     this.menuButtonLimiter = querySelector("#menu-overlay-button-limiter");
+    this.menuButtonQuality = querySelector("#menu-overlay-button-quality");
 
     this.menuButtonStart.text = "Start";
     this.menuButtonLimiter.text = "30fps - ✕";
+    this.menuButtonQuality.text = "Quality: Bad";
 
     this.restartButtonRestart.text = "Restart";
     this.restartButtonSubmit.text = "Submit Highscore";
@@ -150,7 +153,7 @@ class View {
 
   /// Scales View based on window size
   void rescale(int x, int y) {
-    float scale;
+    double scale;
     int vx = this.viewport_x + 10; // add border for calculation
     int vy = this.viewport_y + 10;
     scale = (x/vx) < (y/vy) ? (x/vx) : y/vy;
@@ -158,11 +161,11 @@ class View {
   }
 
   /// Updates the View based on [Model]
-  void update(Model m) {
+  void update(Model m, bool quality) {
     log("View update()");
     if (m.state == State.RUNNING) {
       log("View update()  - running");
-      updateGame(m);
+      updateGame(m, quality);
     } else if (m.state == State.MENU) {
       log("View update() - inMenu");
       showMenu(m);
@@ -172,39 +175,44 @@ class View {
     }
   }
 
-  void drawBlocks(Model m) {
-    for (int i = 0; i < m.visibleBlocks.length; i++) {
-      Block b = m.visibleBlocks[i];
+  void drawBlocks(Model model, bool quality) {
+    for (int i = 0; i < model.visibleBlocks.length; i++) {
+      Block b = model.visibleBlocks[i];
       DivElement d = this.divs[i];
       if (b == null && d.style.display != "none") {
         d.style.display = "none";
         d.dataset["id"] = "none";
       } else if (b != null && ( (d.style.display == "none") || (d.dataset["id"] != b.id.toString()) )) {
         d.style.display = "block";
-        d.className = b.name;
+        d.className = quality ? b.name : b.nameLow;
         d.dataset["id"] = b.id.toString();
 
         d.style.width = "${b.size_x}px";
         d.style.height = "${b.size_y}px";
 
-        d.style.left = "${b.pos_x  - m.player.pos_x + Player.player_offset}px";
+        d.style.left = "${b.pos_x  - model.player.pos_x + Player.player_offset}px";
         d.style.bottom = "${b.pos_y}px";
       } else if (b != null) {
-        d.style.left = "${b.pos_x  - m.player.pos_x + Player.player_offset}px";
+        d.style.left = "${b.pos_x  - model.player.pos_x + Player.player_offset}px";
         d.style.bottom = "${b.pos_y}px";
       }
     }
   }
 
   /// Draws list of visible Blocks on screen
-  void updateGame(Model m) {
+  void updateGame(Model model, bool quality) {
 
-    this.drawBlocks(m);
+    this.drawBlocks(model, quality);
 
-    this.player.style.bottom = "${m.player.pos_y}px";
+    this.player.style.bottom = "${model.player.pos_y}px";
 
-    this.score.text = "Score: ${m.score}";
+    this.score.text = "Score: ${model.score}";
 
+  }
+
+  /// Updates visual quality
+  void updateQuality(bool quality) {
+    this.player.className = quality ? "Player block" : "Player-low block-border-low";
   }
 
   /// Hides menus to display game

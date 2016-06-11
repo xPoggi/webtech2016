@@ -9,6 +9,7 @@ class Coin extends Block {
     this.canCollide = true;
     this.isDeadly = false;
     this.name = "Coin block";
+    this.nameLow = "Coin-low block-border-low";
     this.value = value;
     this.collected = false;
   }

@@ -6,6 +6,7 @@ class Ground extends Block {
     this.canCollide = true;
     this.isDeadly = false;
     this.name = "Ground block-border";
+    this.nameLow = "Ground-low block-border-low";
   }
 
   //returns true if landed, false if not

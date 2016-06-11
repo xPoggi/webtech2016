@@ -6,6 +6,7 @@ class SpikesBottom extends Block {
     this.canCollide = true;
     this.isDeadly = false;
     this.name = "SpikesBottom block";
+    this.nameLow = "SpikesBottom-low block-border-low";
   }
 
   //kills from bottom, not from top

@@ -6,6 +6,7 @@ class Bullet extends Block {
     this.canCollide = true;
     this.isDeadly = true;
     this.name = "Bullet block";
+    this.nameLow = "Bullet-low block-border-low";
   }
 
   void start() {

@@ -8,6 +8,7 @@ class Teleport extends Block {
     this.canCollide = true;
     this.isDeadly = false;
     this.name = "Teleport block-border";
+    this.nameLow = "Teleport-low block-border-low";
     this.spawn = s;
   }
 

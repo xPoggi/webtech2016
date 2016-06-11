@@ -1,4 +1,4 @@
-#Player {
+.Player {
     width: 20px;
     height: 50px;
     z-index: 70;
@@ -9,13 +9,29 @@
     background-position: left bottom;
 }
 
+.Player-low {
+    width: 20px;
+    height: 50px;
+    z-index: 70;
+
+    background: none;
+    border-color: green;
+}
+
 .block-border {
     box-sizing: border-box;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
     position: absolute;
 
+    border: 1px solid;
     border-radius: 5px;
+}
+
+.block-border-low {
+    position: absolute;
+
+    border: 1px solid;
 }
 
 .block {
@@ -30,14 +46,32 @@
     background: url("resources/ground.png");
 }
 
+.Ground-low {
+    z-index: 50;
+    background: none;
+    border-color: black;
+}
+
 .Wall {
     z-index: 51;
     background: url("resources/wall.png");
 }
 
+.Wall-low {
+    z-index: 51;
+    background: none;
+    border-color: black;
+}
+
 .Cobble {
     z-index: 51;
     background: url("resources/cobble.png");
+}
+
+.Cobble-low {
+    z-index: 51;
+    background: none;
+    border-color: black;
 }
 
 .Finish {
@@ -48,12 +82,25 @@
     background-position: left bottom;
 }
 
+.Finish-low {
+    z-index: 51;
+    background: none;
+    border-color: green;
+}
+
 .SpikesTop {
     z-index: 50;
     background: url("resources/spikes-top.png");
     background-size: 32px 32px;
     background-repeat: repeat-x;
     background-position: left bottom;
+}
+
+.SpikesTop-low {
+    z-index: 50;
+    background: none;
+    border-color: black;
+    border-bottom-color: red;
 }
 
 .SpikesBottom {
@@ -64,9 +111,22 @@
     background-position: left top;
 }
 
+.SpikesBottom-low {
+    z-index: 50;
+    background: none;
+    border-color: black;
+    border-top-color: red;
+}
+
 .Water {
     background-color: deepskyblue;
     z-index: 49;
+}
+
+.Water-low {
+    background: none;
+    z-index: 49;
+    border-color: deepskyblue;
 }
 
 .Trigger {
@@ -77,7 +137,12 @@
 
 .Teleport {
     background-color: teal;
-    position: absolute;
+    z-index: 40;
+}
+
+.Teleport-low {
+    background: none;
+    border-color: teal;
     z-index: 40;
 }
 
@@ -89,10 +154,22 @@
     background-position: center center;
 }
 
+.Bullet-low {
+    z-index: 59;
+    background: none;
+    border-color: red;
+}
+
 .Coin {
     z-index: 59;
     background: url("resources/coin.png");
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
+}
+
+.Coin-low {
+    z-index: 59;
+    background: none;
+    border-color: gold;
 }

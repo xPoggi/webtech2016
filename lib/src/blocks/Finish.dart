@@ -6,6 +6,7 @@ class Finish extends Block {
     this.canCollide = true;
     this.isDeadly = false;
     this.name = "Finish block";
+    this.nameLow = "Finish-low block-border-low";
   }
 
   //returns true if landed, false if not

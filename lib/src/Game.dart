@@ -29,6 +29,7 @@ class Game {
   Timer gamekeyTrigger;
 
   bool limitFramerate;
+  bool quality;
 
   /// Creates Game instance
   /// Launches Main Menu
@@ -69,6 +70,9 @@ class Game {
     // instanciate model and view
     this.model = new Model(viewport_x, viewport_y, speed);
     this.view = new View(viewport_x, viewport_y);
+
+    this.quality = false;
+    this.view.updateQuality(this.quality);
 
 
 
@@ -116,6 +120,18 @@ class Game {
       }
     });
 
+    this.view.menuButtonQuality.onClick.listen((event) {
+      if (this.quality) {
+        this.view.menuButtonQuality.text = "Quality: Bad";
+        this.quality = false;
+      } else {
+        this.view.menuButtonQuality.text = "Quality: Good";
+        this.quality = true;
+      }
+      this.view.updateQuality(this.quality);
+    });
+
+
     // register click on submit highscore button
     this.view.restartButtonSubmit.onClick.listen((event) => this.showLogin());
 
@@ -154,7 +170,7 @@ class Game {
   }
 
   void skipUpdate(int num) {
-    this.view.update(this.model);
+    this.view.update(this.model, this.quality);
     window.animationFrame.then(this.update);
   }
 
@@ -171,13 +187,13 @@ class Game {
         this.model.update();
         window.animationFrame.then(this.skipUpdate);
       } else {
-        this.view.update(this.model);
+        this.view.update(this.model, this.quality);
         window.animationFrame.then(this.update);
       }
     } else {
       this.setHighscores();
 
-      this.view.update(this.model);
+      this.view.update(this.model, this.quality);
     }
   }
 
@@ -275,7 +291,7 @@ class Game {
     this.view.hideHighscoreSubmit();
 
     this.model.highscores = await getHighscores();
-    this.view.update(this.model); // update as soon as we have scores
+    this.view.update(this.model, this.quality); // update as soon as we have scores
   }
 
   /// Shows the login mask
@@ -287,7 +303,7 @@ class Game {
   setHighscores() async {
 
     this.model.highscores =  await getHighscores();
-    this.view.update(this.model); // update as soon as we have scores
+    this.view.update(this.model, this.quality); // update as soon as we have scores
 
   }
 
@@ -306,7 +322,7 @@ class Game {
 
     this.model.start();
     this.view.onStart(this.model);
-    this.view.update(this.model);
+    this.view.update(this.model, this.quality);
 
     window.animationFrame.then(this.update);
   }
@@ -323,7 +339,7 @@ class Game {
     this.model.setLevelList(request);
     this.model.mainMenu();
 
-    this.view.update(this.model);
+    this.view.update(this.model, this.quality);
 
 
   }

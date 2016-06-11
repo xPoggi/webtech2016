@@ -7,7 +7,8 @@ class Trigger extends Block {
   Trigger(int id, int pos_x, int pos_y, int size_x, int size_y, Bullet b) : super(id, pos_x, pos_y, size_x, size_y) {
     this.canCollide = true;
     this.isDeadly = false;
-    this.name = "Trigger block";
+    this.name = "Trigger";
+    this.nameLow = name;
     this.bullet = b;
   }
 
