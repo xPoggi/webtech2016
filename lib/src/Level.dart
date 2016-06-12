@@ -23,56 +23,56 @@ class Level {
           switch (m["type"]) {
             case "Ground":
               var newGround = new Ground(
-                  blockList_static.length, m["pos_x"], m["pos_y"], m["size_x"],
+                  blockList_static.length + (blockList_dynamic.length ?? 0), m["pos_x"], m["pos_y"], m["size_x"],
                   m["size_y"]);
               blockList_static.add(newGround);
               break;
 
             case "Wall":
               var newWall = new Wall(
-                  blockList_static.length, m["pos_x"], m["pos_y"], m["size_x"],
+                  blockList_static.length + (blockList_dynamic.length ?? 0), m["pos_x"], m["pos_y"], m["size_x"],
                   m["size_y"]);
               blockList_static.add(newWall);
               break;
 
             case "Cobble":
               var newCobble = new Cobble(
-                  blockList_static.length, m["pos_x"], m["pos_y"], m["size_x"],
+                  blockList_static.length + (blockList_dynamic.length ?? 0), m["pos_x"], m["pos_y"], m["size_x"],
                   m["size_y"]);
               blockList_static.add(newCobble);
               break;
 
             case "Finish":
               var newFinish = new Finish(
-                  blockList_static.length, m["pos_x"], m["pos_y"], m["size_x"],
+                  blockList_static.length + (blockList_dynamic.length ?? 0), m["pos_x"], m["pos_y"], m["size_x"],
                   m["size_y"]);
               blockList_static.add(newFinish);
               break;
 
             case "Water":
               var newWater = new Water(
-                  blockList_static.length, m["pos_x"], m["pos_y"], m["size_x"],
+                  blockList_static.length + (blockList_dynamic.length ?? 0), m["pos_x"], m["pos_y"], m["size_x"],
                   m["size_y"]);
               blockList_static.add(newWater);
               break;
 
             case "SpikesTop":
               var newSpikes = new SpikesTop(
-                  blockList_static.length, m["pos_x"], m["pos_y"], m["size_x"],
+                  blockList_static.length + (blockList_dynamic.length ?? 0), m["pos_x"], m["pos_y"], m["size_x"],
                   m["size_y"]);
               blockList_static.add(newSpikes);
               break;
 
             case "SpikesBottom":
               var newSpikes = new SpikesBottom(
-                  blockList_static.length, m["pos_x"], m["pos_y"], m["size_x"],
+                  blockList_static.length + (blockList_dynamic.length ?? 0), m["pos_x"], m["pos_y"], m["size_x"],
                   m["size_y"]);
               blockList_static.add(newSpikes);
               break;
 
             case "Coin":
               var newCoin = new Coin(
-                  blockList_dynamic.length ?? 0, m["pos_x"], m["pos_y"], m["size_x"],
+                  blockList_static.length + (blockList_dynamic.length ?? 0), m["pos_x"], m["pos_y"], m["size_x"],
                   m["size_y"], m["value"] ?? 0);
               blockList_dynamic.add(newCoin);
               break;
@@ -81,11 +81,11 @@ class Level {
               var b = m["target"];
 
               var newSpawn = new Spawn(
-                  blockList_static.length, b["pos_x"], b["pos_y"], b["size_x"],
+                  blockList_static.length + (blockList_dynamic.length ?? 0), b["pos_x"], b["pos_y"], b["size_x"],
                   b["size_y"]);
               blockList_static.add(newSpawn);
 
-              var newTeleport = new Teleport(blockList_static.length, m["pos_x"], m["pos_y"], m["size_x"],
+              var newTeleport = new Teleport(blockList_static.length + (blockList_dynamic.length ?? 0), m["pos_x"], m["pos_y"], m["size_x"],
                   m["size_y"], newSpawn);
               blockList_static.add(newTeleport);
               break;
@@ -98,7 +98,7 @@ class Level {
 
               for (Map b in bullets) {
                 var newBullet = new Bullet(
-                    blockList_dynamic.length ?? 0, b["pos_x"], b["pos_y"], b["size_x"],
+                    blockList_static.length + (blockList_dynamic.length ?? 0), b["pos_x"], b["pos_y"], b["size_x"],
                     b["size_y"]);
                 log(newBullet.toString());
                 bulletList.add(newBullet);
@@ -107,7 +107,7 @@ class Level {
 
 
               var newTrigger = new Trigger(
-                  blockList_static.length, m["pos_x"], m["pos_y"], m["size_x"],
+                  blockList_static.length + (blockList_dynamic.length ?? 0), m["pos_x"], m["pos_y"], m["size_x"],
                   m["size_y"], bulletList);
               log(newTrigger.toString());
               blockList_static.add(newTrigger);
