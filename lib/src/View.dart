@@ -229,8 +229,8 @@ class View {
         this.qualityClass["SpikesBottom"] = "SpikesBottom block";
         this.qualityClass["SpikesTop"] = "SpikesTop block";
         this.qualityClass["Teleport"] = "Teleport block";
-        this.qualityClass["Trigger"] = "Trigger block";
-        this.qualityClass["Wall"] = "Wall block-low";
+        this.qualityClass["Trigger"] = "Trigger block-low";
+        this.qualityClass["Wall"] = "Wall block";
         this.qualityClass["Water"] = "Water block";
 
         this.menuButtonQuality.text = "Quality: High";
