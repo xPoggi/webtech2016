@@ -20,7 +20,11 @@
     "filename":"level4.json"
   },
   {
-    "name": "Level 4+",
-    "filename": "level4plus.json"
+    "name":"Level 4+",
+    "filename":"level4plus.json"
+  },
+  {
+    "name":"Level 5 - Descent",
+    "filename":"level5.json"
   }
 ]
