@@ -236,7 +236,7 @@ class View {
         this.menuButtonQuality.text = "Quality: High";
         break;
       case Quality.MEDIUM:
-        this.player.className = "Player-med block-med";
+        this.player.className = "Player-low block-med";
         this.qualityClass["Bullet"] = "Bullet-low block-med";
         this.qualityClass["Cobble"] = "Cobble-low block-med";
         this.qualityClass["Coin"] = "Coin-low block-med";
