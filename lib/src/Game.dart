@@ -128,11 +128,9 @@ class Game {
           this.quality = Quality.LOW;
           break;
         case Quality.MEDIUM:
-          this.view.menuButtonQuality.text = "Quality: High";
           this.quality = Quality.HIGH;
           break;
         case Quality.LOW:
-          this.view.menuButtonQuality.text = "Quality: Medium";
           this.quality = Quality.MEDIUM;
           break;
 
