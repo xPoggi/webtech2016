@@ -5,8 +5,7 @@ class Finish extends Block {
   Finish(int id, int pos_x, int pos_y, int size_x, int size_y) : super(id, pos_x, pos_y, size_x, size_y) {
     this.canCollide = true;
     this.isDeadly = false;
-    this.name = "Finish block";
-    this.nameLow = "Finish-low block-border-low";
+    this.name = "Finish";
   }
 
   //returns true if landed, false if not

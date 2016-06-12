@@ -5,8 +5,7 @@ class SpikesTop extends Block {
   SpikesTop(int id, int pos_x, int pos_y, int size_x, int size_y) : super(id, pos_x, pos_y, size_x, size_y) {
     this.canCollide = true;
     this.isDeadly = false;
-    this.name = "SpikesTop block";
-    this.nameLow = "SpikesTop-low block-border-low";
+    this.name = "SpikesTop";
   }
 
   //kills from bottom, not from top

@@ -56,6 +56,10 @@ class View {
   /// Map of used divs by id
   Map<int, DivElement> usedDivs;
 
+  /// Map for current quality class settings
+  Map<String, String> qualityClass;
+
+
   /// Creates View instance
   ///
   /// Creates the instance for View and adds all the necessary game elements to the DOM
@@ -74,6 +78,8 @@ class View {
 
 
     this.usedDivs = new Map<int, DivElement>();
+
+    this.qualityClass = new Map<String, String>();
 
     this.container = querySelector('#container');
 
@@ -161,11 +167,11 @@ class View {
   }
 
   /// Updates the View based on [Model]
-  void update(Model m, bool quality) {
+  void update(Model m) {
     log("View update()");
     if (m.state == State.RUNNING) {
       log("View update()  - running");
-      updateGame(m, quality);
+      updateGame(m);
     } else if (m.state == State.MENU) {
       log("View update() - inMenu");
       showMenu(m);
@@ -175,7 +181,7 @@ class View {
     }
   }
 
-  void drawBlocks(Model model, bool quality) {
+  void drawBlocks(Model model) {
     for (int i = 0; i < model.visibleBlocks.length; i++) {
       Block b = model.visibleBlocks[i];
       DivElement d = this.divs[i];
@@ -184,7 +190,7 @@ class View {
         d.dataset["id"] = "none";
       } else if (b != null && ( (d.style.display == "none") || (d.dataset["id"] != b.id.toString()) )) {
         d.style.display = "block";
-        d.className = quality ? b.name : b.nameLow;
+        d.className = this.qualityClass[b.name];
         d.dataset["id"] = b.id.toString();
 
         d.style.width = "${b.size_x}px";
@@ -200,9 +206,9 @@ class View {
   }
 
   /// Draws list of visible Blocks on screen
-  void updateGame(Model model, bool quality) {
+  void updateGame(Model model) {
 
-    this.drawBlocks(model, quality);
+    this.drawBlocks(model);
 
     this.player.style.bottom = "${model.player.pos_y}px";
 
@@ -211,8 +217,57 @@ class View {
   }
 
   /// Updates visual quality
-  void updateQuality(bool quality) {
-    this.player.className = quality ? "Player block" : "Player-low block-border-low";
+  void updateQuality(Quality quality) {
+    switch (quality) {
+      case Quality.HIGH:
+        this.player.className = "Player block";
+        this.qualityClass["Bullet"] = "Bullet block";
+        this.qualityClass["Cobble"] = "Cobble block";
+        this.qualityClass["Coin"] = "Coin block";
+        this.qualityClass["Finish"] = "Finish block";
+        this.qualityClass["Ground"] = "Ground block";
+        this.qualityClass["SpikesBottom"] = "SpikesBottom block";
+        this.qualityClass["SpikesTop"] = "SpikesTop block";
+        this.qualityClass["Teleport"] = "Teleport block";
+        this.qualityClass["Trigger"] = "Trigger block";
+        this.qualityClass["Wall"] = "Wall block-low";
+        this.qualityClass["Water"] = "Water block";
+
+        this.menuButtonQuality.text = "Quality: High";
+        break;
+      case Quality.MEDIUM:
+        this.player.className = "Player-med block-med";
+        this.qualityClass["Bullet"] = "Bullet-low block-med";
+        this.qualityClass["Cobble"] = "Cobble-low block-med";
+        this.qualityClass["Coin"] = "Coin-low block-med";
+        this.qualityClass["Finish"] = "Finish-low block-med";
+        this.qualityClass["Ground"] = "Ground-low block-med";
+        this.qualityClass["SpikesBottom"] = "SpikesBottom-low block-med";
+        this.qualityClass["SpikesTop"] = "SpikesTop-low block-med";
+        this.qualityClass["Teleport"] = "Teleport-low block-med";
+        this.qualityClass["Trigger"] = "Trigger block-med";
+        this.qualityClass["Wall"] = "Wall-low block-med";
+        this.qualityClass["Water"] = "Water-low block-med";
+
+        this.menuButtonQuality.text = "Quality: Medium";
+        break;
+      case Quality.LOW:
+        this.player.className = "Player-low block-low";
+        this.qualityClass["Bullet"] = "Bullet-low block-low";
+        this.qualityClass["Cobble"] = "Cobble-low block-low";
+        this.qualityClass["Coin"] = "Coin-low block-low";
+        this.qualityClass["Finish"] = "Finish-low block-low";
+        this.qualityClass["Ground"] = "Ground-low block-low";
+        this.qualityClass["SpikesBottom"] = "SpikesBottom-low block-low";
+        this.qualityClass["SpikesTop"] = "SpikesTop-low block-low";
+        this.qualityClass["Teleport"] = "Teleport-low block-low";
+        this.qualityClass["Trigger"] = "Trigger block-low";
+        this.qualityClass["Wall"] = "Wall-low block-low";
+        this.qualityClass["Water"] = "Water-low block-low";
+
+        this.menuButtonQuality.text = "Quality: Low";
+        break;
+    }
   }
 
   /// Hides menus to display game

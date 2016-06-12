@@ -18,7 +18,7 @@
     border-color: green;
 }
 
-.block-border {
+.block-med {
     box-sizing: border-box;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
@@ -28,7 +28,10 @@
     border-radius: 5px;
 }
 
-.block-border-low {
+.block-low {
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
     position: absolute;
 
     border: 1px solid;
@@ -130,7 +133,7 @@
 }
 
 .Trigger {
-    background-color: white;
+    border-color: white;
     position: absolute;
     z-index: 40;
 }

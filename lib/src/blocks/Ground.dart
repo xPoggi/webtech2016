@@ -5,8 +5,7 @@ class Ground extends Block {
   Ground(int id, int pos_x, int pos_y, int size_x, int size_y) : super(id, pos_x, pos_y, size_x, size_y) {
     this.canCollide = true;
     this.isDeadly = false;
-    this.name = "Ground block-border";
-    this.nameLow = "Ground-low block-border-low";
+    this.name = "Ground";
   }
 
   //returns true if landed, false if not

@@ -8,8 +8,7 @@ class Block {
   int size_x;
   int size_y;
   int id;
-  String name = "block-border";
-  String nameLow = "block-border-low";
+  String name = "Block";
 
   //if object is moving faster than game, set speed_x != 0
   int speed_x = 0;

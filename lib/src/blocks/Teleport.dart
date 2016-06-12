@@ -7,8 +7,7 @@ class Teleport extends Block {
   Teleport(int id, int pos_x, int pos_y, int size_x, int size_y, Spawn s) : super(id, pos_x, pos_y, size_x, size_y) {
     this.canCollide = true;
     this.isDeadly = false;
-    this.name = "Teleport block-border";
-    this.nameLow = "Teleport-low block-border-low";
+    this.name = "Teleport";
     this.spawn = s;
   }
 

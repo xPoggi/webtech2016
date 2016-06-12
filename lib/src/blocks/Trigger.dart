@@ -8,7 +8,6 @@ class Trigger extends Block {
     this.canCollide = true;
     this.isDeadly = false;
     this.name = "Trigger";
-    this.nameLow = name;
     this.bullet = b;
   }
 
