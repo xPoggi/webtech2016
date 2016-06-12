@@ -2,6 +2,7 @@ part of runner;
 
 enum Quality { LOW, MEDIUM, HIGH }
 
+
 // Controller
 class Game {
 
@@ -32,6 +33,8 @@ class Game {
 
   bool limitFramerate;
   Quality quality;
+
+  Storage localStorage;
 
   /// Creates Game instance
   /// Launches Main Menu
@@ -69,14 +72,25 @@ class Game {
     }
 
 
-    // instanciate model and view
+    // instantiate model and view
     this.model = new Model(viewport_x, viewport_y, speed);
     this.view = new View(viewport_x, viewport_y);
 
-    this.quality = Quality.MEDIUM;
+
+    // get local storage
+    this.localStorage =  window.localStorage;
+
+    // get stored quality setting
+    this.quality = this.localStorage["quality"] == null ?
+    Quality.MEDIUM :
+    Quality.values[int.parse(this.localStorage["quality"])];
+
     this.view.updateQuality(this.quality);
 
+    this.limitFramerate = this.localStorage["limit"] == "on" ? true : false;
+    this.view.updateLimiter(this.limitFramerate);
 
+    print(this.limitFramerate);
 
     // register keyboard input
     window.onKeyDown.listen((KeyboardEvent ev) async {
@@ -114,24 +128,28 @@ class Game {
 
     this.view.menuButtonLimiter.onClick.listen((event) {
       if (this.limitFramerate) {
-        this.view.menuButtonLimiter.text = "30fps - ✕";
         this.limitFramerate = false;
+        this.localStorage["limit"] = "off";
       } else {
-        this.view.menuButtonLimiter.text = "30fps - ✓";
         this.limitFramerate = true;
+        this.localStorage["limit"] = "on";
       }
+      this.view.updateLimiter(this.limitFramerate);
     });
 
     this.view.menuButtonQuality.onClick.listen((event) {
       switch (this.quality) {
         case Quality.HIGH:
           this.quality = Quality.LOW;
+          this.localStorage["quality"] = Quality.LOW.index.toString();
           break;
         case Quality.MEDIUM:
           this.quality = Quality.HIGH;
+          this.localStorage["quality"] = Quality.HIGH.index.toString();
           break;
         case Quality.LOW:
           this.quality = Quality.MEDIUM;
+          this.localStorage["quality"] = Quality.MEDIUM.index.toString();
           break;
 
       }

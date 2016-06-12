@@ -270,6 +270,14 @@ class View {
     }
   }
 
+  void updateLimiter(bool limited) {
+    if (!limited) {
+      this.menuButtonLimiter.text = "Framerate: 60fps";
+    } else {
+      this.menuButtonLimiter.text = "Framerate: 30fps";
+    }
+  }
+
   /// Hides menus to display game
   void onStart(Model m) {
     this.restartOverlay.style.display = "none";
