@@ -92,17 +92,23 @@ class Level {
 
 
             case "Trigger":
-              var b = m["bullet"];
+              var bullets = m["bullets"];
 
-              var newBullet = new Bullet(
-                  blockList_dynamic.length ?? 0, b["pos_x"], b["pos_y"], b["size_x"],
-                  b["size_y"]);
-              log(newBullet.toString());
-              blockList_dynamic.add(newBullet);
+              List<Bullet> bulletList = new List<Block>();
+
+              for (Map b in bullets) {
+                var newBullet = new Bullet(
+                    blockList_dynamic.length ?? 0, b["pos_x"], b["pos_y"], b["size_x"],
+                    b["size_y"]);
+                log(newBullet.toString());
+                bulletList.add(newBullet);
+                blockList_dynamic.add(newBullet);
+              }
+
 
               var newTrigger = new Trigger(
                   blockList_static.length, m["pos_x"], m["pos_y"], m["size_x"],
-                  m["size_y"], newBullet);
+                  m["size_y"], bulletList);
               log(newTrigger.toString());
               blockList_static.add(newTrigger);
               break;

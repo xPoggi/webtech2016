@@ -81,43 +81,29 @@
       "pos_y":30,
       "size_x":5,
       "size_y":300,
-      "bullet": {
+      "bullets": [
+        {
         "type":"Bullet",
         "pos_x":1900,
         "pos_y":60,
         "size_x":32,
         "size_y":16
-      }
-    },
-
-    {
-      "type":"Trigger",
-      "pos_x":1530,
-      "pos_y":30,
-      "size_x":5,
-      "size_y":300,
-      "bullet": {
-        "type":"Bullet",
-        "pos_x":1930,
-        "pos_y":60,
-        "size_x":32,
-        "size_y":16
-      }
-    },
-
-    {
-      "type":"Trigger",
-      "pos_x":1560,
-      "pos_y":30,
-      "size_x":5,
-      "size_y":300,
-      "bullet": {
-        "type":"Bullet",
-        "pos_x":1960,
-        "pos_y":70,
-        "size_x":32,
-        "size_y":16
-      }
+        },
+        {
+          "type":"Bullet",
+          "pos_x":1940,
+          "pos_y":60,
+          "size_x":32,
+          "size_y":16
+        },
+        {
+          "type":"Bullet",
+          "pos_x":1980,
+          "pos_y":70,
+          "size_x":32,
+          "size_y":16
+        }
+      ]
     },
 
     {
