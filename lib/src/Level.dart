@@ -129,7 +129,7 @@ class Level {
               var newSpeedBlock = new SpeedBlock(
                   blockList_static.length + (blockList_dynamic.length ?? 0), m["pos_x"], m["pos_y"], m["size_x"],
                   m["size_y"], m["speedIncrease"]);
-              print(newSpeedBlock.toString());
+              log(newSpeedBlock.toString());
               blockList_static.add(newSpeedBlock);
               break;
           }

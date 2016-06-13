@@ -1,15 +1,14 @@
 {
   "name":"Level Infinite 1",
-  "speed":4,
+  "speed":5,
   "spawn":{
     "type":"Spawn",
-    "pos_x":100,
-    "pos_y":50,
+    "pos_x":-200,
+    "pos_y":350,
     "size_x":1,
     "size_y":1
   },
   "blocks":[
-
 
     {
       "type":"Ground",
@@ -28,11 +27,27 @@
     },
 
     {
+      "type":"Wall",
+      "pos_x":680,
+      "pos_y":50,
+      "size_x":40,
+      "size_y":50
+    },
+
+    {
       "type":"Ground",
       "pos_x":1000,
       "pos_y":30,
       "size_x":400,
       "size_y":20
+    },
+
+    {
+      "type":"Wall",
+      "pos_x":1180,
+      "pos_y":50,
+      "size_x":40,
+      "size_y":60
     },
 
     {
@@ -44,11 +59,27 @@
     },
 
     {
+      "type":"Wall",
+      "pos_x":1685,
+      "pos_y":50,
+      "size_x":30,
+      "size_y":50
+    },
+
+    {
       "type":"Ground",
       "pos_x":2000,
       "pos_y":30,
       "size_x":400,
       "size_y":20
+    },
+
+    {
+      "type":"Wall",
+      "pos_x":2180,
+      "pos_y":50,
+      "size_x":40,
+      "size_y":50
     },
 
     {
@@ -60,6 +91,14 @@
     },
 
     {
+      "type":"SpikesTop",
+      "pos_x":2650,
+      "pos_y":110,
+      "size_x":100,
+      "size_y":30
+    },
+
+    {
       "type":"Ground",
       "pos_x":3000,
       "pos_y":30,
@@ -68,27 +107,59 @@
     },
 
     {
+      "type":"Wall",
+      "pos_x":3180,
+      "pos_y":50,
+      "size_x":40,
+      "size_y":50
+    },
+
+    {
       "type":"Ground",
       "pos_x":3500,
-      "pos_y":30,
+      "pos_y":50,
       "size_x":400,
       "size_y":20
+    },
+
+    {
+      "type":"Wall",
+      "pos_x":3680,
+      "pos_y":70,
+      "size_x":40,
+      "size_y":50
     },
 
     {
       "type":"Ground",
       "pos_x":4000,
-      "pos_y":30,
+      "pos_y":50,
       "size_x":400,
       "size_y":20
     },
 
     {
+      "type":"Wall",
+      "pos_x":4180,
+      "pos_y":70,
+      "size_x":40,
+      "size_y":75
+    },
+
+    {
       "type":"Ground",
       "pos_x":4500,
-      "pos_y":30,
-      "size_x":400,
+      "pos_y":50,
+      "size_x":300,
       "size_y":20
+    },
+
+    {
+      "type":"Wall",
+      "pos_x":4680,
+      "pos_y":70,
+      "size_x":40,
+      "size_y":30
     },
 
     {
@@ -100,11 +171,27 @@
     },
 
     {
+      "type":"Wall",
+      "pos_x":5180,
+      "pos_y":50,
+      "size_x":40,
+      "size_y":50
+    },
+
+    {
       "type":"Ground",
       "pos_x":5500,
       "pos_y":30,
       "size_x":400,
       "size_y":20
+    },
+
+    {
+      "type":"Wall",
+      "pos_x":5680,
+      "pos_y":50,
+      "size_x":80,
+      "size_y":80
     },
 
     {
@@ -116,17 +203,8 @@
     },
 
     {
-      "type":"SpeedBlock",
-      "pos_x":1378,
-      "pos_y":50,
-      "size_x":5,
-      "size_y":280,
-      "speedIncrease": 1
-    },
-
-    {
       "type":"TeleportSpeed",
-      "pos_x":1380,
+      "pos_x":6380,
       "pos_y":50,
       "size_x":20,
       "size_y":280,

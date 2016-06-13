@@ -19,7 +19,6 @@ class SpeedBlock extends Block {
     if (!this.collected) {
       this.collected = true;
       m.speed += this.speedIncrease;
-      print(m.speed);
     }
     return false;
   }
