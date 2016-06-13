@@ -224,7 +224,7 @@ class Game {
 
   /// Retrieves TOP 10 highscore from Gamekey service.
   ///
-  /// Returns List of up to 10 highscore entries. { 'name': STRING, 'score': INT }
+  /// Returns List of up to 10 highscore entries. { 'name': STRING, 'created': STRING, 'score': INT }
   /// Returns [] if gamekey service is not available.
   /// Returns [] if no highscores are present.
   Future<List<Map>> getHighscores() async {
@@ -235,14 +235,17 @@ class Game {
 
       levels = states.map((entry) => {
         'username' : "${entry['username']}",
+        'date' : "${entry['created']}",
         'scores' : entry['state']['scores']
       });
 
       scores = levels.where((entry) => (entry["scores"]["${this.model.currentLevelHash}"] != null)).map((entry) => {
         'name' : "${entry['username']}",
+        'date' : "${entry['date']}",
         'score' : entry["scores"]["${this.model.currentLevelHash}"]
       }).toList();
 
+      scores.sort((a, b) => DateTime.parse(a['date']).compareTo(DateTime.parse(b['date'])));
       scores.sort((a, b) => b['score'] - a['score']);
     } catch (error, stacktrace) {
       print("Game: getHighscores() Error: ${error}");
