@@ -90,6 +90,18 @@ class Level {
               blockList_static.add(newTeleport);
               break;
 
+            case "TeleportSpeed":
+              var b = m["target"];
+
+              var newSpawn = new Spawn(
+                  blockList_static.length + (blockList_dynamic.length ?? 0), b["pos_x"], b["pos_y"], b["size_x"],
+                  b["size_y"]);
+              blockList_static.add(newSpawn);
+
+              var newTeleportSpeed = new TeleportSpeed(blockList_static.length + (blockList_dynamic.length ?? 0), m["pos_x"], m["pos_y"], m["size_x"],
+                  m["size_y"], newSpawn, m["speedIncrease"]);
+              blockList_static.add(newTeleportSpeed);
+              break;
 
             case "Trigger":
               var bullets = m["bullets"];
@@ -111,6 +123,14 @@ class Level {
                   m["size_y"], bulletList);
               log(newTrigger.toString());
               blockList_static.add(newTrigger);
+              break;
+
+            case "SpeedBlock":
+              var newSpeedBlock = new SpeedBlock(
+                  blockList_static.length + (blockList_dynamic.length ?? 0), m["pos_x"], m["pos_y"], m["size_x"],
+                  m["size_y"], m["speedIncrease"]);
+              print(newSpeedBlock.toString());
+              blockList_static.add(newSpeedBlock);
               break;
           }
         }

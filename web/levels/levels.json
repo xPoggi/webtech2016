@@ -26,5 +26,10 @@
   {
     "name":"Level 5 - Descent",
     "filename":"level5.json"
+  },
+  {
+    "name":"Level ∞ - 'Til Death",
+    "filename":"levelinfinite1.json"
   }
+
 ]

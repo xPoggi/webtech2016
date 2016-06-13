@@ -85,7 +85,7 @@ class Model {
     this.player.update();
 
     this.visibleBlocks.where((b) => b != null).forEach((b) => b.onUpdate());
-    this.player.pos_x = this.player.pos_x + this.currentLevel.speed;
+    this.player.pos_x = this.player.pos_x + this.speed;
     detectCollisions();
 
     if (this.player.getPosY() < 0) {
@@ -204,7 +204,7 @@ class Model {
       }
       log("Model: collisionDirectionRewind() rewind_y $rewind_y");
 
-      rewind_x -= this.currentLevel.speed ~/ rewindFactor;
+      rewind_x -= this.speed ~/ rewindFactor;
       if (!this.simpleRectCollision(rewind_x, rewind_y, this.player.size_x, this.player.size_y,
           rect.pos_x, rect.pos_y, rect.size_x, rect.size_y)) {
         return Direction.LEFT;
@@ -302,6 +302,7 @@ class Model {
   void setLevel(String level) {
     this.currentLevel = new Level(level);
     this.currentLevelHash = hash(level);
+    this.speed = currentLevel.speed ?? 5;
   }
 
   /// Sets [levels] to levels listed in [jsonString]

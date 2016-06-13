@@ -25,6 +25,8 @@ part 'src/blocks/Wall.dart';
 part 'src/blocks/Cobble.dart';
 part 'src/blocks/SpikesTop.dart';
 part 'src/blocks/SpikesBottom.dart';
+part 'src/blocks/SpeedBlock.dart';
+part 'src/blocks/TeleportSpeed.dart';
 
 log(String msg) {
   if (false) {

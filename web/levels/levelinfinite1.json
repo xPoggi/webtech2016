@@ -1,6 +1,6 @@
 {
-  "name":"Level 3",
-  "speed":5,
+  "name":"Level Infinite 1",
+  "speed":4,
   "spawn":{
     "type":"Spawn",
     "pos_x":100,
@@ -9,6 +9,8 @@
     "size_y":1
   },
   "blocks":[
+
+
     {
       "type":"Ground",
       "pos_x":0,
@@ -114,15 +116,25 @@
     },
 
     {
-      "type":"Teleport",
-      "pos_x":6380,
+      "type":"SpeedBlock",
+      "pos_x":1378,
+      "pos_y":50,
+      "size_x":5,
+      "size_y":280,
+      "speedIncrease": 1
+    },
+
+    {
+      "type":"TeleportSpeed",
+      "pos_x":1380,
       "pos_y":50,
       "size_x":20,
       "size_y":280,
+      "speedIncrease": 1,
       "target":{
         "type":"Spawn",
         "pos_x":100,
-        "pos_y":50,
+        "pos_y":60,
         "size_x":1,
         "size_y":1
       }

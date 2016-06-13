@@ -242,6 +242,7 @@ class View {
         this.qualityClass["Coin"] = "Coin-low block-med";
         this.qualityClass["Finish"] = "Finish-low block-med";
         this.qualityClass["Ground"] = "Ground-low block-med";
+        this.qualityClass["SpeedBlock"] = "Trigger block-med";
         this.qualityClass["SpikesBottom"] = "SpikesBottom-low block-med";
         this.qualityClass["SpikesTop"] = "SpikesTop-low block-med";
         this.qualityClass["Teleport"] = "Teleport-low block-med";
