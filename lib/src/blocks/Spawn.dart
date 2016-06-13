@@ -6,6 +6,7 @@ class Spawn extends Block {
     this.name = "Spawn";
     this.canCollide = false;
     this.isDeadly = false;
+    this.isVisible = false;
   }
 
 }
