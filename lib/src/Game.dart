@@ -97,7 +97,7 @@ class Game {
       switch (ev.keyCode) {
         case KeyCode.UP:    this.jump(); break;
         case KeyCode.SPACE: this.jump(); break;
-        case KeyCode.R:     this.restartGame(); break;
+        case KeyCode.ESC:     this.restartGame(); break;
       }
     });
 
