@@ -340,12 +340,14 @@ class Game {
   ///
   /// Very hacky way to restart the game
   restartGame() async {
-    this.model.fail();
-    this.update(0);
+    if (this.model.state != State.MENU) {
+      this.model.fail();
+      this.update(0);
 
-    // wait 10ms to make sure the Futures have completed...
-    await new Future.delayed(const Duration(milliseconds: 10), () => "1");
-    startGame(this.model.currentLevelName);
+      // wait 10ms to make sure the Futures have completed...
+      await new Future.delayed(const Duration(milliseconds: 10), () => "1");
+      startGame(this.model.currentLevelName);
+    }
   }
 
   /// Starts the game.
