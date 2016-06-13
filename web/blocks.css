@@ -176,3 +176,14 @@
     background: none;
     border-color: gold;
 }
+
+.Message {
+    z-index: 60;
+    font-family: "Roboto Condensed", SansSerif;
+    color: white;
+    text-shadow:
+        -1px -1px 0 #000,
+        1px -1px 0 #000,
+        -1px 1px 0 #000,
+        1px 1px 0 #000;
+}

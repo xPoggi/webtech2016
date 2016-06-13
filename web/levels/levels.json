@@ -4,24 +4,40 @@
     "filename":"level1.json"
   },
   {
-    "name":"Level 1+",
+    "name":"Level 1 - Struggles",
     "filename":"level1plus.json"
   },
   {
-  "name":"Level 2",
-  "filename":"level2.json"
+    "name":"Level 1∞ - Insanity",
+    "filename":"level1infinite.json"
   },
   {
-    "name":"Level 3",
+    "name":"Level 2 - Ascension",
+    "filename":"level2.json"
+  },
+  {
+    "name":"Level 2∞ - Insanity",
+    "filename":"level2infinite.json"
+  },
+  {
+    "name":"Level 3 - Betrayal",
     "filename":"level3.json"
   },
   {
-    "name":"Level 4",
+    "name":"Level 3∞ - Insanity",
+    "filename":"level3infinite.json"
+  },
+  {
+    "name":"Level 4 - Death Rattle",
     "filename":"level4.json"
   },
   {
-    "name":"Level 4+",
+    "name":"Level 4+ - Dark Angel",
     "filename":"level4plus.json"
+  },
+  {
+    "name":"Level 4∞ - Insanity",
+    "filename":"level4infinite.json"
   },
   {
     "name":"Level 5 - Descent",

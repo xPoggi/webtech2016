@@ -192,6 +192,11 @@ class View {
         d.style.display = "block";
         d.className = this.qualityClass[b.name];
         d.dataset["id"] = b.id.toString();
+        if (b.name == "Message") {
+          d.text = (b as Message).message;
+        } else {
+          d.text = "";
+        }
 
         d.style.width = "${b.size_x}px";
         d.style.height = "${b.size_y}px";
@@ -226,6 +231,7 @@ class View {
         this.qualityClass["Coin"] = "Coin block";
         this.qualityClass["Finish"] = "Finish block";
         this.qualityClass["Ground"] = "Ground block";
+        this.qualityClass["Message"] = "Message block";
         this.qualityClass["SpikesBottom"] = "SpikesBottom block";
         this.qualityClass["SpikesTop"] = "SpikesTop block";
         this.qualityClass["Teleport"] = "Teleport block";
@@ -242,6 +248,7 @@ class View {
         this.qualityClass["Coin"] = "Coin-low block-med";
         this.qualityClass["Finish"] = "Finish-low block-med";
         this.qualityClass["Ground"] = "Ground-low block-med";
+        this.qualityClass["Message"] = "Message block";
         this.qualityClass["SpeedBlock"] = "Trigger block-med";
         this.qualityClass["SpikesBottom"] = "SpikesBottom-low block-med";
         this.qualityClass["SpikesTop"] = "SpikesTop-low block-med";
@@ -259,6 +266,7 @@ class View {
         this.qualityClass["Coin"] = "Coin-low block-low";
         this.qualityClass["Finish"] = "Finish-low block-low";
         this.qualityClass["Ground"] = "Ground-low block-low";
+        this.qualityClass["Message"] = "Message block";
         this.qualityClass["SpikesBottom"] = "SpikesBottom-low block-low";
         this.qualityClass["SpikesTop"] = "SpikesTop-low block-low";
         this.qualityClass["Teleport"] = "Teleport-low block-low";

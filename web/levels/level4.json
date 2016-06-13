@@ -238,10 +238,10 @@
     },
     {
       "type": "Finish",
-      "pos_x": 4800,
-      "pos_y": 50,
+      "pos_x": 4780,
+      "pos_y": 70,
       "size_x": 20,
-      "size_y": 100
+      "size_y": 280
     }
   ]
 }

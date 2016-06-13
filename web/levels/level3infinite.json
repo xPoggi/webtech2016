@@ -296,11 +296,19 @@
     },
 
     {
-      "type":"Finish",
+      "type":"TeleportSpeed",
       "pos_x":6380,
       "pos_y":50,
       "size_x":20,
-      "size_y":280
+      "size_y":280,
+      "speedIncrease": 1,
+      "target":{
+        "type":"Spawn",
+        "pos_x":100,
+        "pos_y":50,
+        "size_x":1,
+        "size_y":1
+      }
     }
 
   ]

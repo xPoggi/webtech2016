@@ -416,11 +416,11 @@
       "value":150
     },
     {
-    "type": "Ground",
-    "pos_x": 50,
-    "pos_y": 50,
-    "size_x": 300,
-    "size_y": 20
+      "type": "Ground",
+      "pos_x": 50,
+      "pos_y": 50,
+      "size_x": 300,
+      "size_y": 20
     },
     {
       "type": "Ground",
@@ -547,11 +547,11 @@
       "size_y": 20
     },
     {
-    "type":"Trigger",
-    "pos_x":1300,
-    "pos_y":30,
-    "size_x":5,
-    "size_y":300,
+      "type":"Trigger",
+      "pos_x":1300,
+      "pos_y":30,
+      "size_x":5,
+      "size_y":300,
       "bullets": [
         {
           "type":"Bullet",
@@ -657,11 +657,19 @@
       "size_y": 20
     },
     {
-      "type": "Finish",
+      "type": "TeleportSpeed",
       "pos_x": 4780,
       "pos_y": 70,
       "size_x": 20,
-      "size_y": 280
+      "size_y": 280,
+      "speedIncrease":1,
+      "target":{
+        "type":"Spawn",
+        "pos_x":100,
+        "pos_y":80,
+        "size_x":20,
+        "size_y":50
+      }
     }
   ]
 }

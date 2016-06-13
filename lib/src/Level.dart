@@ -132,6 +132,22 @@ class Level {
               log(newSpeedBlock.toString());
               blockList_static.add(newSpeedBlock);
               break;
+
+            case "CoinKill":
+              var newCoinKill = new CoinKill(
+                  blockList_static.length + (blockList_dynamic.length ?? 0), m["pos_x"], m["pos_y"], m["size_x"],
+                  m["size_y"]);
+              log(newCoinKill.toString());
+              blockList_static.add(newCoinKill);
+              break;
+
+            case "Message":
+              var newMessage = new Message(
+                  blockList_static.length + (blockList_dynamic.length ?? 0), m["pos_x"], m["pos_y"], m["size_x"],
+                  m["size_y"], m["message"]);
+              log(newMessage.toString());
+              blockList_static.add(newMessage);
+              break;
           }
         }
       }
