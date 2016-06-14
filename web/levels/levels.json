@@ -44,6 +44,14 @@
     "filename":"level5.json"
   },
   {
+    "name":"Infinite - NOT Infinite",
+    "filename":"level6.json"
+  },
+  {
+    "name":"Level 7 - Run for it",
+    "filename":"level7.json"
+  },
+  {
     "name":"Level ∞ - 'Til Death",
     "filename":"levelinfinite1.json"
   }
