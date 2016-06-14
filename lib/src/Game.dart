@@ -263,6 +263,7 @@ class Game {
     String pwd  = view.restartLoginPassword.value;
 
     if (user.length == 0) {
+      window.alert('Invalid Username');
       return;
     }
 
@@ -271,6 +272,8 @@ class Game {
     if (id == null) {
       final usr = await gamekey.registerUser(user, pwd);
       if (usr == null) {
+        window.alert('Error creating user');
+        print("Error creating user");
         return;
       }
       final stored = await gamekey.storeState(usr['id'], {
@@ -294,6 +297,7 @@ class Game {
       final user = await gamekey.getUser(id, pwd);
 
       if (user == null) {
+        window.alert('Invalid User/Password');
         return;
       }
 
@@ -305,6 +309,7 @@ class Game {
       });
       if (stored) {
         this.view.hideHighscoreLogin();
+        this.view.hideHighscoreSubmit();
         this.setHighscores();
         return;
       } else {
@@ -317,7 +322,6 @@ class Game {
   /// Causes score to be stored and returns the user to main menu
   submitScore() async {
     this.storeHighscore();
-    this.view.hideHighscoreSubmit();
 
     this.model.highscores = await getHighscores();
     this.view.update(this.model); // update as soon as we have scores
