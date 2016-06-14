@@ -275,7 +275,7 @@ class Model {
             continue;
           }
         }
-      } else if (visibleBlocks.length > 0 && countFails >= upperTolerance) {
+      } else if (visibleBlocks.length > 0 && countFails >= upperTolerance && visibleSet) {
         // we've most likely passed the visible blocks, break
         log("Model: getVisibleBlocks() breaking after ${countFails} misses");
         break;
